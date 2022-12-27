@@ -41,13 +41,14 @@ class _SalesState extends State<Sales> {
                           width:width/6,
                           height: height/23,
                           child: TextField(
+                            textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Icon(
                                 Icons.search,color: Colors.white,size:width/124.4,
                               ),
                               hintText:'Search ',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white) ,
-                              contentPadding: EdgeInsets.only(top:height/86.91,left:width/186.6),
+                              contentPadding: EdgeInsets.only(left:width/186.6),
 
                             ),
                           ),

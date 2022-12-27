@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:webpage/profile.dart';
+import 'package:webpage/employeelist.dart';
+import 'package:webpage/Profile_Page/profile_page.dart';
 import 'package:webpage/sales.dart';
-import 'client.dart';
-import 'dash2.dart';
-import 'dashboard.dart';
-import 'employy.dart';
-import 'form2.dart';
+import 'package:webpage/team_chat.dart';
+import '../Client_Page/client_page.dart';
+import '../Dashboard_Page/dashboard_page.dart';
+import '../Hr_Page/hr_page.dart';
+import '../add_task.dart';
+import '../all_employee_page.dart';
+import '../add_emp_form.dart';
 
-class NavPage extends StatefulWidget {
-  const NavPage({Key? key}) : super(key: key);
+class landing_page_admin extends StatefulWidget {
+  String? id;
+  landing_page_admin(this.id);
 
   @override
-  State<NavPage> createState() => _NavPageState();
+  State<landing_page_admin> createState() => _landing_page_adminState();
 }
 
-class _NavPageState extends State<NavPage> {
+class _landing_page_adminState extends State<landing_page_admin> {
   //animated container
   int _width=290;
   int _height=570;
-
   var _Opticity=1.0;
-
   var  wid =10;
   //container size
   var conheight=50;
@@ -56,8 +58,16 @@ class _NavPageState extends State<NavPage> {
 
   var  _colors;
   bool i=true;
-  int n=0;
+  int n=1;
 
+@override
+  void initState() {
+  setState(() {
+    pages=dashboard_page(widget.id);
+  });
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     double height=MediaQuery.of(context).size.height;
@@ -69,85 +79,105 @@ class _NavPageState extends State<NavPage> {
        crossAxisAlignment: CrossAxisAlignment.start,
        children: [
          Container(
-           height: 1000,
+           height: height/1,
            child: Column(
                mainAxisAlignment: MainAxisAlignment.start,
                children: [
                  Padding(
-                   padding:EdgeInsets.only(top:30,left:30,),
+                   padding:EdgeInsets.only(top:height/34.76,left:width/62.2,),
                    child: Material(
                      elevation: 20,
                      borderRadius: BorderRadius.circular(30),
                      child: AnimatedContainer(
                        curve: Curves.linear,
-                       decoration: BoxDecoration(color: Color(0xffFFFFFF),
+                       decoration: BoxDecoration (color: Color(0xffFFFFFF),
                            borderRadius: BorderRadius.circular(30),
                        ),
-                       width:_width.toDouble(),
+                       width: width/6.43,
                        duration: Duration(milliseconds: 400),
                        child: Padding(
-                         padding:EdgeInsets.only(left:15,right: 10),
+                         padding:EdgeInsets.only(left:width/124.4,right: width/186.6),
                          child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
-                               SizedBox(height: 20,),
+                               SizedBox(height:height/52.15,),
                                Container(
                                  decoration: BoxDecoration(
-
                                      borderRadius: BorderRadius.circular(12)),
-                                 child: GestureDetector(
-                                   onTap: (){
-                                     setState(() {
-                                       pages=Dash2();
-                                       n=8;
-                                     });
-                                   },
-                                   child: Center(
-                                     child: Row(
-                                       children: [
-                                         SizedBox(width: 2,),
-                                         Container(
-                                           width: 40,
-                                             height: 40,
-                                             child: Image.asset("assets/profile.jpg")),
-                                         SizedBox(width:5,),
-                                         Text('Dhinesh',
+                                 child: Column(
+                                   children:[ Row(
+                                     children: [
+                                       SizedBox(width:width/933,),
+                                       Container(
+                                         width: width/46.65,
+                                           height:height/26.07,
+                                           child: Image.asset("assets/profile.jpg")),
+                                       SizedBox(width:width/373.2,),
+                                       GestureDetector(
+                                         onTap: (){
+                                           print(height);
+                                         },
+                                         child: Text('Dinesh',
                                            style: GoogleFonts.montserrat(
-                                             fontWeight: FontWeight.bold,color: Color(0xff334d6e,),fontSize: 18,
+                                             fontWeight: FontWeight.bold,color: Color(0xff334d6e,),fontSize:width/103.6,
                                            ),
                                          ),
+                                       ),
 
-                                       ],
+                                     ],
+                                   ),
+                                     SizedBox(height:height/52.15,),
+                                   Container(
+                                     height: height/21.325,
+                                     decoration: BoxDecoration( borderRadius: BorderRadius.circular(20),color: Color(0xff5F67EC),
+                                     ),
+                                     child: Center(
+                                       child: TextField(
+                                         style: GoogleFonts.montserrat(
+                                           color: Colors.white,
+                                           fontSize: width/155.5,
+                                           fontWeight: FontWeight.w500,),
+                                         textAlignVertical: TextAlignVertical.center,
+                                         decoration: InputDecoration(
+                                           border: InputBorder.none,
+                                           prefixIcon: Icon(Icons.search,color: Colors.white,size:width/100.4,),
+                                           hintText:'Search Any',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white),
+                                           isCollapsed: true,
+                                           contentPadding: EdgeInsets.only(top:height/121.85)
+                                         ),
+                                       ),
                                      ),
                                    ),
+                                 ]
                                  ),
                                ),
+                               SizedBox(height:height/80,),
                                Divider(),
-                               SizedBox(height: 20,),
+                               SizedBox(height:height/52.15,),
                                Material(
                                  elevation:n==1?10: 0,
                                  borderRadius:BorderRadius.circular(12),
                                  child: Container(
-                                   height: 70,
+                                   height:height/14.9,
                                    decoration: BoxDecoration(
                                    color: Colors.white,
                                        borderRadius: BorderRadius.circular(12)),
                                    child: GestureDetector(
                                      onTap: (){
                                        setState(() {
-                                         pages=Dash2();
+                                       pages=dashboard_page(widget.id);
                                          n=1;
                                        });
                                      },
                                      child: Center(
                                        child: Row(
                                          children: [
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            SvgPicture.asset("assets/dash.svg"),
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            Text('Dash Board',
                                            style: GoogleFonts.montserrat(
-                                           fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize: 18,
+                                           fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
                                            ),
                                            ),
 
@@ -157,13 +187,13 @@ class _NavPageState extends State<NavPage> {
                                    ),
                                  ),
                                ),
-                               SizedBox(height: 12,),
+                               SizedBox(height:height/86.91,),
                                Material(
                                  elevation:n==2?10: 0,
                                    borderRadius:BorderRadius.circular(12),
                                  child: Container(
-                                   height:70,
-                                   padding: EdgeInsets.only(top: 5,),
+                                   height:height/14.9,
+                                   padding: EdgeInsets.only(top:height/208.6,),
                                    decoration: BoxDecoration(
                                        color: Colors.white,
                                        borderRadius:BorderRadius.circular(12)),
@@ -174,19 +204,19 @@ class _NavPageState extends State<NavPage> {
 
                                        setState(() {
                                          n=2;
-                                         pages=DashPage();
+                                         pages=hr_page();
 
                                        });
                                      },
                                      child: Center(
                                        child: Row(
                                          children: [
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            SvgPicture.asset("assets/icons.svg"),
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            Text('HR',
                                              style: GoogleFonts.montserrat(
-                                               fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize: 18,
+                                               fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
                                              ),
                                            ),
                                          ],
@@ -195,13 +225,13 @@ class _NavPageState extends State<NavPage> {
                                    ),
                                  ),
                                ),
-                               SizedBox(height: 12,),
+                               SizedBox(height:height/86.91,),
                                Material(
                                  elevation:n==3?10: 0,
                                  borderRadius:BorderRadius.circular(12),
                                  child: Container(
-                                   height:70,
-                                   padding: EdgeInsets.only(top: 5),
+                                   height:height/14.9,
+                                   padding: EdgeInsets.only(top:height/208.6),
                                    decoration: BoxDecoration(
                                        color: Colors.white,
                                        borderRadius:BorderRadius.circular(12)
@@ -209,19 +239,19 @@ class _NavPageState extends State<NavPage> {
                                    child: GestureDetector(
                                      onTap: (){
                                        setState(() {
-                                         pages=Sales();
+                                         pages=add_task();
                                          n=3;
                                        });
                                      },
                                      child: Center(
                                        child: Row(
                                          children: [
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            SvgPicture.asset("assets/Group 11.svg"),
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            Text('Sales',
                                            style: GoogleFonts.montserrat(
-                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize: 18,
+                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
                                            ),
                                            ),
 
@@ -231,13 +261,13 @@ class _NavPageState extends State<NavPage> {
                                    ),
                                  ),
                                ),
-                               SizedBox(height:12,),
+                               SizedBox(height:height/86.91,),
                                Material(
                                  elevation:n==4?10: 0,
                                  borderRadius:BorderRadius.circular(12),
                                  child: Container(
-                                   height:70,
-                                   padding: EdgeInsets.only(top: 5),
+                                   height:height/14.9,
+                                   padding: EdgeInsets.only(top:height/208.6),
                                    decoration: BoxDecoration(
                                        color: Colors.white,
                                        borderRadius:BorderRadius.circular(12)
@@ -245,19 +275,19 @@ class _NavPageState extends State<NavPage> {
                                    child: GestureDetector(
                                      onTap: (){
                                        setState(() {
-                                         pages=EmployeePage();
+                                         pages=all_employee_page();
                                          n=4;
                                        });
                                      },
                                      child: Center(
                                        child: Row(
                                          children: [
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            SvgPicture.asset("assets/Group 10.svg"),
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            Text('Employee',
                                            style: GoogleFonts.montserrat(
-                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize: 18,
+                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
                                            ),
                                            ),
 
@@ -267,32 +297,32 @@ class _NavPageState extends State<NavPage> {
                                    ),
                                  ),
                                ),
-                               SizedBox(height:12,),
+                               SizedBox(height:height/86.91,),
                                Material(
                                  elevation:n==6?10: 0,
                                  borderRadius:BorderRadius.circular(12),
                                  child: Container(
-                                   height:70,
-                                   padding: EdgeInsets.only(top: 5),
+                                   height:height/14.9,
+                                   padding: EdgeInsets.only(top:height/208.6),
                                    decoration: BoxDecoration(
                                        color: Colors.white,
                                        borderRadius:BorderRadius.circular(12)),
                                    child: GestureDetector(
                                      onTap: (){
                                        setState(() {
-                                         pages=ClientPage();
+                                         pages=client_page();
                                          n=6;
                                        });
                                      },
                                      child: Center(
                                        child: Row(
                                          children: [
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            Image.asset("assets/clientpng.png"),
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            Text('Clients',
                                            style: GoogleFonts.montserrat(
-                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:18,
+                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
                                            ),),
 
                                          ],
@@ -301,13 +331,13 @@ class _NavPageState extends State<NavPage> {
                                    ),
                                  ),
                                ),
-                               SizedBox(height:12,),
+                               SizedBox(height:height/86.91,),
                                Material(
                                  elevation:n==5?10: 0,
                                  borderRadius:BorderRadius.circular(12),
                                  child: Container(
-                                   height:70,
-                                   padding: EdgeInsets.only(top: 5),
+                                   height:height/14.9,
+                                   padding: EdgeInsets.only(top:height/208.6),
                                    decoration: BoxDecoration(
                                        color: Colors.white,
                                        borderRadius:BorderRadius.circular(12)
@@ -315,18 +345,18 @@ class _NavPageState extends State<NavPage> {
                                    child: GestureDetector(
                                      onTap: (){
                                        setState(() {
-                                         pages=FormPage();
+                                         pages=team_chat();
                                          n=5;
                                        });
                                      },
                                      child: Center(
                                        child: Row(
                                          children: [
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            Image.asset("assets/calenderpng.png"),
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            Text('Calender', style: GoogleFonts.montserrat(
-                                           fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize: 18,
+                                           fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
                                            ),),
 
                                          ],
@@ -335,13 +365,13 @@ class _NavPageState extends State<NavPage> {
                                    ),
                                  ),
                                ),
-                               SizedBox(height:12,),
+                               SizedBox(height:height/86.91,),
                                Material(
                                  elevation:n==10?10: 0,
                                  borderRadius:BorderRadius.circular(12),
                                  child: Container(
-                                   height:70,
-                                   padding: EdgeInsets.only(top: 5),
+                                   height:height/14.9,
+                                   padding: EdgeInsets.only(top:height/208.6),
                                    decoration: BoxDecoration(
                                      color: Colors.white,
                                        borderRadius:BorderRadius.circular(12)
@@ -349,18 +379,18 @@ class _NavPageState extends State<NavPage> {
                                    child: GestureDetector(
                                      onTap: (){
                                        setState(() {
-                                         pages=profile();
+                                         pages=profile_page(widget.id);
                                          n=10;
                                        });
                                      },
                                      child: Center(
                                        child: Row(
                                          children: [
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            SvgPicture.asset("assets/pro.svg"),
-                                           SizedBox(width: 2,),
+                                           SizedBox(width:width/933,),
                                            Text('My Profile', style: GoogleFonts.montserrat(
-                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize: 18,
+                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
                                            ),),
 
                                          ],
@@ -370,18 +400,88 @@ class _NavPageState extends State<NavPage> {
                                  ),
                                ),
 
-                               SizedBox(height:200,),
+                               SizedBox(height:height/86.91,),
+                               Material(
+                                 elevation:n==11?10: 0,
+                                 borderRadius:BorderRadius.circular(12),
+                                 child: Container(
+                                   height:height/14.9,
+                                   padding: EdgeInsets.only(top:height/208.6),
+                                   decoration: BoxDecoration(
+                                       color: Colors.white,
+                                       borderRadius:BorderRadius.circular(12)
+                                   ),
+                                   child: GestureDetector(
+                                     onTap: (){
+                                       setState(() {
+                                         pages=add_emp_form();
+                                         n=11;
+                                       });
+                                     },
+                                     child: Center(
+                                       child: Row(
+                                         children: [
+                                           SizedBox(width:width/933,),
+                                           SvgPicture.asset("assets/pro.svg"),
+                                           SizedBox(width:width/933,),
+                                           Text('Add Emp', style: GoogleFonts.montserrat(
+                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
+                                           ),),
+
+                                         ],
+                                       ),
+                                     ),
+                                   ),
+                                 ),
+                               ),
+
+                               SizedBox(height:height/86.91,),
+                               Material(
+                                 elevation:n==12?10: 0,
+                                 borderRadius:BorderRadius.circular(12),
+                                 child: Container(
+                                   height:height/14.9,
+                                   padding: EdgeInsets.only(top:height/208.6),
+                                   decoration: BoxDecoration(
+                                       color: Colors.white,
+                                       borderRadius:BorderRadius.circular(12)
+                                   ),
+                                   child: GestureDetector(
+                                     onTap: (){
+                                       setState(() {
+                                         pages=EmployeePage2();
+                                         n=12;
+                                       });
+                                     },
+                                     child: Center(
+                                       child: Row(
+                                         children: [
+                                           SizedBox(width:width/933,),
+                                           SvgPicture.asset("assets/pro.svg"),
+                                           SizedBox(width:width/933,),
+                                           Text('Emp', style: GoogleFonts.montserrat(
+                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
+                                           ),),
+
+                                         ],
+                                       ),
+                                     ),
+                                   ),
+                                 ),
+                               ),
+
+                               //SizedBox(height:height/9,),
                                Padding(
-                                 padding:EdgeInsets.only(bottom: 30),
+                                 padding:EdgeInsets.only(bottom: height/34.76),
                                  child: Row(
                                    mainAxisAlignment: MainAxisAlignment.center,
                                    children: [
-                                     Text('Logout',style: GoogleFonts.montserrat(color: Colors.black,fontWeight:FontWeight.bold,fontSize: 20),),
-                                     SizedBox(width: 10,),
+                                     Text('Logout',style: GoogleFonts.montserrat(color: Colors.black,fontWeight:FontWeight.bold,fontSize:width/93.3),),
+                                     SizedBox(width: width/186.6,),
                                      Icon(
                                        Icons.logout,
                                        color: Colors.black,
-                                       size: 20.0,
+                                       size: width/93.3,
                                      ),
 
                                    ],
@@ -438,13 +538,13 @@ class _NavPageState extends State<NavPage> {
          ),
 
          Padding(
-           padding:EdgeInsets.only(left:10),
+           padding:EdgeInsets.only(left:width/186.6),
            child: Column(
              children: [
-               SizedBox(height: 10,),
+               SizedBox(height: height/104.3,),
                Container(
-                 margin: EdgeInsets.only(left: 2),
-                 height: MediaQuery.of(context).size.height * 0.90,
+                 margin: EdgeInsets.only(left:width/933),
+                 height: MediaQuery.of(context).size.height * 0.93,
                  width: MediaQuery.of(context).size.width*0.80,
                  child: pages,
                ),

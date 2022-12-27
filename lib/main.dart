@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:webpage/profile.dart';
-import 'package:webpage/slidenavbar.dart';
-
-import 'dash2.dart';
+import 'Login_page/login_page.dart';
 
 
 Future<void> main() async {
@@ -34,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
   debugShowCheckedModeBanner: false,
-      home: Dash2(),
+      home:login_page(),
     );
   }
 }

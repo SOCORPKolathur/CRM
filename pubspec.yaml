@@ -49,6 +49,11 @@ dependencies:
   lottie: any
   firebase_core: ^2.2.0
   cloud_firestore: ^4.0.5
+  dotted_border: ^2.0.0+3
+  dropdown_search: ^1.0.0
+  syncfusion_flutter_datepicker: ^20.3.52
+  hovering: ^1.0.4
+  firebase_storage: ^11.0.9
 
 
 dev_dependencies:

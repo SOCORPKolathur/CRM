@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'carrer.dart';
-import 'form2.dart';
+import 'add_emp_form.dart';
 
-class EmployeePage extends StatefulWidget {
-  const EmployeePage({Key? key}) : super(key: key);
+class all_employee_page extends StatefulWidget {
+  const all_employee_page({Key? key}) : super(key: key);
 
   @override
-  State<EmployeePage> createState() => _EmployeePageState();
+  State<all_employee_page> createState() => _all_employee_pageState();
 }
 
-class _EmployeePageState extends State<EmployeePage> with TickerProviderStateMixin{
+class _all_employee_pageState extends State<all_employee_page> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +42,19 @@ class _EmployeePageState extends State<EmployeePage> with TickerProviderStateMix
                           width:width/6,
                           height: height/23,
                           child: TextField(
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: width/155.5,
+                              fontWeight: FontWeight.w500,),
+                            textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               prefixIcon: Icon(
                                 Icons.search,color: Colors.white,size:width/124.4,
                               ),
                               hintText:'Search for a employee',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white) ,
-                              contentPadding: EdgeInsets.only(top:height/86.91,left:width/186.6),
+                                isCollapsed: true,
+                                contentPadding: EdgeInsets.only(top:height/121.85)
 
                             ),
                           ),
@@ -60,7 +66,7 @@ class _EmployeePageState extends State<EmployeePage> with TickerProviderStateMix
                       child: GestureDetector(onTap: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => FormPage()),
+                          MaterialPageRoute(builder: (context) => add_emp_form()),
                         );
                       },
                         child: Material(
@@ -73,7 +79,7 @@ class _EmployeePageState extends State<EmployeePage> with TickerProviderStateMix
                             ),
                             width:width/12.44,
                             height: height/23,
-                            child: Center(child: Text('Add EMPloyee',style: TextStyle(
+                            child: Center(child: Text('Add Employee',style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: width/143.53),)),
@@ -85,8 +91,6 @@ class _EmployeePageState extends State<EmployeePage> with TickerProviderStateMix
                   ],
                 ),
                 SizedBox(height:height/52.15,),
-
-
                 Padding(
                   padding:EdgeInsets.only(left:width/37.32,),
                   child: Row(
@@ -128,7 +132,7 @@ class _EmployeePageState extends State<EmployeePage> with TickerProviderStateMix
                 ),
 
                 StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection('Users').snapshots(),
+                  stream: FirebaseFirestore.instance.collection('User').snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
                       return Center(
@@ -141,106 +145,104 @@ class _EmployeePageState extends State<EmployeePage> with TickerProviderStateMix
                         child: ListView(
                             children:snapshot.data!.docs.map((val)
                             {
-                              return Padding(
-                                padding:EdgeInsets.only(top: height/130.37,),
-                                child: Container(
-                                  margin: EdgeInsets.only(left: width/37.32, right: width/37.32),
-                                  height: height/20.86,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color:Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(color: Colors.black12,
-                                            spreadRadius: 2,
-                                            offset: Offset(1, 1),
-                                            blurRadius: 2)
-                                      ]
-                                  ),
-                                  child: Row(
-                                      children: [
-                                        Padding(
-                                          padding:EdgeInsets.only(left:width/30),
-                                          child: Container(
-                                            width: width/18.66,
-                                            height: height/34.76,
-                                            child: Center(child: Text(val["Id no"],
-                                              style: GoogleFonts.poppins(fontSize: width/133.28,
-                                                  color: Colors.blue,fontWeight: FontWeight.w500),)),
+                              return
+                                Padding(
+                                  padding:EdgeInsets.only(top: height/130.37,),
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: width/37.32, right: width/37.32),
+                                    height: height/20.86,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        color:Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(color: Colors.black12,
+                                              spreadRadius: 2,
+                                              offset: Offset(1, 1),
+                                              blurRadius: 2)
+                                        ]
+                                    ),
+                                    child: Row(
+                                        children: [
+                                          Padding(
+                                            padding:EdgeInsets.only(left:width/30),
+                                            child: Container(
+                                              width: width/18.66,
+                                              height: height/34.76,
+                                              child: Center(child: Text(val["username"],
+                                                style: GoogleFonts.poppins(fontSize: width/133.28,
+                                                    color: Colors.blue,fontWeight: FontWeight.w500),)),
 
+                                            ),
                                           ),
-                                        ),
 
-                                        Padding(
-                                          padding:EdgeInsets.only(left:width/35),
-                                          child: Container(
-                                            width: width/7.46,
-                                            height: height/34.76,
-                                            child: Center(child: Text(val["Name"], overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
+                                          Padding(
+                                            padding:EdgeInsets.only(left:width/35),
+                                            child: Container(
+                                              width: width/7.46,
+                                              height: height/34.76,
+                                              child: Center(child: Text(val["name1"], overflow: TextOverflow.ellipsis,
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
+                                            ),
                                           ),
-                                        ),
 
 
-                                        Padding(
-                                          padding:EdgeInsets.only(left:width/130),
-                                          child: Container(
+                                          Padding(
+                                            padding:EdgeInsets.only(left:width/130),
+                                            child: Container(
+                                              height: height/34.76,
+                                              width: width/8.48,
+                                              child: Center(child: Text(val["email"], overflow: TextOverflow.ellipsis,
+                                                style: GoogleFonts.poppins(fontSize: width/133.28,
+                                                    color: Colors.black,fontWeight: FontWeight.w500),)),
+
+                                            ),
+                                          ),
+
+
+                                          Container(
                                             height: height/34.76,
                                             width: width/8.48,
-                                            child: Center(child: Text(val["Email"], overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.poppins(fontSize: width/133.28,
-                                                  color: Colors.black,fontWeight: FontWeight.w500),)),
+                                            child: Center(child: Text(val["phone"],
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
+
 
                                           ),
-                                        ),
 
 
-                                        Container(
-                                          height: height/34.76,
-                                          width: width/8.48,
-                                          child: Center(child: Text(val["contact"],
-                                            style: GoogleFonts.poppins(
-                                                fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
-
-
-                                        ),
-
-
-                                        Padding(
-                                          padding:EdgeInsets.only(left:width/26),
-                                          child: Container(
+                                          Container(
                                             height: height/34.76,
-                                            width: width/18.66,
-                                            child: Center(child: Text(val["Role"],
+                                            width: width/8,
+                                            child: Center(child: Text(val["position"],
                                               style: GoogleFonts.poppins(
                                                   fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                           ),
-                                        ),
 
-                                        Padding(
-                                          padding:EdgeInsets.only(left:width/18),
-                                          child: Container(
-                                            height: height/34.76,
-                                            width:width/12.44,
-                                            child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                children: [
-                                                  Container(
-                                                      width:25,
-                                                      height:25,
-                                                      child: Image.asset('assets/Sendp.png',)),
-                                                  Container(
-                                                      width:25,
-                                                      height:25,
-                                                      child: Image.asset('assets/pointerp.png',)),
-                                                  Icon(Icons.error_outline,color: Color(0xffffb946),),
-                                                ]),
-                                          ),
-                                        )
-                                      ]),
-                                ),
-                              );
+                                          Padding(
+                                            padding:EdgeInsets.only(left:width/40),
+                                            child: Container(
+                                              height: height/34.76,
+                                              width:width/12.44,
+                                              child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    Container(
+                                                        width:width/74.64,
+                                                        height:height/41.72,
+                                                        child: Image.asset('assets/Sendp.png',)),
+                                                    Container(
+                                                        width:width/74.64,
+                                                        height:height/41.72,
+                                                        child: Image.asset('assets/pointerp.png',)),
+                                                    Icon(Icons.error_outline,color: Color(0xffffb946),),
+                                                  ]),
+                                            ),
+                                          )
+                                        ]),
+                                  ),
+                                );
                             }
                             ).toList()
                         ));

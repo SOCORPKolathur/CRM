@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'employy.dart';
+import 'all_employee_page.dart';
 
 class Viewcandi extends StatefulWidget {
   String  name7;
@@ -173,7 +173,7 @@ Future showmodel2(BuildContext,context)=>showDialog(
         ],),
 
       GestureDetector(onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => EmployeePage(),));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => all_employee_page(),));
 
       },
         child: Row(

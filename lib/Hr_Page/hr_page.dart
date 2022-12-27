@@ -4,19 +4,19 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:show_up_animation/show_up_animation.dart';
-import 'employy.dart';
-import 'form2.dart';
+import '../all_employee_page.dart';
+import '../add_emp_form.dart';
 
 final CollectionReference user=FirebaseFirestore.instance.collection('Users');
 
-class DashPage extends StatefulWidget {
-  const DashPage({Key? key}) : super(key: key);
+class hr_page extends StatefulWidget {
+  const hr_page({Key? key}) : super(key: key);
 
   @override
-  State<DashPage> createState() => _DashPageState();
+  State<hr_page> createState() => _hr_pageState();
 }
 
-class _DashPageState extends State<DashPage> {
+class _hr_pageState extends State<hr_page> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -36,7 +36,8 @@ class _DashPageState extends State<DashPage> {
                 children: [
                   Padding(
                     padding:EdgeInsets.only(left:width/37.32),
-                    child: Material(
+                    child:
+                    Material(
                       elevation:10,
                       borderRadius: BorderRadius.circular(20),
                       child: Container(decoration: BoxDecoration( borderRadius: BorderRadius.circular(20),color: Color(0xff5F67EC),),
@@ -44,13 +45,19 @@ class _DashPageState extends State<DashPage> {
                         width:width/6,
                         height: height/23,
                         child: TextField(
+                          style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontSize: width/155.5,
+                            fontWeight: FontWeight.w500,),
+                          textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             prefixIcon: Icon(
                               Icons.search,color: Colors.white,size:width/124.4,
                             ),
-                            hintText:'Search for a employee',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white) ,
-                            contentPadding: EdgeInsets.only(top:height/86.91,left:width/186.6),
+                            hintText:'Search',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white) ,
+                              isCollapsed: true,
+                              contentPadding: EdgeInsets.only(top:height/121.85)
 
                           ),
                         ),
@@ -62,7 +69,7 @@ class _DashPageState extends State<DashPage> {
                  child: GestureDetector(onTap: (){
                    Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) => FormPage()),
+                     MaterialPageRoute(builder: (context) => add_emp_form()),
                    );
                  },
                    child: Material(
@@ -148,7 +155,7 @@ class _DashPageState extends State<DashPage> {
               ),
 
               StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('Users').snapshots(),
+                stream: FirebaseFirestore.instance.collection('User').snapshots(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
@@ -161,7 +168,9 @@ class _DashPageState extends State<DashPage> {
                       child: ListView(
                       children:snapshot.data!.docs.map((val)
                       {
-                        return Padding(
+                        return
+
+                          Padding(
                           padding:EdgeInsets.only(top: height/130.37,),
                           child: Container(
                             margin: EdgeInsets.only(left: width/37.32, right: width/37.32),
@@ -184,7 +193,7 @@ class _DashPageState extends State<DashPage> {
                                     child: Container(
                                       width: width/18.66,
                                       height: height/34.76,
-                                      child: Center(child: Text(val["Id no"],
+                                      child: Center(child: Text(val["username"],
                                         style: GoogleFonts.poppins(fontSize: width/133.28,
                                             color: Colors.blue,fontWeight: FontWeight.w500),)),
 
@@ -196,7 +205,7 @@ class _DashPageState extends State<DashPage> {
                                     child: Container(
                                       width: width/7.46,
                                       height: height/34.76,
-                                      child: Center(child: Text(val["Name"], overflow: TextOverflow.ellipsis,
+                                      child: Center(child: Text(val["name1"], overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.poppins(
                                           fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                     ),
@@ -208,7 +217,7 @@ class _DashPageState extends State<DashPage> {
                                     child: Container(
                                       height: height/34.76,
                                       width: width/8.48,
-                                      child: Center(child: Text(val["Email"], overflow: TextOverflow.ellipsis,
+                                      child: Center(child: Text(val["email"], overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.poppins(fontSize: width/133.28,
                                             color: Colors.black,fontWeight: FontWeight.w500),)),
 
@@ -219,7 +228,7 @@ class _DashPageState extends State<DashPage> {
                                   Container(
                                     height: height/34.76,
                                     width: width/8.48,
-                                    child: Center(child: Text(val["contact"],
+                                    child: Center(child: Text(val["phone"],
                                     style: GoogleFonts.poppins(
                                         fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
 
@@ -227,19 +236,16 @@ class _DashPageState extends State<DashPage> {
                                   ),
 
 
-                                  Padding(
-                                    padding:EdgeInsets.only(left:width/26),
-                                    child: Container(
-                                      height: height/34.76,
-                                      width: width/18.66,
-                                      child: Center(child: Text(val["Role"],
-                                      style: GoogleFonts.poppins(
-                                          fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
-                                    ),
+                                  Container(
+                                    height: height/34.76,
+                                    width: width/8,
+                                    child: Center(child: Text(val["position"],
+                                    style: GoogleFonts.poppins(
+                                        fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                   ),
 
                                   Padding(
-                                    padding:EdgeInsets.only(left:width/18),
+                                    padding:EdgeInsets.only(left:width/40),
                                     child: Container(
                                       height: height/34.76,
                                       width:width/12.44,
@@ -247,12 +253,12 @@ class _DashPageState extends State<DashPage> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Container(
-                                              width:25,
-                                                height:25,
+                                              width:width/74.64,
+                                                height:height/41.72,
                                                 child: Image.asset('assets/Sendp.png',)),
                                             Container(
-                                                width:25,
-                                                height:25,
+                                                width:width/74.64,
+                                                height:height/41.72,
                                                 child: Image.asset('assets/pointerp.png',)),
                                             Icon(Icons.error_outline,color: Color(0xffffb946),),
                                       ]),

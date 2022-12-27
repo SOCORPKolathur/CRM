@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
-import 'form2.dart';
+import '../add_emp_form.dart';
 
-class ClientPage extends StatefulWidget {
+class client_page extends StatefulWidget {
 
-  const ClientPage( {Key? key}) : super(key: key);
+  const client_page( {Key? key}) : super(key: key);
 
   @override
-  State<ClientPage> createState() => _ClientPageState();
+  State<client_page> createState() => _client_pageState();
 }
 
-class _ClientPageState extends State<ClientPage> {
+class _client_pageState extends State<client_page> {
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +38,20 @@ class _ClientPageState extends State<ClientPage> {
                         elevation:10,
                         borderRadius: BorderRadius.circular(20),
                         child: Container(decoration: BoxDecoration( borderRadius: BorderRadius.circular(20),color: Color(0xff5F67EC),),
-
                           width:width/6,
                           height: height/23,
                           child: TextField(
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: width/155.5,
+                              fontWeight: FontWeight.w500,),
+                            textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: Icon(
-                                Icons.search,color: Colors.white,size:width/124.4,
-                              ),
-                              hintText:'Search a Client',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white) ,
-                              contentPadding: EdgeInsets.only(top:height/86.91,left:width/186.6),
-
+                                border: InputBorder.none,
+                                prefixIcon: Icon(Icons.search,color: Colors.white,size:width/100.4,),
+                                hintText:'Search a client',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white),
+                                isCollapsed: true,
+                                contentPadding: EdgeInsets.only(top:height/121.85)
                             ),
                           ),
                         ),
@@ -60,7 +62,7 @@ class _ClientPageState extends State<ClientPage> {
                       child: GestureDetector(onTap: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => FormPage()),
+                          MaterialPageRoute(builder: (context) => add_emp_form()),
                         );
                       },
                         child: Material(
@@ -114,7 +116,7 @@ class _ClientPageState extends State<ClientPage> {
                         padding:EdgeInsets.only(bottom:height/52.15,),
                         child: Text('Ongoing Clients',style: GoogleFonts.montserrat(
                             color: Colors.black,
-                            fontWeight: FontWeight.bold,    fontSize: width/74.64
+                            fontWeight: FontWeight.bold,fontSize: width/74.64
 
                         ),),
                       ),
@@ -131,7 +133,7 @@ class _ClientPageState extends State<ClientPage> {
                       boxShadow: [BoxShadow(color: Colors.black12,spreadRadius: 2,offset: Offset(1,1),blurRadius: 2)]
                   ),
                   child: Padding(
-                    padding:EdgeInsets.only(left: 20,right: 60),
+                    padding:EdgeInsets.only(left:width/93.3,right:width/31.1),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -180,7 +182,7 @@ class _ClientPageState extends State<ClientPage> {
                                       ]
                                   ),
                                   child: Padding(
-                                    padding:EdgeInsets.only(left: 10,right:10),
+                                    padding:EdgeInsets.only(left:width/186.6,right:width/186.6),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -192,7 +194,7 @@ class _ClientPageState extends State<ClientPage> {
                                                   color: Colors.blue,fontWeight: FontWeight.w500),)),
 
                                           ),
-                                          SizedBox(width: 3,),
+                                          SizedBox(width:width/622,),
                                           Container(
                                             width: width/7.46,
                                             height: height/34.76,
@@ -200,7 +202,7 @@ class _ClientPageState extends State<ClientPage> {
                                               style: GoogleFonts.poppins(
                                                   fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                           ),
-                                          SizedBox(width: 3,),
+                                          SizedBox(width:width/622,),
                                           Container(
                                             height: height/34.76,
                                             width: width/9,
@@ -209,7 +211,7 @@ class _ClientPageState extends State<ClientPage> {
                                                   color: Colors.deepOrange,fontWeight: FontWeight.w500),)),
 
                                           ),
-                                          SizedBox(width: 3,),
+                                          SizedBox(width:width/622,),
                                           Container(
                                             height: height/34.76,
                                             width: width/8.48,
@@ -219,7 +221,7 @@ class _ClientPageState extends State<ClientPage> {
 
 
                                           ),
-                                          SizedBox(width: 3,),
+                                          SizedBox(width:width/622,),
                                           Container(
                                             height: height/34.76,
                                             width: width/8,
@@ -227,7 +229,7 @@ class _ClientPageState extends State<ClientPage> {
                                               style: GoogleFonts.poppins(
                                                   fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                           ),
-                                          SizedBox(width: 3,),
+                                          SizedBox(width:width/622,),
                                           Container(
                                             height: height/34.76,
                                             width: width/9,
@@ -235,7 +237,7 @@ class _ClientPageState extends State<ClientPage> {
                                               style: GoogleFonts.poppins(
                                                   fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                           ),
-                                          SizedBox(width: 3,),
+                                          SizedBox(width:width/622,),
                                           Container(decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(30),
                                               color: Colors.green
