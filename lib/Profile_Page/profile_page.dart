@@ -15,6 +15,9 @@ class profile_page extends StatefulWidget {
 class _profile_pageState extends State<profile_page> {
  int totalcount=0;
  var total="given";
+ var taskafter="";
+ var taskbefore="";
+ var taskontime="";
  @override
  void initState() {
    gettaskcount();
@@ -560,22 +563,5 @@ class _profile_pageState extends State<profile_page> {
     });
   }
 
-  beforesubmit() async {
-    var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where("submittime",isEqualTo: "complete").get();
-    setState(() {
-      completecount= document.docs.length;
-    });
-  }
-  ontimesubmit() async {
-    var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where("status",isEqualTo: "complete").get();
-    setState(() {
-      completecount= document.docs.length;
-    });
-  }
-  aftersubmit() async {
-    var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where("status",isEqualTo: "complete").get();
-    setState(() {
-      completecount= document.docs.length;
-    });
-  }
+
 }

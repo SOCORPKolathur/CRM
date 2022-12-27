@@ -47,6 +47,7 @@ class _dashboard_pageState extends State<dashboard_page> {
   @override
   void initState() {
     get12();
+    gettime();
     getcat();
     // TODO: implement initState
     super.initState();
@@ -841,217 +842,213 @@ class _dashboard_pageState extends State<dashboard_page> {
                                   Container(
                                     width:width/3.20,
                                     child:
-                                    StreamBuilder(
-                                        stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').snapshots(),
-                                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                          if (!snapshot.hasData) {
-                                            return const Center(
-                                              child: CircularProgressIndicator(),
-                                            );
-                                          }
-                                          return
-                                            ListView(
-                                              physics: ScrollPhysics(),
-                                                shrinkWrap: true,
-                                                children: snapshot.data!.docs.map((d1){
-                                                  return
-                                                    Padding(
-                                                      padding:EdgeInsets.only(top:height/104.3),
-                                                      child:
-                                                      Material(
-                                                        elevation: 15,
-                                                        color:Colors.white,borderRadius: BorderRadius.circular(12),
-                                                        child:
-                                                        AnimatedContainer(
-                                                          duration: const Duration(seconds: 10),
+                                    StreamBuilder<QuerySnapshot>(
 
-                                                          decoration: BoxDecoration(
-                                                              color:Colors.white,borderRadius: BorderRadius.circular(12)
-                                                          ),
-                                                          width:width/3.20,
-                                                          child: Row(
+                                      stream:FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').snapshots(),
+                                      builder: (context, snapshot) {
+                                        if (!snapshot.hasData) {
+                                          return Center(child: CircularProgressIndicator(),);
+                                        }
+                                        return ListView.builder(
+                                            itemCount: snapshot.data!.docs.length,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding:EdgeInsets.only(top:height/104.3),
+                                                child:
+                                                Material(
+                                                  elevation: 15,
+                                                  color:Colors.white,borderRadius: BorderRadius.circular(12),
+                                                  child:
+                                                  AnimatedContainer(
+                                                    duration: const Duration(seconds: 10),
+
+                                                    decoration: BoxDecoration(
+                                                        color:Colors.white,borderRadius: BorderRadius.circular(12)
+                                                    ),
+                                                    width:width/3.20,
+                                                    child: Row(
+                                                      children: [
+                                                        SizedBox(width:width/186.6),
+                                                        Container(
+                                                          width:width/7.77,
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              SizedBox(width:width/186.6),
-                                                              Container(
-                                                                width:width/7.77,
-                                                                child: Column(
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                              SizedBox(height:height/104.3),
+                                                              Text(snapshot.data!.docs[index]['taskname'],style: GoogleFonts.montserrat(
+                                                                  color:Colors.black,fontWeight:FontWeight.bold,fontSize:width/124.4
+                                                              ),),
+                                                              SizedBox(height:height/320),
+                                                              RichText(
+                                                                text: TextSpan(
                                                                   children: [
-                                                                    SizedBox(height:height/104.3),
-                                                                    Text('${d1['taskname']}',style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.bold,fontSize:width/124.4
+                                                                    TextSpan(text: 'Due date :', style: GoogleFonts.montserrat(
+                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
                                                                     ),),
-                                                                    SizedBox(height:height/320),
-                                                                    RichText(
-                                                                      text: TextSpan(
-                                                                        children: [
-                                                                          TextSpan(text: 'Due date :', style: GoogleFonts.montserrat(
-                                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                          ),),
-                                                                          TextSpan(text:'${d1['deadlinedate']}',style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                          ),),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(height:height/320),
-                                                                    RichText(
-                                                                      text: TextSpan(
-                                                                        children: [
-                                                                          TextSpan(text: 'Due Time : ', style: GoogleFonts.montserrat(
-                                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                          ),),
-                                                                          TextSpan(text:'${d1['deadlinetime']}',style: GoogleFonts.montserrat(
-                                                                              color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                          ),),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(height:height/320),
-                                                                    d1["view"]==true ? RichText(
-                                                                      text: TextSpan(
-                                                                        children: [
-                                                                          TextSpan(text: 'Description : ', style: GoogleFonts.montserrat(
-                                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                          ),),
-                                                                          TextSpan(text:'${d1['taskdescription']}',style: GoogleFonts.montserrat(
-                                                                              color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                          ),),
-                                                                        ],
-                                                                      ),
-                                                                    ) : SizedBox(),
-                                                                    SizedBox(height:height/320),
-                                                                    RichText(
-                                                                      text: TextSpan(
-                                                                        children: [
-                                                                          TextSpan(text: 'Assigned From : ', style: GoogleFonts.montserrat(
-                                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                          ),),
-                                                                          TextSpan(text:'${d1['taskfromid']}',style: GoogleFonts.montserrat(
-                                                                              color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                          ),),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(height:height/104.3),
-
+                                                                    TextSpan(text:snapshot.data!.docs[index]['deadlinedate'],style: GoogleFonts.montserrat(
+                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                    ),),
                                                                   ],
                                                                 ),
-
                                                               ),
-                                                              SizedBox(width:width/74.64),
-                                                              Container(
-                                                                height:height/34.76,
-                                                                width: width/14.35,
-                                                                decoration: BoxDecoration(
-                                                                    color:Colors.red,borderRadius: BorderRadius.circular(20)
-                                                                ),
-                                                                child: Center(child: Text(elapsedTime,style: GoogleFonts.montserrat(
-                                                                  ),
-                                                                )
-                                                                ),
-                                                              ),
-                                                              SizedBox(width:width/100),
-                                                              GestureDetector(
-                                                                onTap: ()
-                                                                {
-                                                                  startOrStop();
-                                                                    if(ck==true){
-                                                                      setState(() {
-                                                                        ck=false;
-                                                                      });
-                                                                    }
-                                                                    else {
-                                                                      setState(() {
-                                                                        ck=true;
-                                                                      });
-                                                                    }
-
-
-
-                                                                },
-                                                                child: ck == true ? Tooltip(
-                                                                  message: 'Start Timer',
-                                                                  child: Icon(
-                                                                    Icons.play_circle,
-                                                                    color: Colors.red,size:width/ 46.65,),
-                                                                ) :Tooltip(
-                                                                  message: 'Stop Timer',
-                                                                  child: Icon(
-                                                                    Icons.pause_circle,
-                                                                    color: Colors.red,size:width/ 46.65,),
-                                                                )
-
-                                                              ),
-                                                              SizedBox(width:width/100),
-                                                             d1["status"]=="given"? Tooltip(
-                                                               message: 'Start Task',
-                                                               child: GestureDetector(
-                                                                 onTap: (){
-                                                                   mytasktaken(d1.id);
-                                                                 },
-                                                                 child: Icon(
-                                                                    Icons.task,
-                                                                    color: Colors.blue,size: width/53.31,),
-                                                               ),
-                                                             ) :
-                                                             d1["status"]=="taken"? Tooltip(
-                                                               message: 'Task Done',
-                                                               child: GestureDetector(
-                                                                 onTap: (){
-                                                                 mytaskcomplete(d1.id);
-                                                                 timeupdate(d1.id);
-                                                               },
-                                                                 child: Icon(
-                                                                   Icons.add_alert,
-                                                                   color: Colors.orange,size: width/53.31,),
-                                                               ),
-                                                             ) :
-                                                             d1["status"]=="complete"? Tooltip(
-                                                               message: "Already Done",
-                                                               child: Icon(
-                                                                 Icons.verified_rounded,
-                                                                 color: Colors.green,size: width/53.31,),
-                                                             ):SizedBox(),
-
-
-                                                              SizedBox(width:width/100),
-                                                              GestureDetector(
-                                                                onTap:(){
-                                                                  setState(() {
-                                                                    if(d1['view'] == false)
-                                                                    { mytaskget(d1.id);}
-                                                                    else
-                                                                    {mytaskget2(d1.id);}
-                                                                  });
-                                                                },
-                                                                child:
-                                                                d1["view"]==true ?
-                                                                Tooltip(
-                                                                  message: "shrink",
-                                                                  child: Icon(
-                                                                    Icons.arrow_circle_up_outlined,
-                                                                    color: Colors.red,size: width/53.31,),
-                                                                ):
-                                                                Tooltip(
-                                                                  message: "Expand",
-                                                                  child: Icon(
-                                                                    Icons.arrow_circle_down_outlined,
-                                                                    color: Colors.green,size: width/53.31,),
+                                                              SizedBox(height:height/320),
+                                                              RichText(
+                                                                text: TextSpan(
+                                                                  children: [
+                                                                    TextSpan(text: 'Due Time : ', style: GoogleFonts.montserrat(
+                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                    ),),
+                                                                    TextSpan(text:snapshot.data!.docs[index]['deadlinetime'],style: GoogleFonts.montserrat(
+                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                    ),),
+                                                                  ],
                                                                 ),
                                                               ),
+                                                              SizedBox(height:height/320),
+                                                              snapshot.data!.docs[index]["view"]==true ? RichText(
+                                                                text: TextSpan(
+                                                                  children: [
+                                                                    TextSpan(text: 'Description : ', style: GoogleFonts.montserrat(
+                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                    ),),
+                                                                    TextSpan(text:snapshot.data!.docs[index]['taskdescription'],style: GoogleFonts.montserrat(
+                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                    ),),
+                                                                  ],
+                                                                ),
+                                                              ) : SizedBox(),
+                                                              SizedBox(height:height/320),
+                                                              RichText(
+                                                                text: TextSpan(
+                                                                  children: [
+                                                                    TextSpan(text: 'Assigned From : ', style: GoogleFonts.montserrat(
+                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                    ),),
+                                                                    TextSpan(text:snapshot.data!.docs[index]['taskfromid'],style: GoogleFonts.montserrat(
+                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                    ),),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              SizedBox(height:height/104.3),
+
                                                             ],
                                                           ),
+
                                                         ),
-                                                      ),
+                                                        SizedBox(width:width/74.64),
+                                                        Container(
+                                                          height:height/34.76,
+                                                          width: width/14.35,
+                                                          decoration: BoxDecoration(
+                                                              color:Colors.red,borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                          child: Center(child: Text(elapsedTime,style: GoogleFonts.montserrat(
+                                                          ),
+                                                          )
+                                                          ),
+                                                        ),
+                                                        SizedBox(width:width/100),
+                                                        GestureDetector(
+                                                            onTap: ()
+                                                            {
+                                                              startOrStop();
+                                                              if(ck==true){
+                                                                setState(() {
+                                                                  ck=false;
+                                                                });
+                                                              }
+                                                              else {
+                                                                setState(() {
+                                                                  ck=true;
+                                                                });
+                                                              }
 
 
-                                                    );
 
-                                                }).toList()
-                                            );
-                                        }
-                                    ),
+                                                            },
+                                                            child: ck == true ? Tooltip(
+                                                              message: 'Start Timer',
+                                                              child: Icon(
+                                                                Icons.play_circle,
+                                                                color: Colors.red,size:width/ 46.65,),
+                                                            ) :Tooltip(
+                                                              message: 'Stop Timer',
+                                                              child: Icon(
+                                                                Icons.pause_circle,
+                                                                color: Colors.red,size:width/ 46.65,),
+                                                            )
+
+                                                        ),
+                                                        SizedBox(width:width/100),
+                                                        snapshot.data!.docs[index]["status"]=="given"? Tooltip(
+                                                          message: 'Start Task',
+                                                          child: GestureDetector(
+                                                            onTap: (){
+                                                              mytasktaken(snapshot.data!.docs[index].id);
+                                                            },
+                                                            child: Icon(
+                                                              Icons.task,
+                                                              color: Colors.blue,size: width/53.31,),
+                                                          ),
+                                                        ) :
+                                                        snapshot.data!.docs[index]["status"]=="taken"? Tooltip(
+                                                          message: 'Task Done',
+                                                          child: GestureDetector(
+                                                            onTap: (){
+                                                              mytaskcomplete(snapshot.data!.docs[index].id);
+                                                              timeupdate(snapshot.data!.docs[index].id);
+                                                              check(snapshot.data!.docs[index].id);
+                                                            },
+                                                            child: Icon(
+                                                              Icons.add_alert,
+                                                              color: Colors.orange,size: width/53.31,),
+                                                          ),
+                                                        ) :
+                                                        snapshot.data!.docs[index]["status"]=="complete"? Tooltip(
+                                                          message: "Already Done",
+                                                          child: Icon(
+                                                            Icons.verified_rounded,
+                                                            color: Colors.green,size: width/53.31,),
+                                                        ):SizedBox(),
+
+
+                                                        SizedBox(width:width/100),
+                                                        GestureDetector(
+                                                          onTap:(){
+                                                            setState(() {
+                                                              if(snapshot.data!.docs[index]['view'] == false)
+                                                              { mytaskget(snapshot.data!.docs[index].id);}
+                                                              else
+                                                              {mytaskget2(snapshot.data!.docs[index].id);}
+                                                            });
+                                                          },
+                                                          child:
+                                                          snapshot.data!.docs[index]["view"]==true ?
+                                                          Tooltip(
+                                                            message: "shrink",
+                                                            child: Icon(
+                                                              Icons.arrow_circle_up_outlined,
+                                                              color: Colors.red,size: width/53.31,),
+                                                          ):
+                                                          Tooltip(
+                                                            message: "Expand",
+                                                            child: Icon(
+                                                              Icons.arrow_circle_down_outlined,
+                                                              color: Colors.green,size: width/53.31,),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+
+
+                                              );
+
+                                            });
+                                      },)
+
 
                                   ),
                                   SizedBox(height:height/50,),
@@ -1119,173 +1116,170 @@ class _dashboard_pageState extends State<dashboard_page> {
                               Container(
                                 width:width/3.20,
 
-                                child: StreamBuilder(
-                                    stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('Assignedtask').snapshots(),
-                                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      }
-                                      return ListView(
-                                          physics: ScrollPhysics(),
-                                          shrinkWrap: true,
-                                          children: snapshot.data!.docs.map((d1){
-                                            return
-                                              Padding(
-                                                padding: EdgeInsets.only(top:height/104.3),
-                                                child: Material(
-                                                  elevation: 15,
-                                                  color:Colors.white,borderRadius: BorderRadius.circular(12),
-                                                  child:
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        color:Colors.white,borderRadius: BorderRadius.circular(12)
-                                                    ),
-                                                    width:width/3.20,
-                                                    child: Row(
-                                                      children: [
-                                                        SizedBox(width:width/186.6),
+                                child:
+                                StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('Assignedtask').snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Center(child: CircularProgressIndicator(),);
+                                    }
+                                    return ListView.builder(
+                                        itemCount: snapshot.data!.docs.length,
+                                        itemBuilder: (context, index) {
+                                          return
+                                            Padding(
+                                              padding: EdgeInsets.only(top:height/104.3),
+                                              child: Material(
+                                                elevation: 15,
+                                                color:Colors.white,borderRadius: BorderRadius.circular(12),
+                                                child:
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color:Colors.white,borderRadius: BorderRadius.circular(12)
+                                                  ),
+                                                  width:width/3.20,
+                                                  child: Row(
+                                                    children: [
+                                                      SizedBox(width:width/186.6),
 
-                                                        Container(
-                                                          width:width/7.77,
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              SizedBox(height:height/104.3),
-                                                              Text('${d1['taskname']}',style: GoogleFonts.montserrat(
-                                                                  color:Colors.black,fontWeight:FontWeight.bold,fontSize:width/124.4
-                                                              ),),
-                                                              SizedBox(height:height/320),
+                                                      Container(
+                                                        width:width/7.77,
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            SizedBox(height:height/104.3),
+                                                            Text(snapshot.data!.docs[index]['taskname'],style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.bold,fontSize:width/124.4
+                                                            ),),
+                                                            SizedBox(height:height/320),
 
-                                                              RichText(
-                                                                text: TextSpan(
-                                                                  children: [
-                                                                    TextSpan(text: 'Due date :', style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                    ),),
-                                                                    TextSpan(text:'${d1['deadlinedate']}',style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                    ),),
-                                                                  ],
-                                                                ),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Due date :', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['deadlinedate'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
                                                               ),
-
-                                                              SizedBox(height:height/320),
-                                                              RichText(
-                                                                text: TextSpan(
-                                                                  children: [
-                                                                    TextSpan(text: 'Due Time : ', style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                    ),),
-                                                                    TextSpan(text:'${d1['deadlinetime']}',style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                    ),),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              SizedBox(height:height/320),
-                                                              RichText(
-                                                                text: TextSpan(
-                                                                  children: [
-                                                                    TextSpan(text: 'Assigned From : ', style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                    ),),
-                                                                    TextSpan(text:'${d1['taskfromid']}',style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                    ),),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              SizedBox(height:height/320),
-                                                              d1["view"]==true ?
-                                                              RichText(
-                                                                text: TextSpan(
-                                                                  children: [
-                                                                    TextSpan(text: 'Description : ', style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                    ),),
-                                                                    TextSpan(text:'${d1['taskdescription']}',style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                    ),),
-                                                                  ],
-                                                                ),
-                                                              ):SizedBox(),
-
-                                                              SizedBox(height:height/104.3),
-
-                                                            ],
-                                                          ),
-
-                                                        ),
-
-
-
-
-                                                        SizedBox(width:width/74.64),
-                                                        Tooltip(
-                                                          message: "See The Progress of Task",
-                                                          child: Container(
-                                                            height:height/34.76,
-                                                            width: width/14.35,
-                                                            decoration: BoxDecoration(
-                                                                color:Colors.blue,borderRadius: BorderRadius.circular(20)
                                                             ),
-                                                            child: Center(child: Text('View Progress',style: GoogleFonts.montserrat(
-                                                                color: Colors.white,fontWeight: FontWeight.w700,fontSize:width/130
-                                                            ),)),
-                                                          ),
-                                                        ),
-                                                        SizedBox(width:width/100),
-                                                        Tooltip(
-                                                          message: "Delete The Task",
-                                                          child: GestureDetector(onTap: (){
-                                                            deletetask(d1.id);
-                                                          },
-                                                            child: Icon( Icons.delete_forever,
-                                                              color: Colors.red,size:width/ 46.65,
+
+                                                            SizedBox(height:height/320),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Due Time : ', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['deadlinetime'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
+                                                              ),
                                                             ),
+                                                            SizedBox(height:height/320),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Assigned From : ', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['taskfromid'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height:height/320),
+                                                            snapshot.data!.docs[index]["view"]==true ?
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Description : ', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['taskdescription'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
+                                                              ),
+                                                            ):SizedBox(),
+
+                                                            SizedBox(height:height/104.3),
+
+                                                          ],
+                                                        ),
+
+                                                      ),
+
+
+
+
+                                                      SizedBox(width:width/74.64),
+                                                      Tooltip(
+                                                        message: "See The Progress of Task",
+                                                        child: Container(
+                                                          height:height/34.76,
+                                                          width: width/14.35,
+                                                          decoration: BoxDecoration(
+                                                              color:Colors.blue,borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                          child: Center(child: Text('View Progress',style: GoogleFonts.montserrat(
+                                                              color: Colors.white,fontWeight: FontWeight.w700,fontSize:width/130
+                                                          ),)),
+                                                        ),
+                                                      ),
+                                                      SizedBox(width:width/100),
+                                                      Tooltip(
+                                                        message: "Delete The Task",
+                                                        child: GestureDetector(onTap: (){
+                                                          deletetask(snapshot.data!.docs[index].id);
+                                                        },
+                                                          child: Icon( Icons.delete_forever,
+                                                            color: Colors.red,size:width/ 46.65,
                                                           ),
                                                         ),
-                                                        SizedBox(width:width/100),
-                                                        Tooltip(
-                                                          message: "Delete The Task",
-                                                          child: Icon(
-                                                            Icons.verified_rounded,
-                                                            color: Colors.green,size: width/53.31,),
-                                                        ),
-                                                        SizedBox(width:width/100),
-                                                        GestureDetector(
-                                                          onTap:(){
-                                                            setState(() {
-                                                              if(d1['view'] == false)
-                                                              {
-                                                                assignedtaskget(d1.id);
-                                                              }
-                                                              else
-                                                              {
-                                                                assignedtaskget2(d1.id);
-                                                              }
-                                                            });
-                                                          },
-                                                          child:
-                                                          d1["view"]==true ?
-                                                          Icon(
-                                                            Icons.arrow_circle_up_outlined,
-                                                            color: Colors.red,size: width/53.31,):
-                                                          Icon(
-                                                            Icons.arrow_circle_down_outlined,
-                                                            color: Colors.green,size: width/53.31,),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                      SizedBox(width:width/100),
+                                                      Tooltip(
+                                                        message: "Delete The Task",
+                                                        child: Icon(
+                                                          Icons.verified_rounded,
+                                                          color: Colors.green,size: width/53.31,),
+                                                      ),
+                                                      SizedBox(width:width/100),
+                                                      GestureDetector(
+                                                        onTap:(){
+                                                          setState(() {
+                                                            if(snapshot.data!.docs[index]['view'] == false)
+                                                            {
+                                                              assignedtaskget(snapshot.data!.docs[index].id);
+                                                            }
+                                                            else
+                                                            {
+                                                              assignedtaskget2(snapshot.data!.docs[index].id);
+                                                            }
+                                                          });
+                                                        },
+                                                        child:
+                                                        snapshot.data!.docs[index]["view"]==true ?
+                                                        Icon(
+                                                          Icons.arrow_circle_up_outlined,
+                                                          color: Colors.red,size: width/53.31,):
+                                                        Icon(
+                                                          Icons.arrow_circle_down_outlined,
+                                                          color: Colors.green,size: width/53.31,),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              );
-                                          }).toList()
-                                      );
-                                    }
-                                ),
+                                              ),
+                                            );
+                                        });
+                                  },)
+
                               ),
                             ],),
 
@@ -1336,199 +1330,195 @@ class _dashboard_pageState extends State<dashboard_page> {
                                 width:width/3.20,
 
                                 child:
-                                StreamBuilder(
-                                    stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').snapshots(),
-                                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      }
-                                      return
-                                        ListView(
-                                          physics: ScrollPhysics(),
-                                            shrinkWrap: true,
-                                            children: snapshot.data!.docs.map((d1){
-                                              return
-                                                Padding(
-                                                  padding:EdgeInsets.only(top:height/104.3),
-                                                  child:
-                                                  Material(
-                                                    elevation: 15,
-                                                    color:Colors.white,borderRadius: BorderRadius.circular(12),
-                                                    child:
-                                                    AnimatedContainer(
-                                                      decoration: BoxDecoration(
-                                                          color:Colors.white,borderRadius: BorderRadius.circular(12)
-                                                      ),
-                                                      duration: const Duration(seconds: 1),
-                                                      width:width/3.20,
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(width:width/186.6),
-                                                          Container(
-                                                            width:width/7.77,
-                                                            child: Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                SizedBox(height:height/104.3),
-                                                                Text('${d1['taskname']}',style: GoogleFonts.montserrat(
-                                                                    color:Colors.black,fontWeight:FontWeight.bold,fontSize:width/124.4
-                                                                ),),
-                                                                SizedBox(height:height/320),
-                                                                RichText(
-                                                                  text: TextSpan(
-                                                                    children: [
-                                                                      TextSpan(text: 'Due date :', style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                      ),),
-                                                                      TextSpan(text:'${d1['deadlinedate']}',style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                      ),),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                SizedBox(height:height/320),
-                                                                RichText(
-                                                                  text: TextSpan(
-                                                                    children: [
-                                                                      TextSpan(text: 'Due Time : ', style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                      ),),
-                                                                      TextSpan(text:'${d1['deadlinetime']}',style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                      ),),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                SizedBox(height:height/320),
-                                                               d1["view"]==true ? RichText(
-                                                                  text: TextSpan(
-                                                                    children: [
-                                                                      TextSpan(text: 'Description : ', style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                      ),),
-                                                                      TextSpan(text:'${d1['taskdescription']}',style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                      ),),
-                                                                    ],
-                                                                  ),
-                                                                ) : SizedBox()
-                                                              ],
-                                                            ),
-                                                          ),
-
-
-
-
-                                                          SizedBox(width:width/100),
-                                                          Container(
-                                                            height:height/34.76,
-                                                            width: width/14.35,
-                                                            decoration: BoxDecoration(
-                                                                color:Colors.red,borderRadius: BorderRadius.circular(20)
-                                                            ),
-                                                            child: Center(child: Text(elapsedTime,style: GoogleFonts.montserrat(
-                                                                color: Colors.white,fontWeight: FontWeight.w700,fontSize:width/130
-                                                            ),)),
-                                                          ),
-                                                          SizedBox(width:width/100),
-                                                          GestureDetector(
-                                                              onTap: ()
-                                                              {
-                                                                startOrStop();
-                                                                if(ck==true){
-                                                                  setState(() {
-                                                                    ck=false;
-                                                                  });
-                                                                }
-                                                                else {
-                                                                  setState(() {
-                                                                    ck=true;
-                                                                  });
-                                                                }
-
-
-
-                                                              },
-                                                              child: ck == true ? Tooltip(
-                                                                message: 'Start Timer',
-                                                                child: Icon(
-                                                                  Icons.play_circle,
-                                                                  color: Colors.red,size:width/ 46.65,),
-                                                              ) :Tooltip(
-                                                                message: 'Stop Timer',
-                                                                child: Icon(
-                                                                  Icons.pause_circle,
-                                                                  color: Colors.red,size:width/ 46.65,),
-                                                              )
-
-                                                          ),
-                                                          SizedBox(width:width/100),
-
-                                                          d1["status"]=="given"? Tooltip(
-                                                            message: 'Start Task',
-                                                            child: GestureDetector(
-                                                              onTap: (){
-                                                                mytasktaken(d1.id);
-                                                              },
-                                                              child: Icon(
-                                                                Icons.task,
-                                                                color: Colors.blue,size: width/53.31,),
-                                                            ),
-                                                          ) :
-                                                          d1["status"]=="taken"? Tooltip(
-                                                            message: 'Task Done',
-                                                            child: GestureDetector(
-                                                              onTap: (){
-                                                                mytaskcomplete(d1.id);
-                                                                timeupdate(d1.id);
-                                                              },
-                                                              child: Icon(
-                                                                Icons.add_alert,
-                                                                color: Colors.orange,size: width/53.31,),
-                                                            ),
-                                                          ) :
-                                                          d1["status"]=="complete"? Tooltip(
-                                                            message: "Already Done",
-                                                            child: Icon(
-                                                              Icons.verified_rounded,
-                                                              color: Colors.green,size: width/53.31,),
-                                                          ):SizedBox(),
-
-                                                          SizedBox(width:width/100),
-                                                          GestureDetector(
-                                                            onTap:(){
-                                                              setState(() {
-                                                                if(d1['view'] == false)
-                                                                { mytaskget(d1.id);}
-                                                                else
-                                                                {mytaskget2(d1.id);}
-                                                              });
-                                                            },
-                                                            child:
-                                                            d1["view"]==true ?
-                                                            Tooltip(
-                                                              message: 'Shrink',
-                                                              child: Icon(
-                                                                Icons.arrow_circle_up_outlined,
-                                                                color: Colors.red,size: width/53.31,),
-                                                            ):
-                                                            Tooltip(
-                                                              message: 'Expand',
-                                                              child: Icon(
-                                                                Icons.arrow_circle_down_outlined,
-                                                                color: Colors.green,size: width/53.31,),
-                                                            ),
-                                                          ),
-                                                        ],),
-                                                    ),
-                                                  ),
-                                                );
-                                            }).toList()
-                                        );
+                                StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Center(child: CircularProgressIndicator(),);
                                     }
-                                ),
+                                    return ListView.builder(
+                                        itemCount: snapshot.data!.docs.length,
+                                        itemBuilder: (context, index) {
+                                          return
+                                            Padding(
+                                              padding:EdgeInsets.only(top:height/104.3),
+                                              child:
+                                              Material(
+                                                elevation: 15,
+                                                color:Colors.white,borderRadius: BorderRadius.circular(12),
+                                                child:
+                                                AnimatedContainer(
+                                                  decoration: BoxDecoration(
+                                                      color:Colors.white,borderRadius: BorderRadius.circular(12)
+                                                  ),
+                                                  duration: const Duration(seconds: 1),
+                                                  width:width/3.20,
+                                                  child: Row(
+                                                    children: [
+                                                      SizedBox(width:width/186.6),
+                                                      Container(
+                                                        width:width/7.77,
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            SizedBox(height:height/104.3),
+                                                            Text(snapshot.data!.docs[index]['taskname'],style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.bold,fontSize:width/124.4
+                                                            ),),
+                                                            SizedBox(height:height/320),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Due date :', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['deadlinedate'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height:height/320),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Due Time : ', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['deadlinetime'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height:height/320),
+                                                            snapshot.data!.docs[index]["view"]==true ? RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Description : ', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['taskdescription'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
+                                                              ),
+                                                            ) : SizedBox()
+                                                          ],
+                                                        ),
+                                                      ),
+
+
+
+
+                                                      SizedBox(width:width/100),
+                                                      Container(
+                                                        height:height/34.76,
+                                                        width: width/14.35,
+                                                        decoration: BoxDecoration(
+                                                            color:Colors.red,borderRadius: BorderRadius.circular(20)
+                                                        ),
+                                                        child: Center(child: Text(elapsedTime,style: GoogleFonts.montserrat(
+                                                            color: Colors.white,fontWeight: FontWeight.w700,fontSize:width/130
+                                                        ),)),
+                                                      ),
+                                                      SizedBox(width:width/100),
+                                                      GestureDetector(
+                                                          onTap: ()
+                                                          {
+                                                            startOrStop();
+                                                            if(ck==true){
+                                                              setState(() {
+                                                                ck=false;
+                                                              });
+                                                            }
+                                                            else {
+                                                              setState(() {
+                                                                ck=true;
+                                                              });
+                                                            }
+
+
+
+                                                          },
+                                                          child: ck == true ? Tooltip(
+                                                            message: 'Start Timer',
+                                                            child: Icon(
+                                                              Icons.play_circle,
+                                                              color: Colors.red,size:width/ 46.65,),
+                                                          ) :Tooltip(
+                                                            message: 'Stop Timer',
+                                                            child: Icon(
+                                                              Icons.pause_circle,
+                                                              color: Colors.red,size:width/ 46.65,),
+                                                          )
+
+                                                      ),
+                                                      SizedBox(width:width/100),
+
+                                                      snapshot.data!.docs[index]["status"]=="given"? Tooltip(
+                                                        message: 'Start Task',
+                                                        child: GestureDetector(
+                                                          onTap: (){
+                                                            mytasktaken(snapshot.data!.docs[index].id);
+                                                          },
+                                                          child: Icon(
+                                                            Icons.task,
+                                                            color: Colors.blue,size: width/53.31,),
+                                                        ),
+                                                      ) :
+                                                      snapshot.data!.docs[index]["status"]=="taken"? Tooltip(
+                                                        message: 'Task Done',
+                                                        child: GestureDetector(
+                                                          onTap: (){
+                                                            mytaskcomplete(snapshot.data!.docs[index].id);
+                                                            timeupdate(snapshot.data!.docs[index].id);
+                                                            check(snapshot.data!.docs[index].id);
+                                                          },
+                                                          child: Icon(
+                                                            Icons.add_alert,
+                                                            color: Colors.orange,size: width/53.31,),
+                                                        ),
+                                                      ) :
+                                                      snapshot.data!.docs[index]["status"]=="complete"? Tooltip(
+                                                        message: "Already Done",
+                                                        child: Icon(
+                                                          Icons.verified_rounded,
+                                                          color: Colors.green,size: width/53.31,),
+                                                      ):SizedBox(),
+
+                                                      SizedBox(width:width/100),
+                                                      GestureDetector(
+                                                        onTap:(){
+                                                          setState(() {
+                                                            if(snapshot.data!.docs[index]['view'] == false)
+                                                            { mytaskget(snapshot.data!.docs[index].id);}
+                                                            else
+                                                            {mytaskget2(snapshot.data!.docs[index].id);}
+                                                          });
+                                                        },
+                                                        child:
+                                                        snapshot.data!.docs[index]["view"]==true ?
+                                                        Tooltip(
+                                                          message: 'Shrink',
+                                                          child: Icon(
+                                                            Icons.arrow_circle_up_outlined,
+                                                            color: Colors.red,size: width/53.31,),
+                                                        ):
+                                                        Tooltip(
+                                                          message: 'Expand',
+                                                          child: Icon(
+                                                            Icons.arrow_circle_down_outlined,
+                                                            color: Colors.green,size: width/53.31,),
+                                                        ),
+                                                      ),
+                                                    ],),
+                                                ),
+                                              ),
+                                            );
+                                        });
+                                  },)
+
                               ),
                               SizedBox(height:height/52.15),
 
@@ -1555,175 +1545,169 @@ class _dashboard_pageState extends State<dashboard_page> {
                               Container(
                                 width:width/3.20,
 
-                                child: StreamBuilder(
-                                    stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('Assignedtask').snapshots(),
-                                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      }
-                                      return ListView(
-                                          physics: ScrollPhysics(),
-                                          shrinkWrap: true,
-                                          children: snapshot.data!.docs.map((d1){
-                                            return
-                                              Padding(
-                                                padding: EdgeInsets.only(top:height/104.3),
+                                child:
+                                StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('Assignedtask').snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Center(child: CircularProgressIndicator(),);
+                                    }
+                                    return ListView.builder(
+                                        itemCount: snapshot.data!.docs.length,
+                                        itemBuilder: (context, index) {
+                                          return
+                                            Padding(
+                                              padding: EdgeInsets.only(top:height/104.3),
+                                              child: Material(
+                                                elevation: 15,
+                                                color:Colors.white,borderRadius: BorderRadius.circular(12),
                                                 child:
-                                                Material(
-                                                  elevation: 15,
-                                                  color:Colors.white,borderRadius: BorderRadius.circular(12),
-                                                  child:
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        color:Colors.white,borderRadius: BorderRadius.circular(12)
-                                                    ),
-                                                    width:width/3.20,
-                                                    child: Row(
-                                                      children: [
-                                                        SizedBox(width:width/186.6),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      color:Colors.white,borderRadius: BorderRadius.circular(12)
+                                                  ),
+                                                  width:width/3.20,
+                                                  child: Row(
+                                                    children: [
+                                                      SizedBox(width:width/186.6),
 
-                                                        Container(
-                                                          width:width/7.77,
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              SizedBox(height:height/104.3),
-                                                              Text('${d1['taskname']}',style: GoogleFonts.montserrat(
-                                                                  color:Colors.black,fontWeight:FontWeight.bold,fontSize:width/124.4
-                                                              ),),
-                                                              SizedBox(height:height/320),
+                                                      Container(
+                                                        width:width/7.77,
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            SizedBox(height:height/104.3),
+                                                            Text(snapshot.data!.docs[index]['taskname'],style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.bold,fontSize:width/124.4
+                                                            ),),
+                                                            SizedBox(height:height/320),
 
-                                                              RichText(
-                                                                text: TextSpan(
-                                                                  children: [
-                                                                    TextSpan(text: 'Due date :', style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                    ),),
-                                                                    TextSpan(text:'${d1['deadlinedate']}',style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                    ),),
-                                                                  ],
-                                                                ),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Due date :', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['deadlinedate'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
                                                               ),
-
-                                                              SizedBox(height:height/320),
-                                                              RichText(
-                                                                text: TextSpan(
-                                                                  children: [
-                                                                    TextSpan(text: 'Due Time : ', style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                    ),),
-                                                                    TextSpan(text:'${d1['deadlinetime']}',style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                    ),),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              SizedBox(height:height/320),
-                                                              RichText(
-                                                                text: TextSpan(
-                                                                  children: [
-                                                                    TextSpan(text: 'Assigned From : ', style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                    ),),
-                                                                    TextSpan(text:'${d1['taskfromid']}',style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                    ),),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              SizedBox(height:height/320),
-                                                              d1["view"]==true ?
-                                                              RichText(
-                                                                text: TextSpan(
-                                                                  children: [
-                                                                    TextSpan(text: 'Description : ', style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                    ),),
-                                                                    TextSpan(text:'${d1['taskdescription']}',style: GoogleFonts.montserrat(
-                                                                        color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                    ),),
-                                                                  ],
-                                                                ),
-                                                              ):SizedBox(),
-
-                                                              SizedBox(height:height/104.3),
-
-                                                            ],
-                                                          ),
-
-                                                        ),
-
-
-
-
-                                                        SizedBox(width:width/74.64),
-                                                        Tooltip(
-                                                          message: "See The Progress of Task",
-                                                          child: Container(
-                                                            height:height/34.76,
-                                                            width: width/14.35,
-                                                            decoration: BoxDecoration(
-                                                                color:Colors.blue,borderRadius: BorderRadius.circular(20)
                                                             ),
-                                                            child: Center(child: Text('View Progress',style: GoogleFonts.montserrat(
-                                                                color: Colors.white,fontWeight: FontWeight.w700,fontSize:width/130
-                                                            ),)),
-                                                          ),
-                                                        ),
-                                                        SizedBox(width:width/100),
-                                                        Tooltip(
-                                                          message: "Delete The Task",
-                                                          child: GestureDetector(onTap: (){
-                                                            deletetask(d1.id);
-                                                          },
-                                                            child: Icon( Icons.delete_forever,
-                                                              color: Colors.red,size:width/ 46.65,
+
+                                                            SizedBox(height:height/320),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Due Time : ', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['deadlinetime'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
+                                                              ),
                                                             ),
+                                                            SizedBox(height:height/320),
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Assigned From : ', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['taskfromid'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(height:height/320),
+                                                            snapshot.data!.docs[index]["view"]==true ?
+                                                            RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  TextSpan(text: 'Description : ', style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                                  ),),
+                                                                  TextSpan(text:snapshot.data!.docs[index]['taskdescription'],style: GoogleFonts.montserrat(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                                  ),),
+                                                                ],
+                                                              ),
+                                                            ):SizedBox(),
+
+                                                            SizedBox(height:height/104.3),
+
+                                                          ],
+                                                        ),
+
+                                                      ),
+
+
+
+
+                                                      SizedBox(width:width/74.64),
+                                                      Tooltip(
+                                                        message: "See The Progress of Task",
+                                                        child: Container(
+                                                          height:height/34.76,
+                                                          width: width/14.35,
+                                                          decoration: BoxDecoration(
+                                                              color:Colors.blue,borderRadius: BorderRadius.circular(20)
+                                                          ),
+                                                          child: Center(child: Text('View Progress',style: GoogleFonts.montserrat(
+                                                              color: Colors.white,fontWeight: FontWeight.w700,fontSize:width/130
+                                                          ),)),
+                                                        ),
+                                                      ),
+                                                      SizedBox(width:width/100),
+                                                      Tooltip(
+                                                        message: "Delete The Task",
+                                                        child: GestureDetector(onTap: (){
+                                                          deletetask(snapshot.data!.docs[index].id);
+                                                        },
+                                                          child: Icon( Icons.delete_forever,
+                                                            color: Colors.red,size:width/ 46.65,
                                                           ),
                                                         ),
-                                                        SizedBox(width:width/100),
-                                                        Tooltip(
-                                                          message: "Delete The Task",
-                                                          child: Icon(
-                                                            Icons.verified_rounded,
-                                                            color: Colors.green,size: width/53.31,),
-                                                        ),
-                                                        SizedBox(width:width/100),
-                                                        GestureDetector(
-                                                          onTap:(){
-                                                            setState(() {
-                                                              if(d1['view'] == false)
-                                                              {
-                                                                assignedtaskget(d1.id);
-                                                              }
-                                                              else
-                                                              {
-                                                                assignedtaskget2(d1.id);
-                                                              }
-                                                            });
-                                                          },
-                                                          child:
-                                                          d1["view"]==true ?
-                                                          Icon(
-                                                            Icons.arrow_circle_up_outlined,
-                                                            color: Colors.red,size: width/53.31,):
-                                                          Icon(
-                                                            Icons.arrow_circle_down_outlined,
-                                                            color: Colors.green,size: width/53.31,),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                      SizedBox(width:width/100),
+                                                      Tooltip(
+                                                        message: "Delete The Task",
+                                                        child: Icon(
+                                                          Icons.verified_rounded,
+                                                          color: Colors.green,size: width/53.31,),
+                                                      ),
+                                                      SizedBox(width:width/100),
+                                                      GestureDetector(
+                                                        onTap:(){
+                                                          setState(() {
+                                                            if(snapshot.data!.docs[index]['view'] == false)
+                                                            {
+                                                              assignedtaskget(snapshot.data!.docs[index].id);
+                                                            }
+                                                            else
+                                                            {
+                                                              assignedtaskget2(snapshot.data!.docs[index].id);
+                                                            }
+                                                          });
+                                                        },
+                                                        child:
+                                                        snapshot.data!.docs[index]["view"]==true ?
+                                                        Icon(
+                                                          Icons.arrow_circle_up_outlined,
+                                                          color: Colors.red,size: width/53.31,):
+                                                        Icon(
+                                                          Icons.arrow_circle_down_outlined,
+                                                          color: Colors.green,size: width/53.31,),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              );
-                                          }
-                                          ).toList()
-                                      );
-                                    }
-                                    ),
+                                              ),
+                                            );
+                                        });
+                                  },)
                               ),
                             ],
                           ),
@@ -1755,6 +1739,58 @@ class _dashboard_pageState extends State<dashboard_page> {
   String myid="";
   String catcat="";
   final FirebaseFirestore _firebase =FirebaseFirestore.instance;
+
+  var dt1="";
+  var dt2="";
+  gettime() async {
+    var doumet= await FirebaseFirestore.instance.collection("User").doc(widget.id).get();
+    Map<String,dynamic>? val =doumet.data();
+    setState(() {
+      DateTime dt1=val!["chkti"];
+      DateTime dt2=val["submittime"];
+    });
+  }
+
+  check(thisdocid) async {
+    await _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update(
+        {
+
+    }
+    );
+    setState(() {
+      if(dt1.compareTo(dt2) == 0)
+      {
+        _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update(
+            {
+            "timing":"ontime",
+
+            }
+        );
+
+      }
+
+      if(dt1.compareTo(dt2) < 0)
+      {
+        _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update(
+            {
+              "timing":"before",
+
+            }
+        );
+      }
+
+      if(dt1.compareTo(dt2) > 0){
+        _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update(
+            {
+              "timing":"after",
+
+            }
+        );
+      }
+
+    });
+
+  }
 
   Future deletetask(String docid)  async {
     await _firebase
@@ -1790,6 +1826,7 @@ class _dashboard_pageState extends State<dashboard_page> {
       myid=val["username"];
     });
   }
+
   getcat() async {
     var doumet= await FirebaseFirestore.instance.collection("User").doc(widget.id).get();
     Map<String,dynamic>? val =doumet.data();
@@ -1813,7 +1850,8 @@ class _dashboard_pageState extends State<dashboard_page> {
       "taskfromid":myid,
       "view":'false',
       "status":"given",
-      "submittime":''
+      "submittime":'',
+      'timing':''
 
     });
   }
@@ -1843,6 +1881,7 @@ class _dashboard_pageState extends State<dashboard_page> {
       "view":'false',
       "status":"given",
       "submittime":'',
+    'timing':'',
     'checktime':"${deadlinedatefield.text} ${deadlinetimefield.text}",
 
     });
@@ -1876,6 +1915,7 @@ class _dashboard_pageState extends State<dashboard_page> {
     });
   }
 
+
   Future Uploadtasktoid2() async{
     String userid="";
     final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
@@ -1902,6 +1942,7 @@ class _dashboard_pageState extends State<dashboard_page> {
       "view":'false',
       "status":"given",
       "submittime":'',
+      'timing':''
     
 
     });
@@ -1933,6 +1974,7 @@ class _dashboard_pageState extends State<dashboard_page> {
       "view":'false',
       "status":"given",
       "submittime":'',
+      'timing':''
 
     });
   }
@@ -1995,6 +2037,8 @@ class _dashboard_pageState extends State<dashboard_page> {
 
     return "$hoursStr:$minutesStr:$secondsStr";
   }
+
+
 
 }
 
