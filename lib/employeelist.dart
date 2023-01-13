@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'carrer.dart';
 import 'add_emp_form.dart';
@@ -99,9 +100,7 @@ class _EmployeePage2State extends State<EmployeePage2> with TickerProviderStateM
                   stream: FirebaseFirestore.instance.collection('EMP').snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return Center(child:Lottie.asset("assets/loadingall.json"),);
                     }
                     return Container(
                         height: height/1.73,

@@ -1,8 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:webpage/calender.dart';
+import 'package:webpage/dddddd.dart';
 import 'package:webpage/employeelist.dart';
 import 'package:webpage/Profile_Page/profile_page.dart';
 import 'package:webpage/pomotorotimer.dart';
@@ -11,10 +14,18 @@ import 'package:webpage/team_chat.dart';
 import '../Client_Page/client_page.dart';
 import '../Dashboard_Page/dashboard_page.dart';
 import '../Hr_Page/hr_page.dart';
+import '../Login_page/login_page.dart';
 import '../add_task.dart';
 import '../all_employee_page.dart';
 import '../add_emp_form.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:intl/intl.dart';
 
+import '../completed_task.dart';
+import '../project_emp_page.dart';
+
+
+const List<String> lelist = <String>[ 'Casual Leave','Sick Leave', 'Preplaned Leave',];
 class landing_page_employee extends StatefulWidget {
   String? id;
   landing_page_employee(this.id);
@@ -25,6 +36,7 @@ class landing_page_employee extends StatefulWidget {
 
 class _landing_page_employeeState extends State<landing_page_employee> {
 
+  String ledropdownValue = lelist.first;
   var  wid =10;
   var conheight=50;
   var  conwidth=50;
@@ -39,6 +51,11 @@ class _landing_page_employeeState extends State<landing_page_employee> {
   var tilleheight=30;
   bool i=true;
   int n=1;
+  String _selectedDate = '';
+  String _dateCount = '';
+  String _range = '';
+  String _rangeCount = '';
+
 
   @override
   void initState() {
@@ -49,10 +66,13 @@ class _landing_page_employeeState extends State<landing_page_employee> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     double height=MediaQuery.of(context).size.height;
     double width=MediaQuery.of(context).size.width;
+
+
 
     return Scaffold(
       body:
@@ -90,10 +110,21 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                         Row(
                                         children: [
                                           SizedBox(width:width/933,),
-                                          Container(
-                                              width: width/46.65,
-                                              height:height/26.07,
-                                              child: Image.asset("assets/profile.jpg")),
+                                          GestureDetector(
+                                            onTap:(){
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => chat(widget.id)),
+                                              );
+                                              print(width);
+                                              print(height);
+                                            },
+                                            child: Container(
+                                                width: width/46.65,
+                                                height:height/26.07,
+                                                child:Image.asset("assets/drawer_user_icon.png"),),
+                                          ),
+
                                           SizedBox(width:width/373.2,),
                                           GestureDetector(
                                             onTap: (){
@@ -101,7 +132,7 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                             },
                                             child: Text('Hi ${namee.toString()}',
                                               style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.bold,color: Color(0xff334d6e,),fontSize:width/103.6,
+                                                fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
                                             ),
                                           ),
@@ -118,7 +149,7 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                               style: GoogleFonts.montserrat(
                                                 color: Colors.white,
                                                 fontSize: width/155.5,
-                                                fontWeight: FontWeight.w500,),
+                                                fontWeight: FontWeight.bold,),
                                               textAlignVertical: TextAlignVertical.center,
                                               decoration: InputDecoration(
                                                   border: InputBorder.none,
@@ -136,7 +167,6 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                 SizedBox(height:height/80,),
                                 Divider(),
                                 SizedBox(height:height/52.15,),
-
                                 Material(
                                   elevation:n==1?10: 0,
                                   borderRadius:BorderRadius.circular(12),
@@ -160,7 +190,7 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                             SizedBox(width:width/933,),
                                             Text('Dash Board',
                                               style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
+                                                fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
                                             ),
 
@@ -171,7 +201,6 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-
                                 Material(
                                   elevation:n==2?10: 0,
                                   borderRadius:BorderRadius.circular(12),
@@ -198,7 +227,7 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                             SizedBox(width:width/933,),
                                             Text('Profile',
                                               style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
+                                                fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
                                             ),
                                           ],
@@ -208,7 +237,6 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-
                                 Material(
                                   elevation:n==3?10: 0,
                                   borderRadius:BorderRadius.circular(12),
@@ -222,7 +250,7 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                     child: GestureDetector(
                                       onTap: (){
                                         setState(() {
-                                          pages=team_chat();
+                                          pages=chat(widget.id);
                                           n=3;
                                         });
                                       },
@@ -234,7 +262,7 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                             SizedBox(width:width/933,),
                                             Text('Team Chat',
                                               style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
+                                                fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
                                             ),
 
@@ -245,7 +273,6 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-
                                 Material(
                                   elevation:n==4?10: 0,
                                   borderRadius:BorderRadius.circular(12),
@@ -259,8 +286,9 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                     child: GestureDetector(
                                       onTap: (){
                                         setState(() {
-                                          pages=calender();
                                           n=4;
+                                          pages=calender(widget.id);
+
                                         });
                                       },
                                       child: Center(
@@ -269,9 +297,9 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                             SizedBox(width:width/933,),
                                             SvgPicture.asset("assets/Group 10.svg"),
                                             SizedBox(width:width/933,),
-                                            Text('calenter',
+                                            Text('Calender',
                                               style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
+                                                fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
                                             ),
 
@@ -282,7 +310,6 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-
                                 Material(
                                   elevation:n==6?10: 0,
                                   borderRadius:BorderRadius.circular(12),
@@ -307,7 +334,7 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                             SizedBox(width:width/933,),
                                             Text('Promoter Timer',
                                               style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
+                                                fontWeight: FontWeight.bold,color:Colors.black,fontSize:width/103.6,
                                               ),),
 
                                           ],
@@ -317,7 +344,6 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-
                                 Material(
                                   elevation:n==5?10: 0,
                                   borderRadius:BorderRadius.circular(12),
@@ -331,7 +357,7 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                     child: GestureDetector(
                                       onTap: (){
                                         setState(() {
-                                          pages=team_chat();
+                                          pages=completed_task(widget.id);
                                           n=5;
                                         });
                                       },
@@ -342,7 +368,7 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                             Image.asset("assets/calenderpng.png"),
                                             SizedBox(width:width/933,),
                                             Text('Completed Task', style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
+                                              fontWeight: FontWeight.bold,color:Colors.black,fontSize:width/103.6,
                                             ),),
 
                                           ],
@@ -351,25 +377,63 @@ class _landing_page_employeeState extends State<landing_page_employee> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height:height/5.3,),
+                                SizedBox(height:height/86.91,),
+                                Material(
+                                  elevation:n==8?10: 0,
+                                  borderRadius:BorderRadius.circular(12),
+                                  child: Container(
+                                    height:height/14.9,
+                                    padding: EdgeInsets.only(top:height/208.6),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:BorderRadius.circular(12)
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        setState(() {
+                                          pages=project_emp_page(widget.id);
+                                          n=8;
+                                        });
+                                      },
+                                      child: Center(
+                                        child: Row(
+                                          children: [
+                                            SizedBox(width:width/933,),
+                                            Image.asset("assets/calenderpng.png"),
+                                            SizedBox(width:width/933,),
+                                            Text('Projects', style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.bold,color:Colors.black,fontSize:width/103.6,
+                                            ),),
+
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height:height/10,),
 
 
 
                                 //SizedBox(height:height/9,),
                                 Padding(
                                   padding:EdgeInsets.only(bottom: height/34.76),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text('Logout',style: GoogleFonts.montserrat(color: Colors.black,fontWeight:FontWeight.bold,fontSize:width/93.3),),
-                                      SizedBox(width: width/186.6,),
-                                      Icon(
-                                        Icons.logout,
-                                        color: Colors.black,
-                                        size: width/93.3,
-                                      ),
+                                  child: GestureDetector(onTap: (){
+                                    logoutshow();
+                                  },
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text('Logout',style: GoogleFonts.montserrat(color: Colors.black,fontWeight:FontWeight.bold,fontSize:width/93.3),),
+                                        SizedBox(width: width/186.6,),
+                                        Icon(
+                                          Icons.logout,
+                                          color: Colors.black,
+                                          size: width/93.3,
+                                        ),
 
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
 
@@ -417,5 +481,32 @@ class _landing_page_employeeState extends State<landing_page_employee> {
       namee=val!["firstname"];
 
     });
+  }
+  Future<void> logoutshow() async {
+    return
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        headerAnimationLoop: false,
+        animType: AnimType.topSlide,
+        showCloseIcon: true,
+        width: 500,
+        closeIcon: const Icon(Icons.close_fullscreen_outlined),
+        title: 'Logout',
+        desc:
+        'Are You Sure To Logout',
+        btnCancelOnPress: () {
+        },
+        onDismissCallback: (type) {
+          debugPrint('Dialog Dismiss from callback $type');
+        },
+        btnOkOnPress: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) =>login_page()),
+          );
+        },
+      ).show();
+
   }
 }

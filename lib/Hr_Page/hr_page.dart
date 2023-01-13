@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import '../all_employee_page.dart';
 import '../add_emp_form.dart';
@@ -82,7 +83,7 @@ class _hr_pageState extends State<hr_page> {
                      ),
                        width:width/12.44,
                        height: height/23,
-                       child: Center(child: Text('Add HR / EMP',style: TextStyle(
+                       child: Center(child: Text('Add HR',style: TextStyle(
                            color: Colors.white,
                            fontWeight: FontWeight.bold,
                            fontSize: width/143.53),)),
@@ -90,25 +91,7 @@ class _hr_pageState extends State<hr_page> {
                    ),
                  ),
                ),
-                  Padding(
-                 padding:EdgeInsets.only(left:width/37.32),
-                 child: Material(
-                   elevation: 10,
-                     borderRadius: BorderRadius.circular(20),
-                   child: Container(
-                     decoration: BoxDecoration(
-                         color: Color(0xff5F67EC),
-                     borderRadius: BorderRadius.circular(20)
-                   ),
-                     width:width/12.44,
-                     height: height/23,
-                     child: Center(child: Text('New Canditate',style: TextStyle(
-                         color: Colors.white,
-                         fontWeight: FontWeight.bold,
-                         fontSize: width/143.53),)),
-                   ),
-                 ),
-               ),
+
                 ],
               ),
               SizedBox(height:height/52.15,),
@@ -155,12 +138,10 @@ class _hr_pageState extends State<hr_page> {
               ),
 
               StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('User').snapshots(),
+                stream: FirebaseFirestore.instance.collection('User').where('category', isEqualTo: 'HR').snapshots(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return Center(child:Lottie.asset("assets/loading.json"),);
                   }
                   return Container(
                     height: height/1.73,
@@ -252,14 +233,6 @@ class _hr_pageState extends State<hr_page> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Container(
-                                              width:width/74.64,
-                                                height:height/41.72,
-                                                child: Image.asset('assets/Sendp.png',)),
-                                            Container(
-                                                width:width/74.64,
-                                                height:height/41.72,
-                                                child: Image.asset('assets/pointerp.png',)),
                                             Icon(Icons.error_outline,color: Color(0xffffb946),),
                                       ]),
                                     ),

@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,12 +7,16 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
+import 'package:image_picker/image_picker.dart';
 import 'dart:io' as io;
 
-const List<String> list = <String>[ 'Not to Say','Male', 'Female',];
-const List<String> list1 = <String>['Admin', 'Employee', 'HR', 'Four'];
-const List<String> list2 = <String>['Full Time', 'Part Time',];
-const List<String> list3 = <String>['Anna Nagar', 'Kolathur', 'Avadi', 'Paadi'];
+import 'package:lottie/lottie.dart';
+import 'package:uuid/uuid.dart';
+
+const List<String> list = <String>[ '-Select-','Not to Say','Male', 'Female',];
+const List<String> list1 = <String>['-Select-', 'Employee', 'HR', 'Sales'];
+const List<String> list2 = <String>['-Select-','Full Time', 'Part Time',];
+const List<String> list3 = <String>['-Select-','Anna Nagar', 'Kolathur', 'Avadi', 'Paadi'];
 
 class add_emp_form extends StatefulWidget {
 
@@ -65,9 +70,7 @@ int n=0;
     double height = MediaQuery.of(context).size.height;
     double  width = MediaQuery.of(context).size.width;
     return Scaffold(
-        body:
-
-              Padding(
+        body:   Padding(
                 padding:EdgeInsets.only(top: height/52.15),
                 child: Column(
                   children: [
@@ -106,16 +109,20 @@ int n=0;
                                       ),),
                                       Row(
                                         children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                color:Colors.grey,
-                                                borderRadius: BorderRadius.circular(30)
+                                          GestureDetector(onTap:(){
+                                            Navigator.pop(context);
+                                          },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color:Colors.grey,
+                                                  borderRadius: BorderRadius.circular(30)
+                                              ),
+                                              width:width/15.55,
+                                              height:height/26.07,
+                                              child: Center(child: Text('Cancel',style: GoogleFonts.montserrat(
+                                                  fontWeight: FontWeight.bold,color: Colors.white
+                                              ),)),
                                             ),
-                                            width:width/15.55,
-                                            height:height/26.07,
-                                            child: Center(child: Text('Cancel',style: GoogleFonts.inter(
-                                                fontWeight: FontWeight.bold,color: Colors.white
-                                            ),)),
                                           ),
                                           SizedBox(width:width/37.32,),
                                           GestureDetector(onTap: (){
@@ -130,7 +137,7 @@ int n=0;
                                               ),
                                               width:width/15.55,
                                               height:height/26.07,
-                                              child: Center(child: Text('Save',style: GoogleFonts.inter(
+                                              child: Center(child: Text('Save',style: GoogleFonts.montserrat(
                                                   fontWeight: FontWeight.bold,color: Colors.white
                                               ),
                                               )
@@ -157,7 +164,7 @@ int n=0;
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('First Name*',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                                            Text('First Name*',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 height:height/23.17,
@@ -189,7 +196,7 @@ int n=0;
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Middle Name',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            Text('Middle Name',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 height:height/23.17,
@@ -225,7 +232,7 @@ int n=0;
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Last Name',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            Text('Last Name',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 height:height/23.17,
@@ -266,7 +273,7 @@ int n=0;
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Job Position*',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            Text('Job Position*',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 height:height/23.17,
@@ -308,7 +315,7 @@ int n=0;
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Sex',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            Text('Sex',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 width:width/5,
@@ -359,7 +366,7 @@ int n=0;
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('D.O.B',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            Text('D.O.B',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 height:height/23.17,
@@ -421,7 +428,7 @@ int n=0;
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Shift',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            Text('Shift',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 width:width/5,
@@ -474,10 +481,11 @@ int n=0;
                                     children: [
                                       Container(
                                         width:width/5,
-                                        child: Column(
+                                        child:
+                                        Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Mobile*',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            Text('Mobile*',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 height:height/23.17,
@@ -514,7 +522,7 @@ int n=0;
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Email',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            Text('Email',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 height:height/23.17,
@@ -548,7 +556,7 @@ int n=0;
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text('Branch',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            Text('Branch',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                             SizedBox(height:height/208.6,),
                                             Container(
                                                 width:width/5,
@@ -604,7 +612,7 @@ int n=0;
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('Employee Id*',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                              Text('Employee Id*',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                               SizedBox(height:height/208.6,),
                                               Container(
                                                   width:width/5,
@@ -632,7 +640,7 @@ int n=0;
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text('Position',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                              Text('Position',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
                                               SizedBox(height:height/208.6,),
                                               Container(
                                                   width:width/5,
@@ -705,13 +713,38 @@ int n=0;
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 SizedBox(height:height/104.3,),
-                                                Icon(Icons.upload_file,color:Color(0xff5138EE),size: width/46.65,),
+                                                Icon(Icons.photo_library_outlined,color:Color(0xff5138EE),size: width/46.65,),
                                                 SizedBox(height:height/104.3,),
-                                                Text('Select the CV file to Upload',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B)))
+                                             filename == ''?   Text('Select the Photo to Upload',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))):
+                                                 Text(filename),
                                               ],)
                                         ),
                                         ),
-                                      )
+                                      ),
+                                      SizedBox(width:50),
+                                      GestureDetector(
+                                        onTap:(){
+                                        },
+                                        child: DottedBorder(
+                                          borderType: BorderType.RRect,
+                                          radius: Radius.circular(10),
+                                          dashPattern: [5,5],
+                                          color: Color(0xff5138EE),
+                                          strokeWidth:2, child: Container(
+                                            width:width/6.22,
+                                            height:height/8.69,
+                                            child:Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(height:height/104.3,),
+                                                Icon(Icons.upload_file,color:Color(0xff5138EE),size: width/46.65,),
+                                                SizedBox(height:height/104.3,),
+                                                Text('Select the CV file to Upload',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B)))
+                                              ],)
+                                        ),
+                                        ),
+                                      ),
+
                                     ],),
                                   SizedBox(height:height/20.86,)
 
@@ -755,44 +788,44 @@ int n=0;
       'username1':empid.toString(),
       'username':"${'EMP'}-${empid.toString()}",
       'password':"${firstnamefield.text}@${dobfield.text}",
-
-
-
+      'userimage':imgUrl
     });
   }
+
   getsizevalues() async {
     var  document = await FirebaseFirestore.instance.collection('User').get();
     setState(() {
       empid = document.docs.length.toInt() + 001;
     });
   }
+
   Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Upload Success'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text('Employee Added Successfully'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Ok'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                clearall();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    return
+      AwesomeDialog(
+        context: context,
+        width: 500,
+        animType: AnimType.leftSlide,
+        headerAnimationLoop: false,
+        dialogType: DialogType.success,
+        showCloseIcon: true,
+        title: 'Success',
+        desc:
+        'Employee Add Sucessfully',
+        btnOkOnPress: () {
+          debugPrint('OnClcik');
+          Navigator.of(context).pop();
+          clearall();
+        },
+        btnOkIcon: Icons.check_circle,
+        onDismissCallback: (type) {
+          debugPrint('Dialog Dissmiss from callback $type');
+          Navigator.of(context).pop();
+          clearall();
+        },
+      ).show();
   }
+
+
   clearall(){
     firstnamefield.clear();
     middlenamefield.clear();
@@ -806,8 +839,10 @@ int n=0;
   }
 
   String imgUrl="";
-
+  String fileName = Uuid().v1();
+String  filename='';
   uploadToStorage() async{
+
     InputElement input = FileUploadInputElement()as InputElement ..accept = 'image/*';
     FirebaseStorage fs = FirebaseStorage.instance;
     input.click();
@@ -816,28 +851,40 @@ int n=0;
       final reader = FileReader();
       reader.readAsDataUrl(file);
       reader.onLoadEnd.listen((event) async {
+        setState(() {
+          filename = file.name;
+        });
         var snapshot = await fs.ref().child('sliderimages').child("${file.name}").putBlob(file);
         String downloadUrl = await snapshot.ref.getDownloadURL();
         setState(() {
           imgUrl = downloadUrl;
         });
-        update(imgUrl);
+
         print(imgUrl);
       });
     });
 
     print(imgUrl);
 
+
+
+  }
+  update(url) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    await _firestore.collection('slider').doc(DateTime.now().microsecondsSinceEpoch.toString()).set({
+      "urls": url,
+      'timestamp':DateTime.now().microsecondsSinceEpoch,
+
+
+    });
   }
 
-update(url) async {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  await _firestore.collection('slider').doc(DateTime.now().microsecondsSinceEpoch.toString()).set({
-    "urls": url,
-  });
 }
 
 
-}
+
+
+
+
 
 

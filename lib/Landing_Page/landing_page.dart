@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:webpage/add_client_form.dart';
 import 'package:webpage/employeelist.dart';
 import 'package:webpage/Profile_Page/profile_page.dart';
 import 'package:webpage/sales.dart';
@@ -11,6 +13,8 @@ import '../Hr_Page/hr_page.dart';
 import '../add_task.dart';
 import '../all_employee_page.dart';
 import '../add_emp_form.dart';
+import '../leads.dart';
+import '../leads2.dart';
 
 class landing_page_admin extends StatefulWidget {
   String? id;
@@ -59,11 +63,11 @@ class _landing_page_adminState extends State<landing_page_admin> {
   var  _colors;
   bool i=true;
   int n=1;
-
+  final TextEditingController noticefield=TextEditingController();
 @override
   void initState() {
   setState(() {
-    pages=dashboard_page(widget.id);
+    pages=add_client_form(widget.id,"");
   });
     // TODO: implement initState
     super.initState();
@@ -72,6 +76,118 @@ class _landing_page_adminState extends State<landing_page_admin> {
   Widget build(BuildContext context) {
     double height=MediaQuery.of(context).size.height;
     double width=MediaQuery.of(context).size.width;
+
+    ShownoticeDialog(){
+      AlertDialog alert=AlertDialog(
+        backgroundColor: Colors.transparent,
+        content:Container(
+          height: 300,
+          width:width/5,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25),
+              color: Colors.white
+          ),
+          child: Column(
+            children: [
+              Container(
+                  width:width/5,
+                  decoration: BoxDecoration(
+                      color: Color(0xff5F67EC),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
+                  ),
+                  child:Padding(
+                    padding:EdgeInsets.only(top:height/104.3,bottom:height/104.3,left: width/60,right: width/60,),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text('Notice',style: GoogleFonts.montserrat(
+                            fontSize:width/80,fontWeight: FontWeight.bold,color: Colors.white
+                        ),),
+                      ],
+                    ),
+                  )
+              ),
+              SizedBox(height: 10,),
+              Row(
+               mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  SizedBox(width: 15,),
+                  GestureDetector(onTap: (){
+                    Navigator.pop(context);
+                  },
+                      child: Icon(Icons.cancel_outlined)),
+                  SizedBox(width:10)
+                ],
+              ),
+              Row(
+                children: [
+                SizedBox(width:10),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+
+                    Text('Circular',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                    SizedBox(height:height/208.6,),
+                    Container(
+                        width:width/5.50,
+                        decoration: BoxDecoration(
+                          borderRadius:  BorderRadius.circular(10),
+                          color: Color(0xffECEDFF),
+                        ),
+                        child: TextFormField(
+                          maxLines: 5,
+                          style: GoogleFonts.montserrat(
+                            color: Colors.black,
+                            fontSize: width/140,
+                            fontWeight: FontWeight.w500,),
+                          textInputAction: TextInputAction.next,
+                          controller: noticefield,
+                          cursorColor: Color(0xff5138EE),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(5),
+                              border: InputBorder.none,
+                              isCollapsed: true,
+                          ),)),
+                      SizedBox(height:height/100,),
+                    GestureDetector(
+                      onTap: (){
+                        Uploadnotice();
+                      },
+                      child: Container(
+                          width: 80,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.lightBlue
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text('Send',style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),),
+                              Icon(Icons.send,size: 20,color: Colors.white,)
+                            ],)
+                      ),
+                    )
+
+                  ],)
+
+              ],),
+            ],
+          ),
+        ),
+      );
+      showDialog(
+          context: context,
+          builder:(BuildContext context){
+            return alert;
+          }
+      );
+
+    }
 
     return Scaffold(
       body:
@@ -117,7 +233,7 @@ class _landing_page_adminState extends State<landing_page_admin> {
                                          onTap: (){
                                            print(height);
                                          },
-                                         child: Text('Dinesh',
+                                         child: Text('Hi Admin',
                                            style: GoogleFonts.montserrat(
                                              fontWeight: FontWeight.bold,color: Color(0xff334d6e,),fontSize:width/103.6,
                                            ),
@@ -239,7 +355,7 @@ class _landing_page_adminState extends State<landing_page_admin> {
                                    child: GestureDetector(
                                      onTap: (){
                                        setState(() {
-                                         pages=add_task();
+                                         pages=leads_page();
                                          n=3;
                                        });
                                      },
@@ -333,7 +449,7 @@ class _landing_page_adminState extends State<landing_page_admin> {
                                ),
                                SizedBox(height:height/86.91,),
                                Material(
-                                 elevation:n==5?10: 0,
+                                 elevation:n==10?10: 0,
                                  borderRadius:BorderRadius.circular(12),
                                  child: Container(
                                    height:height/14.9,
@@ -344,10 +460,7 @@ class _landing_page_adminState extends State<landing_page_admin> {
                                    ),
                                    child: GestureDetector(
                                      onTap: (){
-                                       setState(() {
-                                         pages=team_chat();
-                                         n=5;
-                                       });
+                                       ShownoticeDialog();
                                      },
                                      child: Center(
                                        child: Row(
@@ -355,41 +468,7 @@ class _landing_page_adminState extends State<landing_page_admin> {
                                            SizedBox(width:width/933,),
                                            Image.asset("assets/calenderpng.png"),
                                            SizedBox(width:width/933,),
-                                           Text('Calender', style: GoogleFonts.montserrat(
-                                           fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
-                                           ),),
-
-                                         ],
-                                       ),
-                                     ),
-                                   ),
-                                 ),
-                               ),
-                               SizedBox(height:height/86.91,),
-                               Material(
-                                 elevation:n==10?10: 0,
-                                 borderRadius:BorderRadius.circular(12),
-                                 child: Container(
-                                   height:height/14.9,
-                                   padding: EdgeInsets.only(top:height/208.6),
-                                   decoration: BoxDecoration(
-                                     color: Colors.white,
-                                       borderRadius:BorderRadius.circular(12)
-                                   ),
-                                   child: GestureDetector(
-                                     onTap: (){
-                                       setState(() {
-                                         pages=profile_page(widget.id);
-                                         n=10;
-                                       });
-                                     },
-                                     child: Center(
-                                       child: Row(
-                                         children: [
-                                           SizedBox(width:width/933,),
-                                           SvgPicture.asset("assets/pro.svg"),
-                                           SizedBox(width:width/933,),
-                                           Text('My Profile', style: GoogleFonts.montserrat(
+                                           Text('Notice', style: GoogleFonts.montserrat(
                                              fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
                                            ),),
 
@@ -399,76 +478,7 @@ class _landing_page_adminState extends State<landing_page_admin> {
                                    ),
                                  ),
                                ),
-
-                               SizedBox(height:height/86.91,),
-                               Material(
-                                 elevation:n==11?10: 0,
-                                 borderRadius:BorderRadius.circular(12),
-                                 child: Container(
-                                   height:height/14.9,
-                                   padding: EdgeInsets.only(top:height/208.6),
-                                   decoration: BoxDecoration(
-                                       color: Colors.white,
-                                       borderRadius:BorderRadius.circular(12)
-                                   ),
-                                   child: GestureDetector(
-                                     onTap: (){
-                                       setState(() {
-                                         pages=add_emp_form();
-                                         n=11;
-                                       });
-                                     },
-                                     child: Center(
-                                       child: Row(
-                                         children: [
-                                           SizedBox(width:width/933,),
-                                           SvgPicture.asset("assets/pro.svg"),
-                                           SizedBox(width:width/933,),
-                                           Text('Add Emp', style: GoogleFonts.montserrat(
-                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
-                                           ),),
-
-                                         ],
-                                       ),
-                                     ),
-                                   ),
-                                 ),
-                               ),
-
-                               SizedBox(height:height/86.91,),
-                               Material(
-                                 elevation:n==12?10: 0,
-                                 borderRadius:BorderRadius.circular(12),
-                                 child: Container(
-                                   height:height/14.9,
-                                   padding: EdgeInsets.only(top:height/208.6),
-                                   decoration: BoxDecoration(
-                                       color: Colors.white,
-                                       borderRadius:BorderRadius.circular(12)
-                                   ),
-                                   child: GestureDetector(
-                                     onTap: (){
-                                       setState(() {
-                                         pages=EmployeePage2();
-                                         n=12;
-                                       });
-                                     },
-                                     child: Center(
-                                       child: Row(
-                                         children: [
-                                           SizedBox(width:width/933,),
-                                           SvgPicture.asset("assets/pro.svg"),
-                                           SizedBox(width:width/933,),
-                                           Text('Emp', style: GoogleFonts.montserrat(
-                                             fontWeight: FontWeight.w500,color: Color(0xff334d6e,),fontSize:width/103.6,
-                                           ),),
-
-                                         ],
-                                       ),
-                                     ),
-                                   ),
-                                 ),
-                               ),
+                               SizedBox(height:height/8,),
 
                                //SizedBox(height:height/9,),
                                Padding(
@@ -554,5 +564,14 @@ class _landing_page_adminState extends State<landing_page_admin> {
      ),
 
     );
+  }
+
+  final FirebaseFirestore _firebase =FirebaseFirestore.instance;
+  Future Uploadnotice() async{
+    await _firebase.collection('allnotice').doc().set({
+      'sendtime':DateTime.now().millisecondsSinceEpoch,
+      'message' : noticefield.text,
+
+    });
   }
 }

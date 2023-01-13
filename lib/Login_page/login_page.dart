@@ -22,6 +22,9 @@ class _login_pageState extends State<login_page> {
   TextEditingController passfield = TextEditingController();
   TextEditingController oldpassfield = TextEditingController();
   TextEditingController newpassfield = TextEditingController();
+  final Focus1 = FocusNode();
+  final Focus2 = FocusNode();
+  final Focus3 = FocusNode();
 
 
   @override
@@ -115,7 +118,7 @@ class _login_pageState extends State<login_page> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Old Pass',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                          Text('Old Pass',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
                           SizedBox(height:height/208.6,),
                           Container(
                               decoration: BoxDecoration(
@@ -152,7 +155,7 @@ class _login_pageState extends State<login_page> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('New Pass',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                          Text('New Pass',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
                           SizedBox(height:height/208.6,),
                           Container(
                               decoration: BoxDecoration(
@@ -250,7 +253,9 @@ class _login_pageState extends State<login_page> {
                       child: TextField(
                         style: GoogleFonts.montserrat(fontSize:width/155.5),
                         controller: usernamefield,
-                        onEditingComplete: () => focus.nextFocus(),
+                        onEditingComplete: (){
+                          FocusScope.of(context).requestFocus(Focus1);
+                        },
                         decoration: InputDecoration(
                             hintText: 'E-mail',hintStyle:TextStyle(fontSize:width/124.4) ,
                             contentPadding: EdgeInsets.only(top:height/208.6,left:width/186.6),
@@ -269,6 +274,13 @@ class _login_pageState extends State<login_page> {
                       child: TextField(
                         style: GoogleFonts.montserrat(fontSize:width/155.5),
                         controller: passfield,
+                        onEditingComplete: (){
+                          FocusScope.of(context).requestFocus(Focus2);
+                        },
+                        onSubmitted: (_){
+                          navigation1();
+                        },
+                        focusNode: Focus1,
                         decoration: InputDecoration(
                             hintText: 'Password',hintStyle:TextStyle(fontSize:width/124.4) ,
                             contentPadding: EdgeInsets.only(top:height/208.6,left:width/186.6),
@@ -326,7 +338,7 @@ class _login_pageState extends State<login_page> {
                         ),
                         width:width/5.33,
                         height:height/23.17,
-                        child: Center(child: Text('Login',style: TextStyle(color: Colors.white),)) ,
+                        child: Center(child: Text('Login',style:GoogleFonts.montserrat(color: Colors.white),)) ,
                       ),
                     ),
                       SizedBox(height:height/52.15,),
@@ -393,7 +405,8 @@ class _login_pageState extends State<login_page> {
     }
     else
     {
-      emp_add_done_show();
+      print('hi');
+      error_show();
     }
     }
 
@@ -433,7 +446,24 @@ class _login_pageState extends State<login_page> {
 
       }
     }
+    else
+    {
+      print('hi');
+      error_show();
     }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -473,7 +503,7 @@ class _login_pageState extends State<login_page> {
     }
     else
     {
-      emp_add_done_show();
+      error_show();
     }
     }
 
@@ -499,7 +529,7 @@ class _login_pageState extends State<login_page> {
     }
     else
     {
-      emp_add_done_show();
+      error_show();
     }
     }
 
@@ -518,24 +548,24 @@ class _login_pageState extends State<login_page> {
     }
     else
     {
-      emp_add_done_show();
+      error_show();
     }
 
 
     }
 
 
-  Future<void> emp_add_done_show() async {
+  Future<void> error_show() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Upload Success'),
+          title: const Text('Something Went Worng'),
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('Employee Added Successfully'),
+                Text('Check Username & Password'),
               ],
             ),
           ),
@@ -551,6 +581,8 @@ class _login_pageState extends State<login_page> {
       },
     );
   }
+
+
 
   Future<void> password_update_fail_show() async {
     return showDialog<void>(
@@ -578,7 +610,6 @@ class _login_pageState extends State<login_page> {
       },
     );
   }
-
   Future<void> password_update_done_show() async {
     return showDialog<void>(
       context: context,
@@ -607,7 +638,6 @@ class _login_pageState extends State<login_page> {
       },
     );
   }
-
   Future update_new_password() async{
     await  _firebase.collection('User').doc(id).update({
       'password':newpassfield.text,

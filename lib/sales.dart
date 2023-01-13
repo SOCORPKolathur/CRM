@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 
 
@@ -67,7 +68,7 @@ class _SalesState extends State<Sales> {
                           ),
                           width:width/12.44,
                           height: height/23,
-                          child: Center(child: Text('New Leads',style: TextStyle(
+                          child: Center(child: Text('New Leads',style: GoogleFonts.montserrat(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: width/143.53),)),
@@ -106,13 +107,13 @@ class _SalesState extends State<Sales> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text('Si No',style: GoogleFonts.poppins(color:Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Name',style: GoogleFonts.poppins(color:  Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Lead Status',style: GoogleFonts.poppins(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Phone No',style: GoogleFonts.poppins(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Requirement',style: GoogleFonts.poppins(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Location',style: GoogleFonts.poppins(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Action',style: GoogleFonts.poppins(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Si No',style: GoogleFonts.montserrat(color:Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Name',style: GoogleFonts.montserrat(color:  Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Lead Status',style: GoogleFonts.montserrat(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Phone No',style: GoogleFonts.montserrat(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Requirement',style: GoogleFonts.montserrat(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Location',style: GoogleFonts.montserrat(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Action',style: GoogleFonts.montserrat(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
                       ]),
                 ),
                 SizedBox(
@@ -123,9 +124,7 @@ class _SalesState extends State<Sales> {
                   stream: FirebaseFirestore.instance.collection('Users').snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return Center(child:Lottie.asset("assets/loadingall.json"),);
                     }
                     return Container(
                         height: height/1.73,
@@ -157,7 +156,7 @@ class _SalesState extends State<Sales> {
                                             width: width/18.66,
                                             height: height/34.76,
                                             child: Center(child: Text(val["Id no"],
-                                              style: GoogleFonts.poppins(fontSize: width/133.28,
+                                              style: GoogleFonts.montserrat(fontSize: width/133.28,
                                                   color: Colors.blue,fontWeight: FontWeight.w500),)),
 
                                           ),
@@ -167,7 +166,7 @@ class _SalesState extends State<Sales> {
                                           width: width/8,
                                           height: height/34.76,
                                           child: Center(child: Text(val["Name"], overflow: TextOverflow.ellipsis,
-                                            style: GoogleFonts.poppins(
+                                            style: GoogleFonts.montserrat(
                                                 fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                         ),
 
@@ -179,7 +178,7 @@ class _SalesState extends State<Sales> {
                                           height: height/30,
                                           width: width/13,
                                           child: Center(child: Text('In Progress', overflow: TextOverflow.ellipsis,
-                                            style: GoogleFonts.poppins(fontSize: width/133.28,
+                                            style: GoogleFonts.montserrat(fontSize: width/133.28,
                                                 color: Colors.black,fontWeight: FontWeight.bold),)),
 
                                         ),
@@ -191,7 +190,7 @@ class _SalesState extends State<Sales> {
                                             height: height/34.76,
                                             width: width/8.48,
                                             child: Center(child: Text(val["contact"],
-                                              style: GoogleFonts.poppins(
+                                              style: GoogleFonts.montserrat(
                                                   fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
 
 
@@ -205,7 +204,7 @@ class _SalesState extends State<Sales> {
                                             height: height/34.76,
                                             width: width/18.66,
                                             child: Center(child: Text(val["Role"],
-                                              style: GoogleFonts.poppins(
+                                              style: GoogleFonts.montserrat(
                                                   fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                           ),
                                         ),
@@ -216,7 +215,7 @@ class _SalesState extends State<Sales> {
                                             height: height/34.76,
                                             width: width/18.66,
                                             child: Center(child: Text("Chennai",
-                                              style: GoogleFonts.poppins(
+                                              style: GoogleFonts.montserrat(
                                                   fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                           ),
                                         ),
@@ -231,7 +230,7 @@ class _SalesState extends State<Sales> {
                                             height: height/30,
                                             width: width/13,
                                             child: Center(child: Text('Change Status', overflow: TextOverflow.ellipsis,
-                                              style: GoogleFonts.poppins(fontSize: width/133.28,
+                                              style: GoogleFonts.montserrat(fontSize: width/133.28,
                                                   color: Colors.black,fontWeight: FontWeight.bold),)),
 
                                           ),

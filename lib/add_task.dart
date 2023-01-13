@@ -106,7 +106,7 @@ class _add_taskState extends State<add_task> with TickerProviderStateMixin{
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Employee Name',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                                      Text('Employee Name',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
                                       SizedBox(height:height/208.6,),
                                       Container(
                                         decoration: BoxDecoration(
@@ -176,7 +176,7 @@ class _add_taskState extends State<add_task> with TickerProviderStateMixin{
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Employee ID',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                                      Text('Employee ID',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
 
                                   SizedBox(height:height/208.6,),
                                    Container(
@@ -218,7 +218,7 @@ class _add_taskState extends State<add_task> with TickerProviderStateMixin{
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Deadline-Date',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                                      Text('Deadline-Date',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
                                       SizedBox(height:height/208.6,),
                                       Container(
                                           decoration: BoxDecoration(
@@ -279,7 +279,7 @@ class _add_taskState extends State<add_task> with TickerProviderStateMixin{
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Deadline-Time',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                                      Text('Deadline-Time',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
                                       SizedBox(height:height/208.6,),
                                       Container(
                                           decoration: BoxDecoration(
@@ -318,7 +318,7 @@ class _add_taskState extends State<add_task> with TickerProviderStateMixin{
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Task Name',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                                  Text('Task Name',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
                                   SizedBox(height:height/208.6,),
                                   Container(
                                       decoration: BoxDecoration(
@@ -355,7 +355,7 @@ class _add_taskState extends State<add_task> with TickerProviderStateMixin{
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Task Description',style: GoogleFonts.inter(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                                  Text('Task Description',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
                                   SizedBox(height:height/208.6,),
                                   Container(
                                       decoration: BoxDecoration(

@@ -39,7 +39,7 @@ dependencies:
   unicons: ^2.1.0
 
 
-  url_launcher: ^6.1.6
+
   flutter_svg: ^1.1.6
   popover_gtk: ^0.2.6+3
   show_up_animation: ^2.0.0
@@ -54,6 +54,21 @@ dependencies:
   syncfusion_flutter_datepicker: ^20.3.52
   hovering: ^1.0.4
   firebase_storage: ^11.0.9
+  uuid: ^3.0.7
+  random_string: ^2.3.1
+  slide_countdown: ^0.4.0
+  linkable: ^3.0.1
+  fluttertoast: ^8.1.2
+  firebase_auth: ^4.2.5
+  auto_size_text_field: any
+  shake_animation_widget: ^3.0.4
+  flutter_shake_animated: ^0.0.5
+  url_launcher: ^6.1.7
+  multi_circular_slider: ^1.1.0
+  emoji_picker_flutter: ^1.5.1
+  image_picker: ^0.8.6
+  awesome_dialog: any
+  aesthetic_dialogs: ^0.0.15
 
 
 dev_dependencies:

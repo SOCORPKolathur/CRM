@@ -43,7 +43,8 @@ class _team_chatState extends State<team_chat> with TickerProviderStateMixin{
                         width:width/1.24,
                         child: Stack(
                           children: [
-                            Column(children: [
+                            Column(
+                              children: [
                               Container(
                                   decoration: BoxDecoration(
                                       color: Color(0xff5F67EC),

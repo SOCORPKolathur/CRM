@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:show_up_animation/show_up_animation.dart';
 import 'carrer.dart';
 import 'add_emp_form.dart';
@@ -19,6 +20,8 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double  width = MediaQuery.of(context).size.width;
+
+
     return
       Scaffold(
           body:ShowUpAnimation(
@@ -41,21 +44,26 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
 
                           width:width/6,
                           height: height/23,
-                          child: TextField(
-                            style: GoogleFonts.montserrat(
-                              color: Colors.white,
-                              fontSize: width/155.5,
-                              fontWeight: FontWeight.w500,),
-                            textAlignVertical: TextAlignVertical.center,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              prefixIcon: Icon(
-                                Icons.search,color: Colors.white,size:width/124.4,
-                              ),
-                              hintText:'Search for a employee',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white) ,
-                                isCollapsed: true,
-                                contentPadding: EdgeInsets.only(top:height/121.85)
+                          child: GestureDetector(
+                            onTap: (){
 
+                            },
+                            child: TextField(
+                              style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontSize: width/155.5,
+                                fontWeight: FontWeight.w500,),
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                prefixIcon: Icon(
+                                  Icons.search,color: Colors.white,size:width/124.4,
+                                ),
+                                hintText:'Search for a employee',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white) ,
+                                  isCollapsed: true,
+                                  contentPadding: EdgeInsets.only(top:height/121.85)
+
+                              ),
                             ),
                           ),
                         ),
@@ -79,7 +87,7 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                             ),
                             width:width/12.44,
                             height: height/23,
-                            child: Center(child: Text('Add Employee',style: TextStyle(
+                            child: Center(child: Text('Add Employee',style:GoogleFonts.montserrat(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: width/143.53),)),
@@ -119,12 +127,12 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text('ID No',style: GoogleFonts.poppins(color:Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Name',style: GoogleFonts.poppins(color:  Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Email',style: GoogleFonts.poppins(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Contact',style: GoogleFonts.poppins(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Position',style: GoogleFonts.poppins(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
-                        Text('Actions',style: GoogleFonts.poppins(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('ID No',style: GoogleFonts.montserrat(color:Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Name',style: GoogleFonts.montserrat(color:  Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Email',style: GoogleFonts.montserrat(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Contact',style: GoogleFonts.montserrat(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Position',style: GoogleFonts.montserrat(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
+                        Text('Actions',style: GoogleFonts.montserrat(color: Colors.black,fontSize:width/116.62,fontWeight: FontWeight.bold),),
                       ]),
                 ),
                 SizedBox(
@@ -132,12 +140,10 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                 ),
 
                 StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection('User').snapshots(),
+                  stream: FirebaseFirestore.instance.collection('User').where('category', isEqualTo: 'Employee').snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return Center(child:Lottie.asset("assets/loadingall.json"),);
                     }
                     return Container(
                         height: height/1.73,
@@ -170,7 +176,7 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                                               width: width/18.66,
                                               height: height/34.76,
                                               child: Center(child: Text(val["username"],
-                                                style: GoogleFonts.poppins(fontSize: width/133.28,
+                                                style: GoogleFonts.montserrat(fontSize: width/133.28,
                                                     color: Colors.blue,fontWeight: FontWeight.w500),)),
 
                                             ),
@@ -182,7 +188,7 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                                               width: width/7.46,
                                               height: height/34.76,
                                               child: Center(child: Text(val["name1"], overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.poppins(
+                                                style: GoogleFonts.montserrat(
                                                     fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                             ),
                                           ),
@@ -194,7 +200,7 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                                               height: height/34.76,
                                               width: width/8.48,
                                               child: Center(child: Text(val["email"], overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.poppins(fontSize: width/133.28,
+                                                style: GoogleFonts.montserrat(fontSize: width/133.28,
                                                     color: Colors.black,fontWeight: FontWeight.w500),)),
 
                                             ),
@@ -205,7 +211,7 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                                             height: height/34.76,
                                             width: width/8.48,
                                             child: Center(child: Text(val["phone"],
-                                              style: GoogleFonts.poppins(
+                                              style: GoogleFonts.montserrat(
                                                   fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
 
 
@@ -216,7 +222,7 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                                             height: height/34.76,
                                             width: width/8,
                                             child: Center(child: Text(val["position"],
-                                              style: GoogleFonts.poppins(
+                                              style: GoogleFonts.montserrat(
                                                   fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                           ),
 
@@ -228,14 +234,6 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                                               child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                   children: [
-                                                    Container(
-                                                        width:width/74.64,
-                                                        height:height/41.72,
-                                                        child: Image.asset('assets/Sendp.png',)),
-                                                    Container(
-                                                        width:width/74.64,
-                                                        height:height/41.72,
-                                                        child: Image.asset('assets/pointerp.png',)),
                                                     Icon(Icons.error_outline,color: Color(0xffffb946),),
                                                   ]),
                                             ),
