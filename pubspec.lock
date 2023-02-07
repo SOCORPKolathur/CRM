@@ -317,6 +317,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.2"
+  image_auto_slider:
+    dependency: "direct main"
+    description:
+      name: image_auto_slider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   image_picker:
     dependency: "direct main"
     description:
@@ -492,6 +499,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.2"
+  percentify:
+    dependency: "direct main"
+    description:
+      name: percentify
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   petitparser:
     dependency: transitive
     description:
@@ -541,6 +555,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.1"
+  scroll_loop_auto_scroll:
+    dependency: "direct main"
+    description:
+      name: scroll_loop_auto_scroll
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.5"
   shake_animation_widget:
     dependency: "direct main"
     description:

@@ -83,12 +83,12 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                             children: [
                               Material(
                                 elevation: 10,
-                                borderRadius: BorderRadius.only(topLeft:Radius.circular(10)),
+                                borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight:Radius.circular(10) ),
                                 child: Container(
-                                  width:width/4,
-                                  height:40,
+                                  width:width/3,
+                                  height:height/23.475,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(topLeft:Radius.circular(10)),
+                                    borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight:Radius.circular(10) ),
                                     color: Color(0xff5F67EC),
                                   ),
                                   child: Center(child: Text('Calender',style: GoogleFonts.montserrat(color: Colors.white,fontWeight: FontWeight.bold,fontSize: width/93.3,),))
@@ -96,7 +96,7 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
 
                                 ),
                               ),
-                              SizedBox(height: 5,),
+                              SizedBox(height:height/187.8,),
                               Material(
                                 elevation: 20,
                                 borderRadius: BorderRadius.only(bottomLeft:Radius.circular(10)),
@@ -104,8 +104,8 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(bottomLeft:Radius.circular(10)),
                                   ),
-                                  width:width/4,
-                                  height:height/3,
+                                  width:width/3,
+                                  height:height/2,
                                   child: SfDateRangePicker(
                                     backgroundColor: Colors.white,
                                     enablePastDates: false,
@@ -121,15 +121,17 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                               ),
                             ],
                           ),
-                          SizedBox(width: 20,),
+                          SizedBox(width:width/30,),
                           Column(
                             children: [
                               Material(
+                                borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight:Radius.circular(10) ),
                                 elevation: 10,
                                 child: Container(
-                                    width:width/4,
-                                    height:40,
+                                    width:width/2.5,
+                                    height:height/23.475,
                                     decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight:Radius.circular(10) ),
                                       color: Color(0xff5F67EC),
                                     ),
                                     child: Center(child: Text('Form',style: GoogleFonts.montserrat(color: Colors.white,fontWeight: FontWeight.bold,fontSize: width/93.3,),))
@@ -137,91 +139,104 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
 
                                 ),
                               ),
-                              SizedBox(height: 5,),
+                              SizedBox(height:height/187.8,),
                               Material(
                                 elevation: 10,
                                 child: Container(
-                                    width:width/4,
+                                    width:width/2.5,
                                     height:height/3,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                     ),
-                                    child:Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                    child:Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: [
-                                        SizedBox(height:height/25,),
-                                      Material(
-                                        elevation: 10,
-                                          borderRadius:  BorderRadius.circular(10),
-                                        child: DropdownButton<String>(
-                                          underline:Container(),
-                                          value: ledropdownValue,
-                                          elevation: 16,
-                                          borderRadius:  BorderRadius.circular(10),
-                                          style: GoogleFonts.montserrat(
-                                            color: Colors.black,
-                                            fontSize: width/110,
-                                            fontWeight: FontWeight.w500,),
-                                          onChanged: (String? value) {
-                                            setState(() {
-                                              ledropdownValue= value!;
-                                            });
-                                          },
-                                          items: lelist.map<DropdownMenuItem<String>>((String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Padding(
-                                                padding:EdgeInsets.only(left:width/233.25),
-                                                child: Text(value, style: GoogleFonts.montserrat(
-                                                  color: Colors.black,
-                                                  fontSize: width/110,
-                                                  fontWeight: FontWeight.w500,),),
-                                              ),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                        SizedBox(height:height/25,),
-                                        Text('Reason',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
-                                        SizedBox(height:height/208.6,),
-                                        Container(
-                                            height:height/15,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              color: Colors.white,),
-                                            child: Material(
-                                              elevation: 10,
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: TextFormField(
-                                                style: GoogleFonts.montserrat(
-                                                  color: Colors.black,
-                                                  fontSize: width/110,
-                                                  fontWeight: FontWeight.w500,),
-                                                controller: reasontextfield,
-                                                cursorColor: Color(0xff5138EE),
-                                                decoration: InputDecoration(
-                                                    //suffixIcon: Icon(Icons.phone_android_sharp,size:width/109.76),
-                                                    border: InputBorder.none,
-                                                    isCollapsed: true,
-                                                    contentPadding: EdgeInsets.only(top:height/60,left: width/186.6)
-                                                ),),
-                                            )),
-                                        SizedBox(height:height/25,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
-                                            GestureDetector(onTap: (){
-                                              leaveapply();
-                                              leaveapply1();
-                                            },
+                                            SizedBox(height:height/25,),
+                                          Material(
+                                            elevation: 10,
+                                              borderRadius:  BorderRadius.circular(10),
+                                            child: DropdownButton<String>(
+                                              underline:Container(),
+                                              value: ledropdownValue,
+                                              elevation: 16,
+                                              borderRadius:  BorderRadius.circular(10),
+                                              style: GoogleFonts.montserrat(
+                                                color: Colors.black,
+                                                fontSize: width/110,
+                                                fontWeight: FontWeight.w500,),
+                                              onChanged: (String? value) {
+                                                setState(() {
+                                                  ledropdownValue= value!;
+                                                });
+                                              },
+                                              items: lelist.map<DropdownMenuItem<String>>((String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Padding(
+                                                    padding:EdgeInsets.only(left:width/233.25),
+                                                    child: Text(value, style: GoogleFonts.montserrat(
+                                                      color: Colors.black,
+                                                      fontSize: width/110,
+                                                      fontWeight: FontWeight.w500,),),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                            SizedBox(height:height/25,),
+                                            Text('Reason',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                            SizedBox(height:height/208.6,),
+                                            Padding(
+                                              padding:EdgeInsets.all(8.0),
+                                              child: Container(
+                                                width: width/4,
+                                                  height:height/15,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Colors.white,),
+                                                  child: Material(
+                                                    elevation: 10,
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    child: TextFormField(
+                                                      style: GoogleFonts.montserrat(
+                                                        color: Colors.black,
+                                                        fontSize: width/110,
+                                                        fontWeight: FontWeight.w500,),
+                                                      controller: reasontextfield,
+                                                      cursorColor: Color(0xff5138EE),
+                                                      decoration: InputDecoration(
+                                                          //suffixIcon: Icon(Icons.phone_android_sharp,size:width/109.76),
+                                                          border: InputBorder.none,
+                                                          isCollapsed: true,
+                                                          contentPadding: EdgeInsets.only(top:height/60,left: width/186.6)
+                                                      ),),
+                                                  )),
+                                            ),
+                                            SizedBox(height:height/25,),
+
+
+                                        ],),
+                                        Container(
+                                          width:width/17,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                            GestureDetector(
+                                              onTap: (){
+                                                leaveapply();
+                                                leaveapply1();
+                                              },
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(12),
-                                                  color: Colors.green
+                                                    color: Colors.green
                                                 ),
-                                                width: 80,
-                                                height: 40,
-                                               child: Center(
+                                                width:width/21,
+                                                height:height/23.475,
+                                                child: Center(
                                                   child: Text('Save',style: GoogleFonts.montserrat(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w700,
@@ -230,182 +245,48 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                                                 ),
                                               ),
                                             ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(12),
-                                                color: Colors.grey
-                                              ),
-                                              width: 80,
-                                              height: 40,
-                                             child: Center(
-                                                child: Text('Cancel',style: GoogleFonts.montserrat(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: width/124.4,
-                                                ),),
+                                            GestureDetector(
+                                              onTap: (){
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    color: Colors.grey
+                                                ),
+                                                width:width/21,
+                                                height:height/23.475,
+                                                child: Center(
+                                                  child: Text('Cancel',style: GoogleFonts.montserrat(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: width/124.4,
+                                                  ),),
+                                                ),
                                               ),
                                             ),
-                                          ],
-                                        )
+                                          ],),
 
-                                    ],)
-
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 20,),
-                          Column(
-                            children: [
-                              Material(
-                                elevation: 10,
-                                borderRadius: BorderRadius.only(topRight:Radius.circular(10)),
-                                child: Container(
-                                    width:width/4,
-                                    height:40,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(topRight:Radius.circular(10)),
-                                      color: Color(0xff5F67EC),
-                                    ),
-                                    child: Center(child: Text('Status',style: GoogleFonts.montserrat(color: Colors.white,fontWeight: FontWeight.bold,fontSize: width/93.3,),))
-
-
-                                ),
-                              ),
-                              SizedBox(height: 5,),
-                              Material(
-                                elevation: 10,
-                                borderRadius: BorderRadius.only(bottomRight:Radius.circular(10)),
-                                child: Container(
-                                    width:width/4,
-                                    height:height/3,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(bottomRight:Radius.circular(10)),
-                                      color: Colors.white,
-                                    ),
-                                    child: StreamBuilder<QuerySnapshot>(
-                                      stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('myleaves').snapshots(),
-                                      builder: (context, snapshot) {
-                                        if (!snapshot.hasData) {
-                                          return Center(child:Lottie.asset("assets/loadingall.json"),);
-                                        }
-                                        return ListView.builder(
-                                            itemCount: snapshot.data!.docs.length,
-                                            itemBuilder: (context, index) {
-                                              return
-                                                Padding(
-                                                  padding: EdgeInsets.only(top:height/104.3),
-                                                  child: Material(
-                                                    elevation: 5,
-                                                    color:Colors.white,borderRadius: BorderRadius.circular(12),
-                                                    child:
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          color:Colors.white,borderRadius: BorderRadius.circular(12)
-                                                      ),
-
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(width:width/186.6),
-                                                          Container(
-                                                            child: Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: [
-                                                                SizedBox(height:height/104.3),
-                                                                Text(snapshot.data!.docs[index]['name'],style: GoogleFonts.montserrat(
-                                                                    color:Colors.pink,fontWeight:FontWeight.bold,fontSize:width/124.4
-                                                                ),),
-                                                                SizedBox(height:height/320),
-                                                                RichText(
-                                                                  text: TextSpan(
-                                                                    children: [
-                                                                      TextSpan(text: 'Emp Id : ', style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                      ),),
-                                                                      TextSpan(text:snapshot.data!.docs[index]['id'],style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                      ),),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                SizedBox(height:height/320),
-                                                                RichText(
-                                                                  text: TextSpan(
-                                                                    children: [
-                                                                      TextSpan(text: 'Date : ', style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                      ),),
-                                                                      TextSpan(text:snapshot.data!.docs[index]['date'],style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                      ),),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                SizedBox(height:height/320),
-                                                                RichText(
-                                                                  text: TextSpan(
-                                                                    children: [
-                                                                      TextSpan(text: 'Leave Type : ', style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                      ),),
-                                                                      TextSpan(text:snapshot.data!.docs[index]['type'],style: GoogleFonts.montserrat(
-                                                                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                                      ),),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                SizedBox(height:height/320),
-                                                                snapshot.data!.docs[index]['status'] == 'wainting'?
-                                                                    Row(children: [
-                                                                      Icon(Icons.circle_sharp,color: Colors.black,size: 10,),
-                                                                      SizedBox(width: 5,),
-                                                                      Text('Waiting', style: GoogleFonts.montserrat(
-                                                                          color:Colors.yellow,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                      ),)
-                                                                    ],):
-                                                                snapshot.data!.docs[index]['status'] == 'reject'?
-                                                                Row(children: [
-                                                                  Icon(Icons.circle_sharp,color: Colors.black,size: 10,),
-                                                                  SizedBox(width: 5,),
-                                                                  Text('Rejected', style: GoogleFonts.montserrat(
-                                                                      color:Colors.red,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                  ),)
-                                                                ],):
-                                                                snapshot.data!.docs[index]['status'] == 'accept'?
-                                                                Row(children: [
-                                                                  Icon(Icons.circle_sharp,color: Colors.black,size: 10,),
-                                                                  SizedBox(width: 5,),
-                                                                  Text('Accepted', style: GoogleFonts.montserrat(
-                                                                      color:Colors.green,fontWeight:FontWeight.w700,fontSize:width/140
-                                                                  ),)
-                                                                ],):
-                                                                    SizedBox(),
-
-
-
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                            }
-                                        );
-                                      },
-                                    ),
-
+                                        ),
+                                      ],
+                                    )
 
                                 ),
                               ),
                             ],
                           ),
+                          SizedBox(width:width/300,),
                         ],
                       ),
 
 
-                      SizedBox(height:50,),
+
+
+
+
+
+
+
+                      SizedBox(height:height/80,),
                       Container(
                         width:width/1.24,
                         height: height/18,
@@ -466,44 +347,47 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                           ],
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height:height/130,),
                       Container(
                         width:width/1.24,
-                        height: 300,
+                        height:height/4.5,
                         child: StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('myleaves').snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Center(child:Lottie.asset("assets/loadingall.json"),);
+                              return Container(
+                                  width: 80,
+                                  height: 80,
+                                  child: Center(child:Lottie.asset("assets/Loading1.json"),));
                             }
                             return ListView.builder(
                                 itemCount: snapshot.data!.docs.length,
                                 itemBuilder: (context, index) {
                                   return
                                     Padding(
-                                      padding:EdgeInsets.only(top:5),
+                                      padding:EdgeInsets.only(top:height/187.8),
                                       child: Container(
                                         width:width/1.6,
-                                        height: 50,
+                                        height:height/30,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                           color: Color(0xffECEDFF),
                                         ),
                                         child: Row(
                                           children: [
-                                            SizedBox(width: 5,),
-                                            Icon(Icons.circle_sharp,size: 12,),
-                                            SizedBox(width: 5,),
-                                            Text('Leave Dates : ',style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 15),),
-                                            Text(snapshot.data!.docs[index]['date'],style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 15)),
-                                            SizedBox(width: 5,),
+                                            SizedBox(width:width/336,),
+                                            Icon(Icons.circle_sharp,size:width/140,),
+                                            SizedBox(width:width/336,),
+                                            Text('Leave Dates : ',style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.w700,fontSize:15),),
+                                            Text(snapshot.data!.docs[index]['date'],style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.w500,fontSize:15)),
+                                            SizedBox(width:width/336,),
                                             Text('-'),
-                                            SizedBox(width: 5,),
-                                            Text(snapshot.data!.docs[index]['type'],style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 15)),
-                                            SizedBox(width: 5,),
+                                            SizedBox(width:width/336,),
+                                            Text(snapshot.data!.docs[index]['type'],style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.w500,fontSize:15)),
+                                            SizedBox(width:width/336,),
                                             Text('-'),
-                                            SizedBox(width: 5,),
-                                            Text(snapshot.data!.docs[index]['reason'],style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 15)),
+                                            SizedBox(width:width/336,),
+                                            Text(snapshot.data!.docs[index]['reason'],style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.w500,fontSize:15)),
                                           ],
                                         ),
                                       ),

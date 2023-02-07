@@ -2,11 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:show_up_animation/show_up_animation.dart';
+import 'package:lottie/lottie.dart';
 import 'package:webpage/Landing_Page/landing_page.dart';
 import 'package:webpage/Landing_Page/landing_page2.dart';
 import 'package:webpage/Landing_Page/landing_page3.dart';
-import '../Hr_Page/hr_page.dart';
 
 class login_page extends StatefulWidget {
 
@@ -207,7 +206,7 @@ class _login_pageState extends State<login_page> {
     }
 
     return Scaffold(
-      backgroundColor: Color(0xffdadcfd),
+      backgroundColor: Color(0xff441d6b),
     body: Padding(
       padding:EdgeInsets.only(top:height/10.43,bottom:height/10.43,left: width/18.66,right: width/18.66 ),
       child: Column(
@@ -226,30 +225,34 @@ class _login_pageState extends State<login_page> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: height/34.76,),
-                    Container(
-                      width:width/74.64,
-                        height:height/41.72,
-                        child: ClipRRect(child: SvgPicture.asset('assets/thunder.svg',color: Color(0xff5138EE),))),
-                      SizedBox(height:height/104.3,),
-                    Text('Login',style:GoogleFonts.montserrat(
-                        fontWeight: FontWeight.bold,
-                        fontSize:width/62.2
-                    ),),
-                       SizedBox(height: height/130.37,),
-                    Text('See Your Growth get Consulting Support',style:GoogleFonts.montserrat(
-                        fontWeight: FontWeight.bold,
-                        fontSize:width/155.5
-                    ),),
 
-                      SizedBox(height:height/17.38,),
+                      SizedBox(height: height/5),
+                      Text('Login',style:GoogleFonts.montserrat(
+                          fontWeight: FontWeight.bold,
+                          fontSize:width/42
+                      ),),
+                      SizedBox(height: height/150,),
+                      Row(
+                      children: [
+                        Text('See Your Growth get Consulting Support  ',style:GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w500,
+                            fontSize:width/120
+                        ),),
+                        Container(
+                            width:width/74.64,
+                            height:height/41.72,
+                            child: ClipRRect(child: SvgPicture.asset('assets/thunder.svg',color: Color(0xff5138EE),))),
+
+                      ],
+                    ),
+                      SizedBox(height: height/40,),
                       Text('Email*',style:GoogleFonts.montserrat(
-                        fontWeight: FontWeight.bold,fontSize:width/124.4
+                        fontWeight: FontWeight.bold,fontSize:width/100
                     ),),
-                       SizedBox(height: height/130.37,),
-                    Container(
-                      width:width/5.33,
-                      height:height/23.17,
+                      SizedBox(height: height/130.37,),
+                      Container(
+                      width:width/4,
+                      height:height/20,
                       child: TextField(
                         style: GoogleFonts.montserrat(fontSize:width/155.5),
                         controller: usernamefield,
@@ -264,13 +267,13 @@ class _login_pageState extends State<login_page> {
                       ),
                     ),
                       SizedBox(height: height/34.76,),
-                    Text('Password*',style:GoogleFonts.montserrat(
-                        fontWeight: FontWeight.bold,fontSize:width/124.4
+                      Text('Password*',style:GoogleFonts.montserrat(
+                        fontWeight: FontWeight.bold,fontSize:width/100
                     ),),
-                       SizedBox(height: height/130.37,),
-                    Container(
-                      width:width/5.33,
-                      height:height/23.17,
+                      SizedBox(height: height/130.37,),
+                      Container(
+                      width:width/4,
+                      height:height/20,
                       child: TextField(
                         style: GoogleFonts.montserrat(fontSize:width/155.5),
                         controller: passfield,
@@ -289,9 +292,8 @@ class _login_pageState extends State<login_page> {
                       ),
                     ),
                       SizedBox(height: height/208.6,),
-
                       Container(
-                        width:width/5.33,
+                        width:width/4,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -310,7 +312,7 @@ class _login_pageState extends State<login_page> {
                         ),
                                 SizedBox(width: width/622,),
                                 Text('Remember Me',style:GoogleFonts.montserrat(
-                                    color: Color(0xff441d6b),fontSize:width/186.6,fontWeight: FontWeight.bold),),
+                                    color: Color(0xff441d6b),fontSize:width/145,fontWeight: FontWeight.bold),),
                               ],
                             ),
                           ),
@@ -321,13 +323,13 @@ class _login_pageState extends State<login_page> {
                                 forget_password_show();
                               },
                               child: Text('Forgot Password',style:GoogleFonts.montserrat(
-                                color: Color(0xff441d6b),fontSize:width/186.6,fontWeight: FontWeight.bold),),
+                                color: Color(0xff441d6b),fontSize:width/145,fontWeight: FontWeight.bold),),
                             ),
                           ],
                         ),
                       ),
                       SizedBox(height: height/34.76,),
-                    GestureDetector(
+                      GestureDetector(
                       onTap: (){
                         navigation1();
                       },
@@ -336,36 +338,38 @@ class _login_pageState extends State<login_page> {
                             color: Color(0xff3a0391),
                             borderRadius: BorderRadius.circular(20)
                         ),
-                        width:width/5.33,
-                        height:height/23.17,
-                        child: Center(child: Text('Login',style:GoogleFonts.montserrat(color: Colors.white),)) ,
+                        width:width/4,
+                        height:height/20,
+                        child: Center(child: Text('Login',style:GoogleFonts.montserrat(
+                            fontWeight: FontWeight.bold,fontSize:width/90,color:Colors.white
+                        ),)) ,
                       ),
                     ),
                       SizedBox(height:height/52.15,),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Not Registered Yet?',style:GoogleFonts.montserrat(
-                              fontWeight: FontWeight.bold,
-                              fontSize:width/155.5
-                          ),),
-                          SizedBox(width: width/373.2,),
-                          Text('Sign In',style:GoogleFonts.montserrat(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff441d6b),
-                              fontSize:width/155.5
-                          ),),
+                          Container(
+                              width:width/26.666,
+                              height:height/14.904,
+                              child: Image.asset('assets/rankrazelogo.png')
+                          ),
+                          SizedBox(width: width/10,)
                         ],
                       ),
-                      SizedBox(height:height/7,),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(width: width/18.66,),
                           Text('www.RankRaze.com',style:GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize:width/155.5
                           ),),
+                          SizedBox(width: width/10,)
                         ],
                       ),
+
+
+
                   ],),
                 ),
               ),
@@ -375,8 +379,28 @@ class _login_pageState extends State<login_page> {
 
 
                 Container(
-                  color: Colors.yellowAccent,
                   width:width/2.25,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:EdgeInsets.only(top:height/46.95,left:width/84),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                          Text('Welcome Back !',style: GoogleFonts.montserrat(fontWeight:FontWeight.bold,fontSize: width/42,color: Colors.black),),
+                          SizedBox(height: 2,),
+                          Text('Plesure in the JOB',style: GoogleFonts.montserrat(fontWeight:FontWeight.w500,fontSize:width/120,color: Colors.black),),
+                          Text('Puts Perfection in the WORK....!',style: GoogleFonts.montserrat(fontWeight:FontWeight.w500,fontSize:width/120,color: Colors.black),),
+                        ],),
+                      ),
+
+                    Container(
+                        width:width/2.25,
+                        height:height/1.530,
+                        child: Lottie.asset("assets/login1.json")),
+
+                  ],),
                 )
             ],),
           ),],
@@ -424,7 +448,8 @@ class _login_pageState extends State<login_page> {
       }
       var doumet= await FirebaseFirestore.instance.collection("User").doc(id).get();
       Map<String,dynamic>? val =doumet.data();
-      if(val!["category"]=="Admin"){
+      if(val!["category"]=="Admin")
+      {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => landing_page_admin(id)),

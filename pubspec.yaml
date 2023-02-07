@@ -69,6 +69,9 @@ dependencies:
   image_picker: ^0.8.6
   awesome_dialog: any
   aesthetic_dialogs: ^0.0.15
+  percentify: ^1.0.3
+  image_auto_slider: ^0.0.3
+  scroll_loop_auto_scroll: ^0.0.5
 
 
 dev_dependencies:

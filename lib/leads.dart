@@ -143,7 +143,10 @@ class _leads_pageState extends State<leads_page> {
                   stream:FirebaseFirestore.instance.collection('leads').where('status',isEqualTo: 'assigned').snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(child:Lottie.asset("assets/loadingall.json"),);
+                      return Container(
+                          width: 80,
+                          height: 80,
+                          child: Center(child:Lottie.asset("assets/loading1.json"),));
                     }
                     return ListView.builder(
                         shrinkWrap: true,
@@ -182,22 +185,16 @@ class _leads_pageState extends State<leads_page> {
 
                                       ),
                                       SizedBox(width: width/76.35,),
-                                      GestureDetector(
-                                        onTap: (){
-                                        print(width);
-                                        print(height);
-                                      },
-                                        child: Container(
-                                          width:width/10,
-                                          height:height/28.43,
-                                          child: Center(
-                                            child: Text(snapshot.data!.docs[index]['name'],style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black
-                                            ),),
-                                          ),
-
+                                      Container(
+                                        width:width/10,
+                                        height:height/28.43,
+                                        child: Center(
+                                          child: Text(snapshot.data!.docs[index]['name'],style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.black
+                                          ),),
                                         ),
+
                                       ),
 
 

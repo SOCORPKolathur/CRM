@@ -95,7 +95,8 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),color: Colors.white,
                     ),
-                    width:width/1.28,
+                    width:width/1.10,
+                    height:900,
                     child:
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -106,7 +107,7 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                               color: Color(0xff5F67EC),
                               borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20))
                           ),
-                          width:width/1.28,
+                          width:width/1.10,
                           height: height/18,
                           child: Padding(
                             padding:EdgeInsets.only(left: width/186.6,right: width/186.6),
@@ -135,12 +136,8 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                     ),
                                     SizedBox(width:width/37.32,),
                                     GestureDetector(onTap: (){
-                                      addnewclient();
-                                      leadschange(widget.id);
                                       _showMyDialog();
-                                      clearall();
-
-                                    },
+                                     },
                                       child: Container(
                                         decoration: BoxDecoration(
                                             color:Colors.green,
@@ -168,21 +165,20 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                           padding:EdgeInsets.only(left:width/23.32),
                           child: Column(
                             children: [
-                              SizedBox(height:height/17.38,),
                               SizedBox(height:height/26.07,),
 
                               Row(
                                 children: [
                                   Container(
-                                    width:width/5,
+                                    width:width/4,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Client Id*',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                        Text('Client Id*',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B))),
                                         SizedBox(height:height/208.6,),
                                         Container(
-                                            width:width/5,
-                                            height:height/23.17,
+                                            width:width/4,
+                                            height:height/20,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.white,),
@@ -201,14 +197,15 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                   ),
                                   SizedBox(width:width/46.65,),
                                   Container(
-                                    width:width/5,
+                                    width:width/4,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Client Name',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                        Text('Client Name',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B))),
                                         SizedBox(height:height/208.6,),
                                         Container(
-                                            height:height/23.17,
+                                            width:width/4,
+                                            height:height/20,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.white,),
@@ -243,14 +240,15 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                               Row(
                                 children: [
                                   Container(
-                                    width:width/5,
+                                    width:width/4,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Mobile*',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                        Text('Mobile*',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B))),
                                         SizedBox(height:height/208.6,),
                                         Container(
-                                            height:height/23.17,
+                                            width:width/4,
+                                            height:height/20,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.white,),
@@ -280,14 +278,15 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                   ),
                                   SizedBox(width:width/46.65,),
                                   Container(
-                                    width:width/5,
+                                    width:width/4,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Email',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                        Text('Email',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B))),
                                         SizedBox(height:height/208.6,),
                                         Container(
-                                            height:height/23.17,
+                                            width:width/4,
+                                            height:height/20,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.white,),
@@ -317,14 +316,15 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                   ),
                                   SizedBox(width:width/46.65,),
                                   Container(
-                                    width:width/5,
+                                    width:width/4,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Location',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                        Text('Location',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B))),
                                         SizedBox(height:height/208.6,),
                                         Container(
-                                            height:height/23.17,
+                                            width:width/4,
+                                            height:height/20,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.white,),
@@ -363,10 +363,10 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Project Tittle',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                        Text('Project Tittle',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B))),
                                         SizedBox(height:height/208.6,),
                                         Container(
-                                            height:height/23.17,
+                                            height:height/20,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.white,),
@@ -402,14 +402,15 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                               Row(
                                 children: [
                                   Container(
-                                    width:width/5,
+                                    width:width/4,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Project Type',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                        Text('Project Type',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B))),
                                         SizedBox(height:height/208.6,),
                                         Container(
-                                            height:height/23.17,
+                                            width:width/4,
+                                            height:height/20,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.white,),
@@ -439,14 +440,15 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                   ),
                                   SizedBox(width:width/46.65,),
                                   Container(
-                                    width:width/5,
+                                    width:width/4,
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Time Periode',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B))),
+                                        Text('Time Periode',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B))),
                                         SizedBox(height:height/208.6,),
                                         Container(
-                                            height:height/23.17,
+                                            width:width/4,
+                                            height:height/20,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10),
                                               color: Colors.white,),
@@ -487,7 +489,7 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Employee Name',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                                        Text('Employee Name',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B),)),
                                         SizedBox(height:height/208.6,),
                                         Material(
                                           elevation:10,
@@ -497,7 +499,8 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                               borderRadius:  BorderRadius.circular(10),
                                               color: Color(0xffECEDFF),
                                             ),
-                                            height:height/23.17,
+                                            width:width/4,
+                                            height:height/20,
                                             child: StreamBuilder<QuerySnapshot>(
                                                 stream: FirebaseFirestore.instance.collection('User').snapshots(),
                                                 builder: (context, snapshot){
@@ -562,14 +565,15 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('Employee ID',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/124.4,color: Color(0xff0B014B),)),
+                                        Text('Employee ID',style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize:width/100,color: Color(0xff0B014B),)),
                                         SizedBox(height:height/208.6,),
                                         Container(
                                             decoration: BoxDecoration(
                                               borderRadius:  BorderRadius.circular(10),
                                               color: Color(0xffECEDFF),
                                             ),
-                                            height:height/23.17,
+                                            width:width/4,
+                                            height:height/20,
                                             child: Material(
                                               borderRadius:  BorderRadius.circular(10),
                                               elevation: 10,
@@ -639,7 +643,6 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
     clientempnamefield.clear();
     clientempidfield.clear();
   }
-
   getclientcount() async {
     var  document = await FirebaseFirestore.instance.collection('client').get();
     setState(() {
@@ -658,14 +661,14 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
       desc:
       'Employee Add Sucessfully',
       btnOkOnPress: () {
-        debugPrint('OnClcik');
-        Navigator.of(context).pop();
+        addnewclient();
+        leadschange(widget.id);
         clearall();
       },
       btnOkIcon: Icons.check_circle,
       onDismissCallback: (type) {
-        debugPrint('Dialog Dissmiss from callback $type');
-        Navigator.of(context).pop();
+        addnewclient();
+        leadschange(widget.id);
         clearall();
       },
     ).show();

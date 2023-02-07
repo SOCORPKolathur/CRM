@@ -28,159 +28,184 @@ class _client_pageState extends State<client_page> {
       Map<String,dynamic>? val =doumet.data();
       AlertDialog alert=AlertDialog(
           content:
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.white
-            ),
-            width: 250,
-            height: 350,
-            child:Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height:10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                ),
+                width: 250,
+                height: 390,
+                child: Column(
                   children: [
-                    Text(val!["projecttittle"],style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w700,
-                        fontSize:15,
-                        color: Colors.green
-                    )),
-                  ],
-                ),
-                SizedBox(height:10),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Client Id : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['id'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-                SizedBox(height:height/200),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Client Name : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['name'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-                SizedBox(height:height/200),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Contact : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['mobile'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-                SizedBox(height:height/200),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Email : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['email'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-                SizedBox(height:height/200),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Project Type : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['projecttype'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-                SizedBox(height:height/200),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Start Date : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['startdate'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-                SizedBox(height:height/200),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Project Duration : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['projecttimeperiode'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-                SizedBox(height:height/200),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Status : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['projectstatus'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-                SizedBox(height:height/200),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Assigned Employee : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['cempname'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-                SizedBox(height:height/200),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(text: 'Employee Id : ', style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                      ),),
-                      TextSpan(text:val['cempid'],style: GoogleFonts.montserrat(
-                          color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                      ),),
-                    ],
-                  ),
-                ),
-              ],),
-          )
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                      GestureDetector(onTap: (){
+                        Navigator.pop(context);
+                      },
+                          child: Icon(Icons.cancel_outlined,color:Colors.red,size: 25,)),
+                    ],),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white,
+                        border: Border.all(color:Colors.black)
+                    ),
+                    width: 250,
+                    height: 350,
+                    child:Padding(
+                      padding:EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height:10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(val!["projecttittle"],style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize:22,
+                                  color: Colors.green
+                              )),
+
+                            ],
+                          ),
+                          SizedBox(height:10),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Client Id : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['id'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height:height/200),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Client Name : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['name'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height:height/200),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Contact : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['mobile'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height:height/200),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Email : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['email'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height:height/200),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Project Type : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['projecttype'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height:height/200),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Start Date : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['startdate'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height:height/200),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Project Duration : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['projecttimeperiode'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height:height/200),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Status : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['projectstatus'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height:height/200),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Assigned Employee : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['cempname'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height:height/200),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(text: 'Employee Id : ', style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                                ),),
+                                TextSpan(text:val['cempid'],style: GoogleFonts.montserrat(
+                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                                ),),
+                              ],
+                            ),
+                          ),
+                        ],),
+                    ),
+                  )
+
+                ],),
+              )
+
 
       );
       showDialog(
@@ -307,7 +332,10 @@ class _client_pageState extends State<client_page> {
                   stream: FirebaseFirestore.instance.collection('client').snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(child:Lottie.asset("assets/loading.json"),);
+                      return Container(
+                          width: 80,
+                          height: 80,
+                          child: Center(child:Lottie.asset("assets/Loading1.json"),));
                     }
                     return Container(
                         height: height/1.73,

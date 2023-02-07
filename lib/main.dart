@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'Login_page/login_page.dart';
+import 'demo.dart';
 import 'mgtv.dart';
 
 
@@ -9,13 +10,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options:FirebaseOptions(
-        apiKey: "AIzaSyCgRYzFItA5hbKOpG6uPSXPdnLw2akJeA4",
-        authDomain: "crm-project-7fbf9.firebaseapp.com",
-        projectId: "crm-project-7fbf9",
-        storageBucket: "crm-project-7fbf9.appspot.com",
-        messagingSenderId: "455655240292",
-        appId: "1:455655240292:web:2eb39650914d121400e571",
-        measurementId: "G-L0J79D5JGN"
+        apiKey: "AIzaSyCU8OyMC0wGN7MJ3ul1S4AqyCmYBhnfASo",
+        authDomain: "crmproject-20473.firebaseapp.com",
+        projectId: "crmproject-20473",
+        storageBucket: "crmproject-20473.appspot.com",
+        messagingSenderId: "404234608841",
+        appId: "1:404234608841:web:6c9f67eded8d64abc96d18",
+        measurementId: "G-VKVZ30XF2D"
+
 
     )
   );

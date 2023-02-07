@@ -141,7 +141,10 @@ class _hr_pageState extends State<hr_page> {
                 stream: FirebaseFirestore.instance.collection('User').where('category', isEqualTo: 'HR').snapshots(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child:Lottie.asset("assets/loading.json"),);
+                    return Container(
+                        width: 80,
+                        height: 80,
+                        child: Center(child:Lottie.asset("assets/Loading1.json"),));
                   }
                   return Container(
                     height: height/1.73,

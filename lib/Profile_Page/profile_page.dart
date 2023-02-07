@@ -22,6 +22,8 @@ class _profile_pageState extends State<profile_page> {
  int aftercount=0;
  int beforecount=0;
  int ontimecount=0;
+ var pages;
+ int n=1;
  TextEditingController usernamefield = TextEditingController();
  TextEditingController passfield = TextEditingController();
  TextEditingController oldpassfield = TextEditingController();
@@ -208,7 +210,10 @@ class _profile_pageState extends State<profile_page> {
             builder: (context, snapshot) {
               if(snapshot.hasData==null)
               {
-                return Center(child:Lottie.asset("assets/loadingall.json"),);
+                return Container(
+                    width: 80,
+                    height: 80,
+                    child: Center(child:Lottie.asset("assets/Loading1.json"),));
               }
               Map<String,dynamic>?value = snapshot.data!.data();
               return
@@ -231,12 +236,17 @@ class _profile_pageState extends State<profile_page> {
                               child: Column(
                                 children: [
                                   SizedBox(height:height/30,),
-                                  Container(
-                                    height: 50,
-                                    width: 50,
+                                  GestureDetector(
+                                    onTap: (){
+                                      print(width);
+                                    },
+                                    child: CircleAvatar(
+                                      radius: width/26.6666,
+                                      backgroundImage:NetworkImage(value!['userimage']),
 
-                                    child:Image.network(value!['userimage'], width: 50,height: 50,),
+                            ),
                                   ),
+
                                   SizedBox(height:height/52.15,),
                                   Center(
                                     child:Text(value['name1'],style: GoogleFonts.montserrat(
@@ -257,12 +267,13 @@ class _profile_pageState extends State<profile_page> {
                                   ),
                                   SizedBox(height:height/52.15,),
                                   GestureDetector(
-                                    onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => calender(widget.id)),
-                                    );
-                                  },
+                                      onTap: (){
+                                        setState(() {
+                                          pages=calender(widget.id);
+                                          n=6;
+                                        });
+                                      },
+
                                     child: Container(
                                       decoration: BoxDecoration(
                                         color: Color(0xffFFB946),

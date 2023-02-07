@@ -813,13 +813,11 @@ int n=0;
         'Employee Add Sucessfully',
         btnOkOnPress: () {
           debugPrint('OnClcik');
-          Navigator.of(context).pop();
           clearall();
         },
         btnOkIcon: Icons.check_circle,
         onDismissCallback: (type) {
           debugPrint('Dialog Dissmiss from callback $type');
-          Navigator.of(context).pop();
           clearall();
         },
       ).show();

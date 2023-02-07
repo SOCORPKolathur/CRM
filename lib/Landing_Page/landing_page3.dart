@@ -108,7 +108,7 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                             onTap: (){
                                               print(height);
                                             },
-                                            child: Text('Hi ${namee.toString()}',
+                                            child: Text('Hi ${namee.toString()} (HR)',
                                               style: GoogleFonts.montserrat(
                                                 fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
@@ -146,26 +146,32 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                 Divider(),
                                 SizedBox(height:height/52.15,),
 
-                                Material(
-                                  elevation:n==1?10: 0,
-                                  borderRadius:BorderRadius.circular(12),
-                                  child: Container(
-                                    height:height/14.9,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(12)),
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        setState(() {
-                                          pages=dashboard_page(widget.id);
-                                          n=1;
-                                        });
-                                      },
+
+
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      pages=dashboard_page(widget.id);
+                                      n=1;
+                                    });
+                                  },
+                                  child: Material(
+                                    elevation:n==1?10: 0,
+                                    borderRadius:BorderRadius.circular(12),
+                                    child: Container(
+                                      height:height/14.9,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(12)),
                                       child: Center(
-                                        child: Row(
+                                        child:
+                                        Row(
                                           children: [
                                             SizedBox(width:width/933,),
-                                            SvgPicture.asset("assets/dash.svg"),
+                                            Container(
+                                                width: width/50,
+                                                height:height/30,
+                                                child: Image.asset("assets/dashboard drawer.png")),
                                             SizedBox(width:width/933,),
                                             Text('Dash Board',
                                               style: GoogleFonts.montserrat(
@@ -180,30 +186,33 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-                                Material(
-                                  elevation:n==2?10: 0,
-                                  borderRadius:BorderRadius.circular(12),
-                                  child: Container(
-                                    height:height/14.9,
-                                    padding: EdgeInsets.only(top:height/208.6,),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:BorderRadius.circular(12)),
-                                    child: GestureDetector(
-                                      onTap: (){
+                                GestureDetector(
+                                  onTap: (){
 
-                                        setState(() {
-                                          pages=leave_hr();
-                                          n=2;
+                                    setState(() {
+                                      pages=leave_hr();
+                                      n=2;
 
 
-                                        });
-                                      },
+                                    });
+                                  },
+                                  child: Material(
+                                    elevation:n==2?10: 0,
+                                    borderRadius:BorderRadius.circular(12),
+                                    child: Container(
+                                      height:height/14.9,
+                                      padding: EdgeInsets.only(top:height/208.6,),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:BorderRadius.circular(12)),
                                       child: Center(
                                         child: Row(
                                           children: [
                                             SizedBox(width:width/933,),
-                                            SvgPicture.asset("assets/icons.svg"),
+                                            Container(
+                                                width: width/50,
+                                                height:height/30,
+                                                child: Image.asset("assets/leave drawer.png")),
                                             SizedBox(width:width/933,),
                                             Text('Leaves',
                                               style: GoogleFonts.montserrat(
@@ -217,28 +226,31 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-                                Material(
-                                  elevation:n==3?10: 0,
-                                  borderRadius:BorderRadius.circular(12),
-                                  child: Container(
-                                    height:height/14.9,
-                                    padding: EdgeInsets.only(top:height/208.6),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:BorderRadius.circular(12)
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        setState(() {
-                                          pages=all_employee_page();
-                                          n=3;
-                                        });
-                                      },
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      pages=all_employee_page();
+                                      n=3;
+                                    });
+                                  },
+                                  child: Material(
+                                    elevation:n==3?10: 0,
+                                    borderRadius:BorderRadius.circular(12),
+                                    child: Container(
+                                      height:height/14.9,
+                                      padding: EdgeInsets.only(top:height/208.6),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:BorderRadius.circular(12)
+                                      ),
                                       child: Center(
                                         child: Row(
                                           children: [
                                             SizedBox(width:width/933,),
-                                            SvgPicture.asset("assets/Group 11.svg"),
+                                            Container(
+                                                width: width/50,
+                                                height:height/30,
+                                                child: Image.asset("assets/employee drawer.png")),
                                             SizedBox(width:width/933,),
                                             Text('Employee',
                                               style: GoogleFonts.montserrat(
@@ -253,28 +265,31 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-                                Material(
-                                  elevation:n==4?10: 0,
-                                  borderRadius:BorderRadius.circular(12),
-                                  child: Container(
-                                    height:height/14.9,
-                                    padding: EdgeInsets.only(top:height/208.6),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:BorderRadius.circular(12)
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        setState(() {
-                                          pages=chat(widget.id);
-                                          n=4;
-                                        });
-                                      },
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      pages=chat(widget.id);
+                                      n=4;
+                                    });
+                                  },
+                                  child: Material(
+                                    elevation:n==4?10: 0,
+                                    borderRadius:BorderRadius.circular(12),
+                                    child: Container(
+                                      height:height/14.9,
+                                      padding: EdgeInsets.only(top:height/208.6),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:BorderRadius.circular(12)
+                                      ),
                                       child: Center(
                                         child: Row(
                                           children: [
                                             SizedBox(width:width/933,),
-                                            SvgPicture.asset("assets/Group 10.svg"),
+                                            Container(
+                                                width: width/50,
+                                                height:height/30,
+                                                child: Image.asset("assets/teamchat drawer.png")),
                                             SizedBox(width:width/933,),
                                             Text('Team Chat',
                                               style: GoogleFonts.montserrat(
@@ -289,27 +304,30 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-                                Material(
-                                  elevation:n==6?10: 0,
-                                  borderRadius:BorderRadius.circular(12),
-                                  child: Container(
-                                    height:height/14.9,
-                                    padding: EdgeInsets.only(top:height/208.6),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:BorderRadius.circular(12)),
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        setState(() {
-                                          pages=calender(widget.id);
-                                          n=6;
-                                        });
-                                      },
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      pages=calender(widget.id);
+                                      n=6;
+                                    });
+                                  },
+                                  child: Material(
+                                    elevation:n==6?10: 0,
+                                    borderRadius:BorderRadius.circular(12),
+                                    child: Container(
+                                      height:height/14.9,
+                                      padding: EdgeInsets.only(top:height/208.6),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:BorderRadius.circular(12)),
                                       child: Center(
                                         child: Row(
                                           children: [
                                             SizedBox(width:width/933,),
-                                            Image.asset("assets/clientpng.png"),
+                                            Container(
+                                                width: width/50,
+                                                height:height/30,
+                                                child: Image.asset("assets/calendar drawer.png")),
                                             SizedBox(width:width/933,),
                                             Text('Calender',
                                               style: GoogleFonts.montserrat(
@@ -323,28 +341,31 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-                                Material(
-                                  elevation:n==5?10: 0,
-                                  borderRadius:BorderRadius.circular(12),
-                                  child: Container(
-                                    height:height/14.9,
-                                    padding: EdgeInsets.only(top:height/208.6),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:BorderRadius.circular(12)
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        setState(() {
-                                          pages=add_emp_form();
-                                          n=5;
-                                        });
-                                      },
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      pages=add_emp_form();
+                                      n=5;
+                                    });
+                                  },
+                                  child: Material(
+                                    elevation:n==5?10: 0,
+                                    borderRadius:BorderRadius.circular(12),
+                                    child: Container(
+                                      height:height/14.9,
+                                      padding: EdgeInsets.only(top:height/208.6),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:BorderRadius.circular(12)
+                                      ),
                                       child: Center(
                                         child: Row(
                                           children: [
                                             SizedBox(width:width/933,),
-                                            Image.asset("assets/calenderpng.png"),
+                                            Container(
+                                                width: width/50,
+                                                height:height/30,
+                                                child: Image.asset("assets/addemp drawer.png")),
                                             SizedBox(width:width/933,),
                                             Text('Add Employee', style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
@@ -357,28 +378,31 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-                                Material(
-                                  elevation:n==10?10: 0,
-                                  borderRadius:BorderRadius.circular(12),
-                                  child: Container(
-                                    height:height/14.9,
-                                    padding: EdgeInsets.only(top:height/208.6),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:BorderRadius.circular(12)
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        setState(() {
-                                          pages=profile_page(widget.id);
-                                          n=10;
-                                        });
-                                      },
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      pages=profile_page(widget.id);
+                                      n=10;
+                                    });
+                                  },
+                                  child: Material(
+                                    elevation:n==10?10: 0,
+                                    borderRadius:BorderRadius.circular(12),
+                                    child: Container(
+                                      height:height/14.9,
+                                      padding: EdgeInsets.only(top:height/208.6),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:BorderRadius.circular(12)
+                                      ),
                                       child: Center(
                                         child: Row(
                                           children: [
                                             SizedBox(width:width/933,),
-                                            SvgPicture.asset("assets/pro.svg"),
+                                            Container(
+                                                width: width/50,
+                                                height:height/30,
+                                                child: Image.asset("assets/profile drawer.png")),
                                             SizedBox(width:width/933,),
                                             Text('Profile', style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
@@ -391,28 +415,31 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                   ),
                                 ),
                                 SizedBox(height:height/86.91,),
-                                Material(
-                                  elevation:n==11?10: 0,
-                                  borderRadius:BorderRadius.circular(12),
-                                  child: Container(
-                                    height:height/14.9,
-                                    padding: EdgeInsets.only(top:height/208.6),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:BorderRadius.circular(12)
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: (){
-                                        setState(() {
-                                          pages=pomotorotimer();
-                                          n=11;
-                                        });
-                                      },
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      pages=pomotorotimer();
+                                      n=11;
+                                    });
+                                  },
+                                  child: Material(
+                                    elevation:n==11?10: 0,
+                                    borderRadius:BorderRadius.circular(12),
+                                    child: Container(
+                                      height:height/14.9,
+                                      padding: EdgeInsets.only(top:height/208.6),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:BorderRadius.circular(12)
+                                      ),
                                       child: Center(
                                         child: Row(
                                           children: [
                                             SizedBox(width:width/933,),
-                                            SvgPicture.asset("assets/pro.svg"),
+                                            Container(
+                                                width: width/50,
+                                                height:height/30,
+                                                child: Image.asset("assets/promotortimer drawer.png")),
                                             SizedBox(width:width/933,),
                                             Text('Promoter Timer', style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
@@ -424,11 +451,15 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                     ),
                                   ),
                                 ),
+
+
+
+
+
+
+
+
                                 SizedBox(height:height/40,),
-
-
-
-
                                 Padding(
                                   padding:EdgeInsets.only(bottom: height/34.76),
                                   child: GestureDetector(onTap: (){

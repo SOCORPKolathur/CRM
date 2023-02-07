@@ -100,7 +100,10 @@ class _EmployeePage2State extends State<EmployeePage2> with TickerProviderStateM
                   stream: FirebaseFirestore.instance.collection('EMP').snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(child:Lottie.asset("assets/loadingall.json"),);
+                      return Container(
+                          width: 80,
+                          height: 80,
+                          child: Center(child:Lottie.asset("assets/loading1.json"),));
                     }
                     return Container(
                         height: height/1.73,

@@ -116,7 +116,10 @@ class _leads2_pageState extends State<leads2_page> {
                   stream:FirebaseFirestore.instance.collection('leads').where('status',isEqualTo: 'new').snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(child:Lottie.asset("assets/loadingall.json"),);
+                      return Container(
+                          width: 80,
+                          height: 80,
+                          child: Center(child:Lottie.asset("assets/loading1.json"),));
                     }
                     return ListView.builder(
                         shrinkWrap: true,
@@ -142,7 +145,7 @@ class _leads2_pageState extends State<leads2_page> {
                                 ),
                                 child: Row(
                                     children: [
-                                      SizedBox(width:width/61.08,),
+                                      SizedBox(width:width/30,),
                                       Container(
                                         width: width/30.54,
                                         height:height/28.43,
@@ -154,27 +157,22 @@ class _leads2_pageState extends State<leads2_page> {
                                         ),
 
                                       ),
-                                      SizedBox(width: width/76.35,),
-                                      GestureDetector(
-                                        onTap: (){
-                                          print(width);
-                                          print(height);
-                                        },
-                                        child: Container(
-                                          width:width/10,
-                                          height:height/28.43,
-                                          child: Center(
-                                            child: Text(snapshot.data!.docs[index]['name'],style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.black
-                                            ),),
-                                          ),
+                                      SizedBox(width: width/50,),
+                                      Container(
 
+                                        width:width/7.30,
+                                        height:height/28.43,
+                                        child: Center(
+                                          child: Text(snapshot.data!.docs[index]['name'],style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.black
+                                          ),),
                                         ),
+
                                       ),
 
 
-                                      SizedBox(width: width/90,),
+                                      SizedBox(width: width/100,),
                                       Container(
                                         width:width/12.72,
                                         height:height/28.43,
@@ -190,10 +188,11 @@ class _leads2_pageState extends State<leads2_page> {
                                         ),
 
                                       ),
-                                      SizedBox(width: width/76.35,),
+                                      SizedBox(width: width/28,),
                                       Container(
                                         width:width/10,
                                         height:height/28.43,
+
                                         child: Center(
                                           child: Text(snapshot.data!.docs[index]['phone'],style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.w500,
@@ -202,8 +201,9 @@ class _leads2_pageState extends State<leads2_page> {
                                         ),
                                       ),
                                       Container(
-                                        width:width/12,
+                                        width:width/7,
                                         height:height/28.43,
+
                                         child: Center(
                                           child: Text(snapshot.data!.docs[index]['takenby'],style: GoogleFonts.montserrat(
                                               fontWeight: FontWeight.w500,
@@ -214,7 +214,7 @@ class _leads2_pageState extends State<leads2_page> {
                                       ),
 
                                       Container(
-                                        width:width/7.635,
+                                        width:width/8,
                                         height:height/28.43,
                                         child: Center(
                                           child: Text(snapshot.data!.docs[index]['requirement'],style: GoogleFonts.montserrat(
@@ -225,7 +225,7 @@ class _leads2_pageState extends State<leads2_page> {
 
                                       ),
                                       Container(
-                                        width:width/12,
+                                        width:width/8,
                                         height:height/28.43,
                                         child: Center(
                                           child: Text(snapshot.data!.docs[index]['location'],style: GoogleFonts.montserrat(
@@ -235,7 +235,7 @@ class _leads2_pageState extends State<leads2_page> {
                                         ),
 
                                       ),
-
+                                      SizedBox(width: width/60,),
                                       GestureDetector(
                                         onTap: (){
                                           leadschange(snapshot.data!.docs[index].id);

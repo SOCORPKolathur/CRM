@@ -143,107 +143,111 @@ class _all_employee_pageState extends State<all_employee_page> with TickerProvid
                   stream: FirebaseFirestore.instance.collection('User').where('category', isEqualTo: 'Employee').snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
-                      return Center(child:Lottie.asset("assets/loadingall.json"),);
+                      return  Container(
+                          width: 80,
+                          height: 80,
+                          child: Center(child:Lottie.asset("assets/Loading1.json"),));
                     }
-                    return Container(
-                        height: height/1.73,
-                        width: double.infinity,
-                        child: ListView(
-                            children:snapshot.data!.docs.map((val)
-                            {
-                              return
-                                Padding(
-                                  padding:EdgeInsets.only(top: height/130.37,),
-                                  child: Container(
-                                    margin: EdgeInsets.only(left: width/37.32, right: width/37.32),
-                                    height: height/20.86,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color:Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(color: Colors.black12,
-                                              spreadRadius: 2,
-                                              offset: Offset(1, 1),
-                                              blurRadius: 2)
-                                        ]
-                                    ),
-                                    child: Row(
-                                        children: [
-                                          Padding(
-                                            padding:EdgeInsets.only(left:width/30),
-                                            child: Container(
-                                              width: width/18.66,
+                    return
+                      Container(
+                          height: height/1.73,
+                          width: double.infinity,
+                          child: ListView(
+                              children:snapshot.data!.docs.map((val)
+                              {
+                                return
+                                  Padding(
+                                    padding:EdgeInsets.only(top: height/130.37,),
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: width/37.32, right: width/37.32),
+                                      height: height/20.86,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color:Colors.white,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(color: Colors.black12,
+                                                spreadRadius: 2,
+                                                offset: Offset(1, 1),
+                                                blurRadius: 2)
+                                          ]
+                                      ),
+                                      child: Row(
+                                          children: [
+                                            Padding(
+                                              padding:EdgeInsets.only(left:width/30),
+                                              child: Container(
+                                                width: width/18.66,
+                                                height: height/34.76,
+                                                child: Center(child: Text(val["username"],
+                                                  style: GoogleFonts.montserrat(fontSize: width/133.28,
+                                                      color: Colors.blue,fontWeight: FontWeight.w500),)),
+
+                                              ),
+                                            ),
+
+                                            Padding(
+                                              padding:EdgeInsets.only(left:width/35),
+                                              child: Container(
+                                                width: width/7.46,
+                                                height: height/34.76,
+                                                child: Center(child: Text(val["name1"], overflow: TextOverflow.ellipsis,
+                                                  style: GoogleFonts.montserrat(
+                                                      fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
+                                              ),
+                                            ),
+
+
+                                            Padding(
+                                              padding:EdgeInsets.only(left:width/130),
+                                              child: Container(
+                                                height: height/34.76,
+                                                width: width/8.48,
+                                                child: Center(child: Text(val["email"], overflow: TextOverflow.ellipsis,
+                                                  style: GoogleFonts.montserrat(fontSize: width/133.28,
+                                                      color: Colors.black,fontWeight: FontWeight.w500),)),
+
+                                              ),
+                                            ),
+
+
+                                            Container(
                                               height: height/34.76,
-                                              child: Center(child: Text(val["username"],
-                                                style: GoogleFonts.montserrat(fontSize: width/133.28,
-                                                    color: Colors.blue,fontWeight: FontWeight.w500),)),
+                                              width: width/8.48,
+                                              child: Center(child: Text(val["phone"],
+                                                style: GoogleFonts.montserrat(
+                                                    fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
+
 
                                             ),
-                                          ),
 
-                                          Padding(
-                                            padding:EdgeInsets.only(left:width/35),
-                                            child: Container(
-                                              width: width/7.46,
+
+                                            Container(
                                               height: height/34.76,
-                                              child: Center(child: Text(val["name1"], overflow: TextOverflow.ellipsis,
+                                              width: width/8,
+                                              child: Center(child: Text(val["position"],
                                                 style: GoogleFonts.montserrat(
                                                     fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                             ),
-                                          ),
 
-
-                                          Padding(
-                                            padding:EdgeInsets.only(left:width/130),
-                                            child: Container(
-                                              height: height/34.76,
-                                              width: width/8.48,
-                                              child: Center(child: Text(val["email"], overflow: TextOverflow.ellipsis,
-                                                style: GoogleFonts.montserrat(fontSize: width/133.28,
-                                                    color: Colors.black,fontWeight: FontWeight.w500),)),
-
-                                            ),
-                                          ),
-
-
-                                          Container(
-                                            height: height/34.76,
-                                            width: width/8.48,
-                                            child: Center(child: Text(val["phone"],
-                                              style: GoogleFonts.montserrat(
-                                                  fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
-
-
-                                          ),
-
-
-                                          Container(
-                                            height: height/34.76,
-                                            width: width/8,
-                                            child: Center(child: Text(val["position"],
-                                              style: GoogleFonts.montserrat(
-                                                  fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
-                                          ),
-
-                                          Padding(
-                                            padding:EdgeInsets.only(left:width/40),
-                                            child: Container(
-                                              height: height/34.76,
-                                              width:width/12.44,
-                                              child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  children: [
-                                                    Icon(Icons.error_outline,color: Color(0xffffb946),),
-                                                  ]),
-                                            ),
-                                          )
-                                        ]),
-                                  ),
-                                );
-                            }
-                            ).toList()
-                        ));
+                                            Padding(
+                                              padding:EdgeInsets.only(left:width/40),
+                                              child: Container(
+                                                height: height/34.76,
+                                                width:width/12.44,
+                                                child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                    children: [
+                                                      Icon(Icons.error_outline,color: Color(0xffffb946),),
+                                                    ]),
+                                              ),
+                                            )
+                                          ]),
+                                    ),
+                                  );
+                              }
+                              ).toList()
+                          ));
 
                   },
 

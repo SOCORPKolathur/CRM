@@ -142,7 +142,10 @@ class _completed_taskState extends State<completed_task> {
                                   stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('status',isEqualTo: 'complete').where('timing',isEqualTo: 'before').snapshots(),
                                   builder: (context, snapshot) {
                                     if (!snapshot.hasData) {
-                                      return Center(child:Lottie.asset("assets/loading.json"),);
+                                      return Container(
+                                          width: 80,
+                                          height: 80,
+                                          child: Center(child:Lottie.asset("assets/loading1.json"),));
                                     }
                                     return ListView.builder(
                                       shrinkWrap: true,
@@ -201,7 +204,10 @@ class _completed_taskState extends State<completed_task> {
                                     stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('status',isEqualTo: 'complete').where('timing',isEqualTo: 'after').snapshots(),
                                     builder: (context, snapshot) {
                                       if (!snapshot.hasData) {
-                                        return Center(child:Lottie.asset("assets/loading.json"),);
+                                        return Container(
+                                            width: 80,
+                                            height: 80,
+                                            child: Center(child:Lottie.asset("assets/loading1.json"),));
                                       }
                                       return ListView.builder(
                                           shrinkWrap: true,
