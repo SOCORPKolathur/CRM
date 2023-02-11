@@ -118,24 +118,34 @@ class _holiday_pageState extends State<holiday_page> {
 
                             ) ,
                             itemBuilder:(context, index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: ZoomIn(
-                                  animate: true,
-                                  duration: Duration(milliseconds: 500),
-                                  child: Container(decoration: BoxDecoration(
-                                    border: Border.all(color:Colors.grey),
-                                    borderRadius: BorderRadius.circular(10)
+                              return GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    d="${holi[index].day.toString()}/${holi[index].month.toString()}/${holi[index].year.toString()}";
+                                    print(d);
+                                  });
+                                  delete(d);
+                                  print('fn clkick');
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
-                                    height: height/8.21,
-                                    width: width/4.55,
-                                    child: Center(
-                                      child: Text("${holi[index].day.toString()}/${holi[index].month.toString()}/${holi[index].year.toString()}",style: GoogleFonts.montserrat(
-                                        color: Colors.black,fontSize:width/93.333,fontWeight: FontWeight.bold
-                                      ),),
-                                    )
+                                  child: ZoomIn(
+                                    animate: true,
+                                    duration: Duration(milliseconds: 500),
+                                    child: Container(decoration: BoxDecoration(
+                                      border: Border.all(color:Colors.grey),
+                                      borderRadius: BorderRadius.circular(10)
+                                    ),
+                                      height: height/8.21,
+                                      width: width/4.55,
+                                      child: Center(
+                                        child: Text("${holi[index].day.toString()}/${holi[index].month.toString()}/${holi[index].year.toString()}",style: GoogleFonts.montserrat(
+                                          color: Colors.black,fontSize:width/93.333,fontWeight: FontWeight.bold
+                                        ),),
+                                      )
+                                    ),
                                   ),
                                 ),
                               );
@@ -153,7 +163,35 @@ class _holiday_pageState extends State<holiday_page> {
           )
       );
   }
-  final FirebaseFirestore _firebase =FirebaseFirestore.instance;
+
+
+  String d='';
+  String e='';
+  delete(d) async {
+    print('fn work');
+    var document =await  FirebaseFirestore.instance.collection('Holidays').get();
+    for(int i=0;i<document.docs.length;i++){
+      if(d==document.docs[i]['date']){
+        FirebaseFirestore.instance.collection('Holidays').doc(document.docs[i].id).delete();
+      }
+      else{
+        print('no date');
+      }
+
+      holi.clear();
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+ final FirebaseFirestore _firebase =FirebaseFirestore.instance;
   Leaveshow(){
     return
       AwesomeDialog(
