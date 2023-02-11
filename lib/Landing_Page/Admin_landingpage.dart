@@ -7,6 +7,7 @@ import 'package:hovering/hovering.dart';
 import 'package:webpage/add_client_form.dart';
 import '../Client_Page/client_page.dart';
 import '../Dashboard_Page/dashboard_page.dart';
+import '../Holidays.dart';
 import '../Hr_Page/hr_page.dart';
 import '../Login_page/login_page.dart';
 import '../admin_dashboard.dart';
@@ -549,6 +550,42 @@ var login=Icons.login;
                                    ),
                                ),
                                 ),
+                                SizedBox(height:height/86.91,),
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      n=10;
+                                      pages=holiday_page();
+                                    });
+                                  },
+                                  child: Material(
+                                    elevation:n==10?10: 0,
+                                    borderRadius:BorderRadius.circular(12),
+                                    child: Container(
+                                      height:height/14.9,
+                                      padding: EdgeInsets.only(top:height/208.6),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:BorderRadius.circular(12)
+                                      ),
+                                      child: Center(
+                                        child: Row(
+                                          children: [
+                                            SizedBox(width:width/933,),
+                                            Container(
+                                                width: width/50,
+                                                height:height/30,
+                                                child: Image.asset("assets/notice drawer.png")),
+                                            SizedBox(width:width/933,),
+                                            Text('Holidays', style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
+                                            ),),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
 
 
 
@@ -558,7 +595,7 @@ var login=Icons.login;
 
 
 
-                                SizedBox(height:height/20,),
+                                SizedBox(height:height/40,),
                                 Padding(
                                  padding:EdgeInsets.only(bottom: height/34.76),
                                  child: GestureDetector(onTap: (){

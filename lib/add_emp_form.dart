@@ -129,17 +129,17 @@ String cato='';
                                           ),
                                           SizedBox(width:width/37.32,),
                                           GestureDetector(onTap: (){
-                                            dropdownValue1=='Employee' ?
-                                              setState(() {
-                                                cato = 'EMP';
-                                              }):
-                                            dropdownValue1=='HR' ?
+                                             dropdownValue1 =='Employee'?
                                             setState(() {
-                                              cato = 'hr';
+                                              cato = 'EMP';
                                             }):
-                                            setState(() {
-                                              cato = 'SA';
-                                            });
+                                             dropdownValue1 =='HR'?
+                                             setState(() {
+                                               cato = 'HR';
+                                             }):setState(() {
+                                               cato = 'SA';
+                                             });
+
                                             addnewemp();
                                             mail();
                                             _showMyDialog();
@@ -867,7 +867,7 @@ String cato='';
       'email':emailfield.text,
       'phone':mobilefield.text,
       'empid':empid.toString(),
-      'username':"${cato}${F.format(empid.toString())}",
+      'username':"${cato}${F.format(empid)}",
      'password':"${firstnamefield.text.toString().toLowerCase()}@${passworddate}",
       'userimage':imgUrl,
       'resume':resumeUrl,
@@ -877,7 +877,7 @@ String cato='';
   getsizevalues() async {
     var  document = await FirebaseFirestore.instance.collection('User').get();
     setState(() {
-      empid = document.docs.length.toInt() + 001;
+      empid = document.docs.length + 1;
     });
   }
   Future<void> _showMyDialog() async {
@@ -1246,7 +1246,7 @@ String  filename1='';
                               <div align="center">
                                 <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:61px; v-text-anchor:middle; width:228px;" arcsize="6.5%"  stroke="f" fillcolor="#ff6600"><w:anchorlock/><center style="color:#FFFFFF;font-family:'Cabin',sans-serif;"><![endif]-->
                                 <a href="" target="_blank" class="v-button" style="box-sizing: border-box;display: inline-block;font-family:'Cabin',sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #ff6600; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
-                                  <span style="display:block;padding:14px 44px 13px;line-height:120%;"><span style="line-height: 16.8px;"><strong><span style="line-height: 16.8px;">User Id: ${'EMP'}${empid.toString()}<br />Passowrd: ${firstnamefield.text.toString().toLowerCase()}@${passworddate}</span></strong>
+                                  <span style="display:block;padding:14px 44px 13px;line-height:120%;"><span style="line-height: 16.8px;"><strong><span style="line-height: 16.8px;">User Id: "${cato}${F.format(empid)}"<br />Passowrd: ${firstnamefield.text.toString().toLowerCase()}@${passworddate}</span></strong>
                                   </span>
                                   </span>
                                 </a>
