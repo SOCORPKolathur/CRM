@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -261,10 +262,8 @@ class _leads_pageState extends State<leads_page> {
                                       ),
 
                                       GestureDetector(onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(builder: (context) => add_client_form(snapshot.data!.docs[index]['name'],snapshot.data!.docs[index].id)),
-                                        );
+                                        changeshow(snapshot.data!.docs[index]['name'],snapshot.data!.docs[index].id);
+
                                       },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -296,6 +295,27 @@ class _leads_pageState extends State<leads_page> {
             ),
           )
       );
+  }
+  changeshow(String name,id){
+    return
+      AwesomeDialog(
+        context: context,
+        width: 500,
+        dialogType: DialogType.info,
+        headerAnimationLoop: false,
+        animType: AnimType.bottomSlide,
+        title: 'Sure',
+        desc: 'To You Change the Lead To Client',
+        buttonsTextStyle:  GoogleFonts.montserrat(fontWeight: FontWeight.w700,fontSize: 13,color: Colors.white),
+        showCloseIcon: true,
+        btnCancelOnPress: () {},
+        btnOkOnPress: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => add_client_form(name,id)),
+          );
+        },
+      ).show();
   }
 }
 

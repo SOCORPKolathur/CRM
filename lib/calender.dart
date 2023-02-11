@@ -36,6 +36,7 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
   @override
   void initState() {
     get12();
+    getleavecount();
     super.initState();
   }
   String ledropdownValue = lelist.first;
@@ -85,7 +86,7 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                                 elevation: 10,
                                 borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight:Radius.circular(10) ),
                                 child: Container(
-                                  width:width/3,
+                                  width:width/3.7,
                                   height:height/23.475,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(topLeft:Radius.circular(10),topRight:Radius.circular(10) ),
@@ -104,8 +105,8 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(bottomLeft:Radius.circular(10)),
                                   ),
-                                  width:width/3,
-                                  height:height/2,
+                                  width:width/3.7,
+                                  height:height/2.7,
                                   child: SfDateRangePicker(
                                     backgroundColor: Colors.white,
                                     enablePastDates: false,
@@ -121,7 +122,7 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                               ),
                             ],
                           ),
-                          SizedBox(width:width/30,),
+                          SizedBox(width:width/25,),
                           Column(
                             children: [
                               Material(
@@ -227,7 +228,6 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                                             GestureDetector(
                                               onTap: (){
                                                 leaveapply();
-                                                leaveapply1();
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
@@ -277,15 +277,6 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                           SizedBox(width:width/300,),
                         ],
                       ),
-
-
-
-
-
-
-
-
-
                       SizedBox(height:height/80,),
                       Container(
                         width:width/1.24,
@@ -350,8 +341,10 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                       SizedBox(height:height/130,),
                       Container(
                         width:width/1.24,
-                        height:height/4.5,
-                        child: StreamBuilder<QuerySnapshot>(
+                        height:height/2.8,
+                        child:
+                        leavecount != 0 ?
+                        StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('myleaves').snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
@@ -394,7 +387,18 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
                                     );
 
                                 });
-                          },),
+                          },):
+                        Container(
+                            child: Column(
+                              children: [
+                                Container(
+                                    width:width/9.333,
+                                    height: height/5.216,
+                                    child: Center(child:Lottie.asset("assets/noleave.json"),)),
+                                Text('No Leaves Taken Still Today',style: GoogleFonts.montserrat(fontWeight: FontWeight.w700,fontSize: 15,color: Colors.black),),
+
+                              ],
+                            ))
                       ), //StreamBuilder
 
 
@@ -407,15 +411,21 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
 
   String myname="";
   String myid="";
-
+  int leavecount=0;
 
   final FirebaseFirestore _firebase =FirebaseFirestore.instance;
+  getleavecount() async {
+    var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('myleaves').get();
+    setState(() {
+      leavecount = document.docs.length.toInt();
+    });
+  }
   get12() async {
     var doumet= await FirebaseFirestore.instance.collection("User").doc(widget.id).get();
     Map<String,dynamic>? val =doumet.data();
     setState(() {
-      myname=val!["name1"];
-      myid=val["username"];
+      myname='${val!["firstname"]} ${val["middlename"]} ${val["lastname"]}';
+      myid=val["empid"];
     });
   }
   Future leaveapply() async{
@@ -429,7 +439,8 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
       'reason':reasontextfield.text,
       'status':'request',
       "docid": widget.id,
-      "uuid": doid
+      "uuid": doid,
+      'clock':DateTime.now().millisecondsSinceEpoch
     });
 
     await _firebase.collection('User').doc(widget.id).collection("myleaves").doc(doid).set({
@@ -439,10 +450,8 @@ class _calenderState extends State<calender> with TickerProviderStateMixin{
       'status':'request',
       'name':myname,
       'id':myid,
-      "uuid": doid
+      "uuid": doid,
+      'clock':DateTime.now().millisecondsSinceEpoch
     });
-  }
-  Future leaveapply1() async{
-
   }
 }

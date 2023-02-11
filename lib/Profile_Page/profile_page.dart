@@ -8,6 +8,8 @@ import 'package:webpage/calender.dart';
 import 'package:webpage/team_chat.dart';
 import 'package:intl/intl.dart';
 
+import '../group_chat.dart';
+
 class profile_page extends StatefulWidget {
   String? id;
   profile_page(this.id);
@@ -17,20 +19,38 @@ class profile_page extends StatefulWidget {
 }
 
 class _profile_pageState extends State<profile_page> {
+
+
+  final FirebaseFirestore _firebase =FirebaseFirestore.instance;
+  String id="";
  int totalcount=0;
- var total="given";
+ String total="given";
  int aftercount=0;
  int beforecount=0;
  int ontimecount=0;
  var pages;
  int n=1;
+ int completecount =0;
+ int takencount =0;
+ int givencount =0;
+ double gtcount =0;
+ String date1='';
+
+ DateTime dt1=DateTime.now();
+ DateTime dt2=DateTime.now();
+
  TextEditingController usernamefield = TextEditingController();
  TextEditingController passfield = TextEditingController();
  TextEditingController oldpassfield = TextEditingController();
  TextEditingController newpassfield = TextEditingController();
+
+
+
+
  @override
  void initState() {
    check();
+   check3();
    getgivencount();
    gettakencount();
    gettaskcount();
@@ -196,7 +216,6 @@ class _profile_pageState extends State<profile_page> {
             return alert;
           }
       );
-
     }
     return Scaffold(
       body: SingleChildScrollView(
@@ -232,7 +251,7 @@ class _profile_pageState extends State<profile_page> {
                                   borderRadius: BorderRadius.circular(15)
                               ),
                               width: width/4.44,
-                              height: height/1.15,
+                              height: height/1.050,
                               child: Column(
                                 children: [
                                   SizedBox(height:height/30,),
@@ -249,7 +268,7 @@ class _profile_pageState extends State<profile_page> {
 
                                   SizedBox(height:height/52.15,),
                                   Center(
-                                    child:Text(value['name1'],style: GoogleFonts.montserrat(
+                                    child:Text('${value['firstname']} ${value['middlename']} ${value['lastname']}',style: GoogleFonts.montserrat(
                                         fontWeight:FontWeight.bold,color: Colors.black,fontSize:width/81.13
                                     ),),
                                   ),
@@ -260,7 +279,7 @@ class _profile_pageState extends State<profile_page> {
                                       Text('Emp ID :',style: GoogleFonts.montserrat(
                                           fontWeight:FontWeight.w500,color: Colors.black,fontSize: width/124.4
                                       ),),
-                                      Text(value['username1'],style: GoogleFonts.montserrat(
+                                      Text(value['username'],style: GoogleFonts.montserrat(
                                           fontWeight:FontWeight.w500,color: Colors.black,fontSize: width/124.4
                                       ),),
                                     ],
@@ -357,7 +376,7 @@ class _profile_pageState extends State<profile_page> {
                                     onTap: () {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => team_chat()),
+                                      MaterialPageRoute(builder: (context) => chat(widget.id)),
                                     );
                                   },
                                     child: Row(children: [
@@ -427,7 +446,7 @@ class _profile_pageState extends State<profile_page> {
                                   color:Colors.white
                               ),
                               width:width/1.86,
-                              height: height/1.24,
+                              height: height/1.140,
                               child: Padding(
                                 padding: EdgeInsets.only(left:width/62.2,right:width/62.2),
                                 child: Column(
@@ -596,7 +615,7 @@ class _profile_pageState extends State<profile_page> {
                                                 ),
                                                 height:height/8.69,
                                                 width:width/15.55,
-                                                child: Center(child: Text(date1.toString(),style: GoogleFonts.montserrat(
+                                                child: Center(child: Text(totaldays.toString(),style: GoogleFonts.montserrat(
                                                     fontWeight:FontWeight.bold,color: Colors.red,fontSize:width/53.31
                                                 ),)),
                                               ),
@@ -626,9 +645,7 @@ class _profile_pageState extends State<profile_page> {
                                             ],),
                                         ],),
                                     ),
-
                                     SizedBox(height:height/26.07,),
-
                                     Container(
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -673,7 +690,6 @@ class _profile_pageState extends State<profile_page> {
                                           ),
                                         ],),
                                     ),
-
                                     SizedBox(height:height/26.07,),
                                     Material(
                                       elevation: 10,
@@ -704,9 +720,6 @@ class _profile_pageState extends State<profile_page> {
                         ],)
                     ],),
                 );
-
-
-
             },
           ),
         ),
@@ -714,12 +727,8 @@ class _profile_pageState extends State<profile_page> {
 
     );
   }
- int completecount =0;
- int takencount =0;
- int givencount =0;
- double gtcount =0;
- final FirebaseFirestore _firebase =FirebaseFirestore.instance;
- String id="";
+
+
  getid() async {
    final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
        .where('username', isEqualTo: usernamefield.text )
@@ -740,9 +749,6 @@ class _profile_pageState extends State<profile_page> {
      emp_add_done_show();
    }
  }
-
-
-
  mytasktaken(thisdocid) async {
    await _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update({
      "status":"taken"
@@ -753,15 +759,13 @@ class _profile_pageState extends State<profile_page> {
      "status":"complete"
    });
  }
-
-  gettaskcount() async {
+ gettaskcount() async {
     var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').get();
     setState(() {
       totalcount= document.docs.length.toInt() + 0;
 
     });
   }
-
   taskbeforefn() async {
    print(" i was called");
    var  document3 = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('timing',isEqualTo: 'after').get();
@@ -784,8 +788,6 @@ class _profile_pageState extends State<profile_page> {
      gtcount = (beforecount / completecount) * 100;
    });
   }
-
-
   getgivencount() async {
     var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where("status",isEqualTo: "given").get();
     setState(() {
@@ -798,8 +800,6 @@ class _profile_pageState extends State<profile_page> {
       takencount= document.docs.length.toInt() + 0;
     });
   }
-
-
  forgotpassword() async {
    final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
        .where('password', isEqualTo: oldpassfield.text )
@@ -905,11 +905,6 @@ class _profile_pageState extends State<profile_page> {
    });
    password_update_done_show();
  }
-
- String date1='';
- DateTime dt1=DateTime.now();
- DateTime dt2=DateTime.now();
-
  String _formatDateTime(DateTime dateTime) {
    return DateFormat('yyyy-MM-dd hh:mm:ss').format(dateTime);
  }
@@ -920,20 +915,96 @@ class _profile_pageState extends State<profile_page> {
    setState(() {
      date2 = _formatDateTime(DateTime.now());
    });
-   print("date2 man: " + date2.toString());
-
    setState(() {
      dt1=DateTime.parse(val!["date"]);
-     print("d1 in Days: " + dt1.toString());
      dt2=DateTime.parse(date2) ;
-     print("d2 in Days: " + dt2.toString());
      Duration diff = dt2.difference(dt1);
      date1 = diff.inDays.toString();
-     print("Days: " + date1.toString());
    });
-
  }
+ String _formatDateTime1(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
+  String visibility='';
+  checkholiday() async {
+    final docemt = await FirebaseFirestore.instance.collection('Date').get();
+    for(int i =0;i<=docemt.docs.length;i++){
+      if(docemt.docs[i]['date']==_formatDateTime1){
+        setState(() {
+          visibility = 'false';
+        });
+      }
+      else
+      {
+        setState(() {
+          visibility = 'true';
+        });
+      }
+    }
+  }
 
+
+  DateTime startDate = DateTime.now();
+  DateTime startDate2 = DateTime.now();
+  DateTime endDate =  DateTime.now();
+  List<String> holidays=[];
+  List<String> mydate =[];
+  final DateFormat formatter = DateFormat('dd/M/yyyy');
+
+  getDaysInBetween() {
+    final int difference = endDate.difference(startDate).inDays;
+    print(difference);
+    return difference;
+  }
+  int year =0;
+  int day= 0;
+  int month=0;
+  check3()async{
+    var  document1 = await FirebaseFirestore.instance.collection('date').doc('3ba8Iq61VLtTX1eDLo7M').get();
+    Map<String,dynamic>? val =document1.data();
+    setState(() {
+      startDate = DateFormat('dd/MM/yyyy').parse(val!['date']);
+      print('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
+      print(startDate);
+      year= startDate.year;
+      month= startDate.month;
+      day= startDate.day;
+      startDate2= DateTime.utc(year,month,day);
+    });
+    endDate =DateFormat('dd/MM/yyyy').parse("${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}");
+    print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
+    print(endDate);
+
+    final items = List<DateTime>.generate(getDaysInBetween(), (i) {
+      DateTime date = startDate2;
+      return date.add(Duration(days: i));
+    });
+    var document =await  FirebaseFirestore.instance.collection('Holidays').get();
+    print(items);
+    for(int i=0;i<document.docs.length;i++){
+      holidays.add(document.docs[i]['date']);
+      setState(() {
+        holidays.add(document.docs[i]['date']);
+      });
+    }
+    for(int i =0;i<items.length;i++) {
+      print(formatter.format(items[i]).toString());
+      for(int z=0;z<holidays.length;z++) {
+        if (formatter.format(items[i]).toString().contains(holidays[z])) {
+          setState(() {
+            mydate.add(formatter.format(items[i]).toString());
+          });
+          break;
+        }
+      }
+    }
+    print(mydate.length);
+    print(mydate);
+    setState(() {
+      totaldays=items.length-mydate.length;
+    });
+  }
+  int totaldays=0;
 
 
 }

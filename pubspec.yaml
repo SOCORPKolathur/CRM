@@ -72,6 +72,8 @@ dependencies:
   percentify: ^1.0.3
   image_auto_slider: ^0.0.3
   scroll_loop_auto_scroll: ^0.0.5
+  flutter_email_sender: ^5.2.0
+  animate_do: ^3.0.2
 
 
 dev_dependencies:

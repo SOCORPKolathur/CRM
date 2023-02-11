@@ -32,8 +32,8 @@ class _client_pageState extends State<client_page> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                 ),
-                width: 250,
-                height: 390,
+                width:width/7.466,
+                height:height/2.500,
                 child: Column(
                   children: [
                     Row(
@@ -42,7 +42,7 @@ class _client_pageState extends State<client_page> {
                       GestureDetector(onTap: (){
                         Navigator.pop(context);
                       },
-                          child: Icon(Icons.cancel_outlined,color:Colors.red,size: 25,)),
+                          child: Icon(Icons.cancel_outlined,color:Colors.red,size:width/74.666,)),
                     ],),
                   Container(
                     decoration: BoxDecoration(
@@ -50,14 +50,14 @@ class _client_pageState extends State<client_page> {
                         color: Colors.white,
                         border: Border.all(color:Colors.black)
                     ),
-                    width: 250,
-                    height: 350,
+                    width:width/7.466,
+                    height:height/2.800,
                     child:Padding(
-                      padding:EdgeInsets.all(8.0),
+                      padding:EdgeInsets.only(left: width/233.33,right:width/233.33,top:height/130.416,bottom:height/130.416),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height:10),
+                          SizedBox(height:height/150),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -69,7 +69,7 @@ class _client_pageState extends State<client_page> {
 
                             ],
                           ),
-                          SizedBox(height:10),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -82,7 +82,7 @@ class _client_pageState extends State<client_page> {
                               ],
                             ),
                           ),
-                          SizedBox(height:height/200),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -95,7 +95,7 @@ class _client_pageState extends State<client_page> {
                               ],
                             ),
                           ),
-                          SizedBox(height:height/200),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -108,7 +108,7 @@ class _client_pageState extends State<client_page> {
                               ],
                             ),
                           ),
-                          SizedBox(height:height/200),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -121,7 +121,7 @@ class _client_pageState extends State<client_page> {
                               ],
                             ),
                           ),
-                          SizedBox(height:height/200),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -134,7 +134,7 @@ class _client_pageState extends State<client_page> {
                               ],
                             ),
                           ),
-                          SizedBox(height:height/200),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -147,7 +147,7 @@ class _client_pageState extends State<client_page> {
                               ],
                             ),
                           ),
-                          SizedBox(height:height/200),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -160,7 +160,7 @@ class _client_pageState extends State<client_page> {
                               ],
                             ),
                           ),
-                          SizedBox(height:height/200),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -173,7 +173,7 @@ class _client_pageState extends State<client_page> {
                               ],
                             ),
                           ),
-                          SizedBox(height:height/200),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -186,7 +186,7 @@ class _client_pageState extends State<client_page> {
                               ],
                             ),
                           ),
-                          SizedBox(height:height/200),
+                          SizedBox(height:height/150),
                           RichText(
                             text: TextSpan(
                               children: [
@@ -329,7 +329,7 @@ class _client_pageState extends State<client_page> {
                   height:height/104.3,
                 ),
                 StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection('client').snapshots(),
+                  stream: FirebaseFirestore.instance.collection('client').orderBy('clock').snapshots(),
                   builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (!snapshot.hasData) {
                       return Container(

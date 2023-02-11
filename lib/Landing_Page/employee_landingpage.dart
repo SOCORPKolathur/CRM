@@ -4,50 +4,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:webpage/calender.dart';
+import 'package:webpage/group_chat.dart';
 import 'package:webpage/Profile_Page/profile_page.dart';
-import 'package:webpage/leave_hr.dart';
 import 'package:webpage/pomotorotimer.dart';
 import '../Dashboard_Page/dashboard_page.dart';
 import '../Login_page/login_page.dart';
-import '../all_employee_page.dart';
-import '../add_emp_form.dart';
-import '../dddddd.dart';
+import '../completed_task.dart';
+import '../project_emp_page.dart';
+import 'package:intl/intl.dart';
 
-class landing_page_hr extends StatefulWidget {
+
+const List<String> lelist = <String>[ 'Casual Leave','Sick Leave', 'Preplaned Leave',];
+class landing_page_employee extends StatefulWidget {
   String? id;
-  landing_page_hr(this.id);
-
+  landing_page_employee(this.id);
   @override
-  State<landing_page_hr> createState() => _landing_page_hrState();
+  State<landing_page_employee> createState() => _landing_page_employeeState();
 }
 
-class _landing_page_hrState extends State<landing_page_hr> {
+class _landing_page_employeeState extends State<landing_page_employee> {
+
+  String ledropdownValue = lelist.first;
   var  wid =10;
   var conheight=50;
   var  conwidth=50;
-
   var  conwidth2=50;
+  var _iconsize=40;
   var containerwid=100;
   var containerhei=50;
   var marginsize=10;
-
   var login=Icons.login;
-
   var pages;
-
   var titilewidth=80;
   var tilleheight=30;
   bool i=true;
   int n=1;
-
   @override
   void initState() {
     setState(() {
       pages=dashboard_page(widget.id);
     });
     get123();
-
-
     // TODO: implement initState
     super.initState();
   }
@@ -56,7 +53,8 @@ class _landing_page_hrState extends State<landing_page_hr> {
     double height=MediaQuery.of(context).size.height;
     double width=MediaQuery.of(context).size.width;
 
-    return Scaffold(
+    return
+      Scaffold(
       body:
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,6 +75,7 @@ class _landing_page_hrState extends State<landing_page_hr> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         width: width/6.43,
+                        height: height/1.050,
                         duration: Duration(milliseconds: 400),
                         child: Padding(
                           padding:EdgeInsets.only(left:width/124.4,right: width/186.6),
@@ -88,27 +87,21 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12)),
                                   child: Column(
-                                      children:[ Row(
+                                      children:[
+                                        Row(
                                         children: [
                                           SizedBox(width:width/933,),
-                                          GestureDetector(
-                                            onTap:(){
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => chat(widget.id)),
-                                              );
-                                            },
-                                            child: Container(
-                                                width: width/46.65,
-                                                height:height/26.07,
+                                          Container(
+                                              width: width/46.65,
+                                              height:height/26.07,
                                               child:Image.asset("assets/drawer_user_icon.png"),),
-                                          ),
+
                                           SizedBox(width:width/373.2,),
                                           GestureDetector(
                                             onTap: (){
                                               print(height);
                                             },
-                                            child: Text('Hi ${namee.toString()} (HR)',
+                                            child: Text('Hi ${namee.toString()} (EMP)',
                                               style: GoogleFonts.montserrat(
                                                 fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
@@ -127,12 +120,12 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                               style: GoogleFonts.montserrat(
                                                 color: Colors.white,
                                                 fontSize: width/155.5,
-                                                fontWeight: FontWeight.w500,),
+                                                fontWeight: FontWeight.bold,),
                                               textAlignVertical: TextAlignVertical.center,
                                               decoration: InputDecoration(
                                                   border: InputBorder.none,
                                                   prefixIcon: Icon(Icons.search,color: Colors.white,size:width/100.4,),
-                                                  hintText:'Search',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white),
+                                                  hintText:'Search Any',hintStyle:TextStyle(fontSize:width/124.4,color: Colors.white),
                                                   isCollapsed: true,
                                                   contentPadding: EdgeInsets.only(top:height/121.85)
                                               ),
@@ -145,7 +138,6 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                 SizedBox(height:height/80,),
                                 Divider(),
                                 SizedBox(height:height/52.15,),
-
 
 
                                 GestureDetector(
@@ -164,15 +156,14 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(12)),
                                       child: Center(
-                                        child:
-                                        Row(
+                                        child: Row(
                                           children: [
                                             SizedBox(width:width/933,),
                                             Container(
                                                 width: width/50,
                                                 height:height/30,
                                                 child: Image.asset("assets/dashboard drawer.png")),
-                                            SizedBox(width:width/933,),
+                                            SizedBox(width:width/140,),
                                             Text('Dash Board',
                                               style: GoogleFonts.montserrat(
                                                 fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
@@ -190,9 +181,8 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                   onTap: (){
 
                                     setState(() {
-                                      pages=leave_hr();
                                       n=2;
-
+                                      pages=profile_page(widget.id);
 
                                     });
                                   },
@@ -212,9 +202,9 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                             Container(
                                                 width: width/50,
                                                 height:height/30,
-                                                child: Image.asset("assets/leave drawer.png")),
-                                            SizedBox(width:width/933,),
-                                            Text('Leaves',
+                                                child: Image.asset("assets/profile drawer.png")),
+                                            SizedBox(width:width/140,),
+                                            Text('Profile',
                                               style: GoogleFonts.montserrat(
                                                 fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
@@ -229,7 +219,7 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {
-                                      pages=all_employee_page();
+                                      pages=chat(widget.id);
                                       n=3;
                                     });
                                   },
@@ -250,9 +240,9 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                             Container(
                                                 width: width/50,
                                                 height:height/30,
-                                                child: Image.asset("assets/employee drawer.png")),
-                                            SizedBox(width:width/933,),
-                                            Text('Employee',
+                                                child: Image.asset("assets/teamchat drawer.png")),
+                                            SizedBox(width:width/140,),
+                                            Text('Team Chat',
                                               style: GoogleFonts.montserrat(
                                                 fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
@@ -268,8 +258,9 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {
-                                      pages=chat(widget.id);
                                       n=4;
+                                      pages=calender(widget.id);
+
                                     });
                                   },
                                   child: Material(
@@ -289,9 +280,9 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                             Container(
                                                 width: width/50,
                                                 height:height/30,
-                                                child: Image.asset("assets/teamchat drawer.png")),
-                                            SizedBox(width:width/933,),
-                                            Text('Team Chat',
+                                                child: Image.asset("assets/calendar drawer.png")),
+                                            SizedBox(width:width/140,),
+                                            Text('Calender',
                                               style: GoogleFonts.montserrat(
                                                 fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
                                               ),
@@ -307,7 +298,7 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {
-                                      pages=calender(widget.id);
+                                      pages=pomotorotimer();
                                       n=6;
                                     });
                                   },
@@ -327,11 +318,11 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                             Container(
                                                 width: width/50,
                                                 height:height/30,
-                                                child: Image.asset("assets/calendar drawer.png")),
-                                            SizedBox(width:width/933,),
-                                            Text('Calender',
+                                                child: Image.asset("assets/promotortimer drawer.png")),
+                                            SizedBox(width:width/140,),
+                                            Text('Promoter Timer',
                                               style: GoogleFonts.montserrat(
-                                                fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
+                                                fontWeight: FontWeight.bold,color:Colors.black,fontSize:width/103.6,
                                               ),),
 
                                           ],
@@ -344,7 +335,7 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {
-                                      pages=add_emp_form();
+                                      pages=completed_task(widget.id);
                                       n=5;
                                     });
                                   },
@@ -365,10 +356,10 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                             Container(
                                                 width: width/50,
                                                 height:height/30,
-                                                child: Image.asset("assets/addemp drawer.png")),
-                                            SizedBox(width:width/933,),
-                                            Text('Add Employee', style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
+                                                child: Image.asset("assets/completetask drawer.png")),
+                                            SizedBox(width:width/140,),
+                                            Text('Completed Task', style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.bold,color:Colors.black,fontSize:width/103.6,
                                             ),),
 
                                           ],
@@ -381,12 +372,12 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                 GestureDetector(
                                   onTap: (){
                                     setState(() {
-                                      pages=profile_page(widget.id);
-                                      n=10;
+                                      pages=project_emp_page(widget.id);
+                                      n=8;
                                     });
                                   },
                                   child: Material(
-                                    elevation:n==10?10: 0,
+                                    elevation:n==8?10: 0,
                                     borderRadius:BorderRadius.circular(12),
                                     child: Container(
                                       height:height/14.9,
@@ -402,47 +393,10 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                             Container(
                                                 width: width/50,
                                                 height:height/30,
-                                                child: Image.asset("assets/profile drawer.png")),
-                                            SizedBox(width:width/933,),
-                                            Text('Profile', style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
-                                            ),),
-
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(height:height/86.91,),
-                                GestureDetector(
-                                  onTap: (){
-                                    setState(() {
-                                      pages=pomotorotimer();
-                                      n=11;
-                                    });
-                                  },
-                                  child: Material(
-                                    elevation:n==11?10: 0,
-                                    borderRadius:BorderRadius.circular(12),
-                                    child: Container(
-                                      height:height/14.9,
-                                      padding: EdgeInsets.only(top:height/208.6),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:BorderRadius.circular(12)
-                                      ),
-                                      child: Center(
-                                        child: Row(
-                                          children: [
-                                            SizedBox(width:width/933,),
-                                            Container(
-                                                width: width/50,
-                                                height:height/30,
-                                                child: Image.asset("assets/promotortimer drawer.png")),
-                                            SizedBox(width:width/933,),
-                                            Text('Promoter Timer', style: GoogleFonts.montserrat(
-                                              fontWeight: FontWeight.bold,color: Colors.black,fontSize:width/103.6,
+                                                child: Image.asset("assets/project drawer.png")),
+                                            SizedBox(width:width/140,),
+                                            Text('Projects', style: GoogleFonts.montserrat(
+                                              fontWeight: FontWeight.bold,color:Colors.black,fontSize:width/103.6,
                                             ),),
 
                                           ],
@@ -453,13 +407,7 @@ class _landing_page_hrState extends State<landing_page_hr> {
                                 ),
 
 
-
-
-
-
-
-
-                                SizedBox(height:height/40,),
+                                SizedBox(height:height/10,),                                //SizedBox(height:height/9,),
                                 Padding(
                                   padding:EdgeInsets.only(bottom: height/34.76),
                                   child: GestureDetector(onTap: (){
@@ -506,7 +454,7 @@ class _landing_page_hrState extends State<landing_page_hr> {
                 SizedBox(height: height/104.3,),
                 Container(
                   margin: EdgeInsets.only(left:width/933),
-                  height: MediaQuery.of(context).size.height * 0.93,
+                  height: MediaQuery.of(context).size.height * 0.98,
                   width: MediaQuery.of(context).size.width*0.80,
                   child: pages,
                 ),
@@ -526,7 +474,6 @@ class _landing_page_hrState extends State<landing_page_hr> {
 
     });
   }
-
   Future<void> logoutshow() async {
     return
       AwesomeDialog(
@@ -554,4 +501,5 @@ class _landing_page_hrState extends State<landing_page_hr> {
       ).show();
 
   }
+
 }

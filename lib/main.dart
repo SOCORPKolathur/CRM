@@ -33,6 +33,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: Theme.of(context).copyWith(
+        colorScheme: Theme.of(context).colorScheme.copyWith(
+          primary: const Color(0xff5F67EC),
+        ),
+      ),
   debugShowCheckedModeBanner: false,
       home:login_page(),
     );

@@ -221,56 +221,59 @@ class _leave_hrState extends State<leave_hr> with TickerProviderStateMixin{
                                                       ),
                                                     ),
                                                     SizedBox(height:height/320),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            leaveacceptall(snapshot.data!.docs[index].id);
-                                                            leaveacceptid(snapshot.data!.docs[index].id);
-                                                            Uploadaccleaveid(snapshot.data!.docs[index]["docid"],snapshot.data!.docs[index]["uuid"]);
-                                                            },
-                                                          child: Material(
-                                                            elevation: 20,
-                                                            borderRadius: BorderRadius.circular(5),
-                                                            child: Container(
-                                                              height:20,
-                                                              width:60,
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(5),
-                                                                color: Colors.green
-                                                              ),
-                                                              child: Center(
-                                                                child: Text('Accept',style: GoogleFonts.montserrat(
-                                                                  color: Colors.white,
-                                                                  fontWeight: FontWeight.w500,fontSize: 12
-                                                                ),),
+                                                    Padding(
+                                                      padding:EdgeInsets.only(top:height/130.416,bottom:height/130.416),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              leaveacceptall(snapshot.data!.docs[index].id);
+                                                              leaveacceptid(snapshot.data!.docs[index].id);
+                                                              Uploadaccleaveid(snapshot.data!.docs[index]["docid"],snapshot.data!.docs[index]["uuid"]);
+                                                              },
+                                                            child: Material(
+                                                              elevation: 10,
+                                                              borderRadius: BorderRadius.circular(5),
+                                                              child: Container(
+                                                                height:height/34.777,
+                                                                width:width/26.666,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  color: Colors.green
+                                                                ),
+                                                                child: Center(
+                                                                  child: Text('Accept',style: GoogleFonts.montserrat(
+                                                                    color: Colors.white,
+                                                                    fontWeight: FontWeight.w700,fontSize:width/155.555
+                                                                  ),),
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        GestureDetector(onTap: (){
-                                                          leaverejectall(snapshot.data!.docs[index].id);
-                                                          leaverejectid(snapshot.data!.docs[index].id);
-                                                        },
-                                                          child: Material(
-                                                            elevation: 20,
-                                                            borderRadius: BorderRadius.circular(5),
-                                                            child: Container(
-                                                              height:20,
-                                                              width:60,
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(5),
-                                                                color: Colors.red
+                                                          GestureDetector(onTap: (){
+                                                            leaverejectall(snapshot.data!.docs[index].id);
+                                                            leaverejectid(snapshot.data!.docs[index].id);
+                                                          },
+                                                            child: Material(
+                                                              elevation:10,
+                                                              borderRadius: BorderRadius.circular(5),
+                                                              child: Container(
+                                                                height:height/34.777,
+                                                                width:width/26.666,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                  color: Colors.red
+                                                                ),
+                                                                child: Center(child: Text('Reject',style: GoogleFonts.montserrat(
+                                                                    color: Colors.white,
+                                                                    fontWeight: FontWeight.w700,fontSize:width/155.555
+                                                                ),)),
                                                               ),
-                                                              child: Center(child: Text('Reject',style: GoogleFonts.montserrat(
-                                                                  color: Colors.white,
-                                                                  fontWeight: FontWeight.w500,fontSize: 12
-                                                              ),)),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
                                                     SizedBox(height:height/320),
 
@@ -321,57 +324,60 @@ class _leave_hrState extends State<leave_hr> with TickerProviderStateMixin{
                                           child: Row(
                                             children: [
                                               SizedBox(width:width/186.6),
-                                              Container(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(height:height/104.3),
-                                                    Text(snapshot.data!.docs[index]['name'],style: GoogleFonts.montserrat(
-                                                        color:Colors.green,fontWeight:FontWeight.bold,fontSize:width/124.4
-                                                    ),),
-                                                    SizedBox(height:height/320),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(text: 'Emp Id : ', style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                          ),),
-                                                          TextSpan(text:snapshot.data!.docs[index]['id'],style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                          ),),
-                                                        ],
+                                              Padding(
+                                                padding:EdgeInsets.only(top:height/130.416,bottom:height/130.416),
+                                                child: Container(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(height:height/104.3),
+                                                      Text(snapshot.data!.docs[index]['name'],style: GoogleFonts.montserrat(
+                                                          color:Colors.green,fontWeight:FontWeight.bold,fontSize:width/124.4
+                                                      ),),
+                                                      SizedBox(height:height/320),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(text: 'Emp Id : ', style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                            ),),
+                                                            TextSpan(text:snapshot.data!.docs[index]['id'],style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                            ),),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(height:height/320),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(text: 'Date : ', style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                          ),),
-                                                          TextSpan(text:snapshot.data!.docs[index]['date'],style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                          ),),
-                                                        ],
+                                                      SizedBox(height:height/320),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(text: 'Date : ', style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                            ),),
+                                                            TextSpan(text:snapshot.data!.docs[index]['date'],style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                            ),),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(height:height/320),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(text: 'Leave Type : ', style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                          ),),
-                                                          TextSpan(text:snapshot.data!.docs[index]['type'],style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                          ),),
-                                                        ],
+                                                      SizedBox(height:height/320),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(text: 'Leave Type : ', style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                            ),),
+                                                            TextSpan(text:snapshot.data!.docs[index]['type'],style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                            ),),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(height:height/320),
+                                                      SizedBox(height:height/320),
 
 
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -420,58 +426,61 @@ class _leave_hrState extends State<leave_hr> with TickerProviderStateMixin{
                                             children: [
                                               SizedBox(width:width/186.6),
 
-                                              Container(
-                                                width:width/5,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(height:height/104.3),
-                                                    Text(snapshot.data!.docs[index]['name'],style: GoogleFonts.montserrat(
-                                                        color:Colors.green,fontWeight:FontWeight.bold,fontSize:width/124.4
-                                                    ),),
-                                                    SizedBox(height:height/320),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(text: 'Emp Id : ', style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                          ),),
-                                                          TextSpan(text:snapshot.data!.docs[index]['id'],style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                          ),),
-                                                        ],
+                                              Padding(
+                                                padding:EdgeInsets.only(top:height/130.416,bottom:height/130.416),
+                                                child: Container(
+                                                  width:width/5,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(height:height/104.3),
+                                                      Text(snapshot.data!.docs[index]['name'],style: GoogleFonts.montserrat(
+                                                          color:Colors.green,fontWeight:FontWeight.bold,fontSize:width/124.4
+                                                      ),),
+                                                      SizedBox(height:height/320),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(text: 'Emp Id : ', style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                            ),),
+                                                            TextSpan(text:snapshot.data!.docs[index]['id'],style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                            ),),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(height:height/320),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(text: 'Date : ', style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                          ),),
-                                                          TextSpan(text:snapshot.data!.docs[index]['date'],style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                          ),),
-                                                        ],
+                                                      SizedBox(height:height/320),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(text: 'Date : ', style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                            ),),
+                                                            TextSpan(text:snapshot.data!.docs[index]['date'],style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                            ),),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(height:height/320),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          TextSpan(text: 'Leave Type : ', style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
-                                                          ),),
-                                                          TextSpan(text:snapshot.data!.docs[index]['type'],style: GoogleFonts.montserrat(
-                                                              color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
-                                                          ),),
-                                                        ],
+                                                      SizedBox(height:height/320),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          children: [
+                                                            TextSpan(text: 'Leave Type : ', style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/140
+                                                            ),),
+                                                            TextSpan(text:snapshot.data!.docs[index]['type'],style: GoogleFonts.montserrat(
+                                                                color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/140
+                                                            ),),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(height:height/320),
+                                                      SizedBox(height:height/320),
 
 
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ],

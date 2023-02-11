@@ -80,7 +80,7 @@ class _chatState extends State<chat> {
         delayStart: Duration(milliseconds: 200),
     child:
       Padding(
-      padding:EdgeInsets.only(top: 20),
+      padding:EdgeInsets.only(top:20,left: 10,right: 10),
       child: Scaffold(
         body:
         Column(
@@ -109,7 +109,7 @@ class _chatState extends State<chat> {
               child: Material(
                 elevation: 10,
                 child: Container(
-                  height: size.height / 1.40,
+                  height: size.height / 1.260,
                   width: size.width,
                   child: StreamBuilder<QuerySnapshot>(
                     stream: _firestore
@@ -263,8 +263,8 @@ class _chatState extends State<chat> {
     var doumet= await FirebaseFirestore.instance.collection("User").doc(widget.id).get();
     Map<String,dynamic>? val =doumet.data();
     setState(() {
-      myname=val!["name1"];
-      myid=val["username"];
+      myname='${val!["firstname"]} ${val["middlename"]} ${val["lastname"]}';
+      myid=val["empid"];
     });
   }
 }
@@ -290,17 +290,28 @@ Widget messageTile(Size size, Map<String, dynamic> chatMap,BuildContext context,
           child: Container(
           width: size.width,
           alignment: chatMap['id']==docid?
-          Alignment.centerRight:Alignment.centerLeft,
-          child:
+          Alignment.centerRight:
+          Alignment.centerLeft,
+
+              child:
           chatMap['id']==docid?
-          Column(
+          Column    (
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                chatMap['name'],
-                style: GoogleFonts.montserrat(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black
+              Padding(
+                padding:EdgeInsets.only(right:10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      chatMap['name'],
+                      style: GoogleFonts.montserrat(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -339,13 +350,22 @@ Widget messageTile(Size size, Map<String, dynamic> chatMap,BuildContext context,
           )
               :
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                chatMap['name'],
-                style: GoogleFonts.montserrat(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black
+              Padding(
+                padding:EdgeInsets.only(left:10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      chatMap['name'],
+                      style: GoogleFonts.montserrat(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -408,7 +428,7 @@ class ShowImage extends StatelessWidget {
     return Scaffold(
 
       body: Container(
-        height: size.height,
+        height: MediaQuery.of(context).size.height/1,
         width: size.width,
         color: Colors.black,
         child: InteractiveViewer(child: Image.network(imageUrl)),

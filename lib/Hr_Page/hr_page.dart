@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -22,6 +24,187 @@ class _hr_pageState extends State<hr_page> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double  width = MediaQuery.of(context).size.width;
+    viewprogressDialog(documentid) async {
+      var doumet= await FirebaseFirestore.instance.collection('User').doc(documentid).get();
+      Map<String,dynamic>? val =doumet.data();
+      AlertDialog alert=AlertDialog(
+          content:
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            width:width/4,
+            height:height/3,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(onTap: (){
+                      Navigator.pop(context);
+                    },
+                        child: Icon(Icons.cancel_outlined,color:Colors.red,size:width/74.666,)),
+                  ],),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
+                      border: Border.all(color:Colors.black)
+                  ),
+                  width:width/4,
+                  height:height/3.300,
+                  child:Padding(
+                    padding:EdgeInsets.only(left: width/233.33,right:width/233.33,top:height/130.416,bottom:height/130.416),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height:height/150),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('${val!["firstname"]} ${val["middlename"]} ${val["lastname"]}',style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w700,
+                                fontSize:22,
+                                color: Colors.green
+                            )),
+
+                          ],
+                        ),
+                        SizedBox(height:height/150),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'Emp Id : ', style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                              ),),
+                              TextSpan(text:val['username'],style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                              ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height:height/150),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'gender : ', style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                              ),),
+                              TextSpan(text:val['sex'],style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                              ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height:height/150),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'Contact : ', style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                              ),),
+                              TextSpan(text:val['phone'],style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                              ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height:height/150),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'Email : ', style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                              ),),
+                              TextSpan(text:val['email'],style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                              ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height:height/150),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'D.O.B : ', style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                              ),),
+                              TextSpan(text:val['dob'],style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                              ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height:height/150),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'Position : ', style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                              ),),
+                              TextSpan(text:val['position'],style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                              ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height:height/150),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'Shift : ', style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                              ),),
+                              TextSpan(text:val['shift'],style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                              ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height:height/150),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'Branch : ', style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                              ),),
+                              TextSpan(text:val['branch'],style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                              ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height:height/150),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(text: 'Category : ', style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w700,fontSize:width/110
+                              ),),
+                              TextSpan(text:val['category'],style: GoogleFonts.montserrat(
+                                  color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/120
+                              ),),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height:height/150),
+                      ],),
+                  ),
+                )
+
+              ],),
+          )
+
+
+      );
+      showDialog(
+          context: context,
+          builder:(BuildContext context){
+            return alert;
+          }
+      );
+
+    }
     return
       Scaffold(
         body:ShowUpAnimation(
@@ -138,7 +321,7 @@ class _hr_pageState extends State<hr_page> {
               ),
 
               StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('User').where('category', isEqualTo: 'HR').snapshots(),
+                stream: FirebaseFirestore.instance.collection('User').orderBy('clock').snapshots(),
                 builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
                     return Container(
@@ -153,7 +336,7 @@ class _hr_pageState extends State<hr_page> {
                       children:snapshot.data!.docs.map((val)
                       {
                         return
-
+                        val['category'] == 'HR'?
                           Padding(
                           padding:EdgeInsets.only(top: height/130.37,),
                           child: Container(
@@ -177,7 +360,7 @@ class _hr_pageState extends State<hr_page> {
                                     child: Container(
                                       width: width/18.66,
                                       height: height/34.76,
-                                      child: Center(child: Text(val["username"],
+                                      child: Center(child: Text(val["empid"],
                                         style: GoogleFonts.poppins(fontSize: width/133.28,
                                             color: Colors.blue,fontWeight: FontWeight.w500),)),
 
@@ -189,7 +372,7 @@ class _hr_pageState extends State<hr_page> {
                                     child: Container(
                                       width: width/7.46,
                                       height: height/34.76,
-                                      child: Center(child: Text(val["name1"], overflow: TextOverflow.ellipsis,
+                                      child: Center(child: Text('${val["firstname"]} ${val["middlename"]} ${val["lastname"]}', overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.poppins(
                                           fontSize: width/133.28, color: Colors.black,fontWeight: FontWeight.w500),)),
                                     ),
@@ -230,19 +413,25 @@ class _hr_pageState extends State<hr_page> {
 
                                   Padding(
                                     padding:EdgeInsets.only(left:width/40),
-                                    child: Container(
-                                      height: height/34.76,
-                                      width:width/12.44,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Icon(Icons.error_outline,color: Color(0xffffb946),),
-                                      ]),
+                                    child: GestureDetector(onTap: (){
+                                      viewprogressDialog(val.id);
+                                    },
+                                      child: Container(
+                                        height: height/34.76,
+                                        width:width/12.44,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Icon(Icons.error_outline,color: Color(0xffffb946),),
+                                        ]),
+                                      ),
                                     ),
                                   )
                                 ]),
                           ),
-                        );
+                        ):
+                        SizedBox();
+
                       }
                       ).toList()
                   ));

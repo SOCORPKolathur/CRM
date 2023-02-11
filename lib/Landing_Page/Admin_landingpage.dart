@@ -11,7 +11,7 @@ import '../Hr_Page/hr_page.dart';
 import '../Login_page/login_page.dart';
 import '../admin_dashboard.dart';
 import '../all_employee_page.dart';
-import '../dddddd.dart';
+import '../group_chat.dart';
 import '../leads.dart';
 import '../project_emp_page.dart';
 
@@ -56,7 +56,7 @@ var login=Icons.login;
       AlertDialog alert=AlertDialog(
         backgroundColor: Colors.transparent,
         content:Container(
-          height: 200,
+          height:height/5,
           width:width/5,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
@@ -65,21 +65,21 @@ var login=Icons.login;
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10,),
+              SizedBox(height: height/104.3,),
               Row(
                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  SizedBox(width: 15,),
+                  SizedBox(width: width/124.4,),
                   GestureDetector(onTap: (){
                     Navigator.pop(context);
                   },
                       child: Icon(Icons.cancel_outlined)),
-                  SizedBox(width:10)
+                  SizedBox(width:width/186.6)
                 ],
               ),
               Row(
                 children: [
-                SizedBox(width:10),
+                  SizedBox(width:width/160),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -106,14 +106,14 @@ var login=Icons.login;
                           controller: noticefield,
                           cursorColor: Color(0xff5138EE),
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(5),
+                            contentPadding: EdgeInsets.only(top:height/208.666,bottom:height/208.666,left: width/373.332,right: width/373.332,),
                               border: InputBorder.none,
                               isCollapsed: true,
                           ),)),
                       SizedBox(height:height/100,),
                     Row(
                       children: [
-                        SizedBox(width:300,),
+                        SizedBox(width:width/6.22,),
                         GestureDetector(
                           onTap: (){
                             Uploadnotice();
@@ -123,18 +123,18 @@ var login=Icons.login;
                           HoverCrossFadeWidget(
                             duration: Duration(milliseconds: 300),
                             firstChild: Container(
-                                width: 40,
-                                height: 40,
+                                width:width/46.65,
+                                height: height/26.07,
                                 decoration: BoxDecoration(
                                     color: Colors.lightBlue, shape: BoxShape.rectangle),
-                                child:Center(child: Icon(Icons.send,size: 20,color: Colors.white,))
+                                child:Center(child: Icon(Icons.send,size:width/93.3,color: Colors.white,))
                             ),
                             secondChild: Container(
-                                width: 60,
-                                height: 40,
+                                width: width/31.1,
+                                height: height/26.07,
                                 decoration: BoxDecoration(
                                     color: Colors.blue, shape: BoxShape.circle),
-                                child:Center(child: Icon(Icons.send,size: 20,color: Colors.white,))
+                                child:Center(child: Icon(Icons.send,size:width/93.3,color: Colors.white,))
                             ),
                           )
                         ),
@@ -169,7 +169,7 @@ var login=Icons.login;
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:EdgeInsets.only(top:height/19,left:width/62.2,),
+                    padding:EdgeInsets.only(top:height/34.76,left:width/62.2,),
                     child: Material(
                       elevation: 20,
                       borderRadius: BorderRadius.circular(30),
@@ -179,6 +179,7 @@ var login=Icons.login;
                           borderRadius: BorderRadius.circular(30),
                         ),
                         width: width/6.43,
+                        height: height/1.050,
                         duration: Duration(milliseconds: 400),
                         child: Padding(
                           padding:EdgeInsets.only(left:width/124.4,right: width/186.6),
@@ -635,7 +636,7 @@ var login=Icons.login;
                SizedBox(height: height/104.3,),
                Container(
                  margin: EdgeInsets.only(left:width/933),
-                 height: MediaQuery.of(context).size.height * 0.93,
+                 height: MediaQuery.of(context).size.height * 0.98,
                  width: MediaQuery.of(context).size.width*0.80,
                  child: pages,
                ),
@@ -654,6 +655,7 @@ var login=Icons.login;
       'message' : noticefield.text,
       "submittime":"${DateTime.now().hour}:${DateTime.now().minute}",
       "submitdate":"${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}",
+      'clock':DateTime.now().millisecondsSinceEpoch
 
     });
   }

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:webpage/Landing_Page/landing_page.dart';
-import 'package:webpage/Landing_Page/landing_page2.dart';
-import 'package:webpage/Landing_Page/landing_page3.dart';
+import 'package:webpage/Landing_Page/Admin_landingpage.dart';
+import 'package:webpage/Landing_Page/employee_landingpage.dart';
+import 'package:webpage/Landing_Page/hr_landingpage.dart';
 
 class login_page extends StatefulWidget {
 

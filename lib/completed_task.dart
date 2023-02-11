@@ -52,6 +52,8 @@ class _completed_taskState extends State<completed_task> {
     get12();
     gettime();
     getcat();
+    getlatecount();
+    getontimecount();
     // TODO: implement initState
     super.initState();
   }
@@ -91,7 +93,7 @@ class _completed_taskState extends State<completed_task> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
           ),
-          height:height/1.14,
+          height:height/1.050,
           width:width/1.24,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -103,7 +105,7 @@ class _completed_taskState extends State<completed_task> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20)
                   ),
-                    height: height/1.14,
+                    height: height/1.050,
                     width: width/1.33,
                     child:Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,6 +140,17 @@ class _completed_taskState extends State<completed_task> {
                                         fontWeight:FontWeight.bold,color: Colors.white,fontSize:width/100),),
                                   ),
                                 ),
+                                ontimecount == 0 ?
+                                    Container(
+                                      height:height/4,
+                                      width:width/8,
+                                      child: Column(
+                                        children: [
+                                          Lottie.asset('assets/nodask.json'),
+                                          Text('You Have No Document')
+                                        ],
+                                      ),
+                                    ):
                                 StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('status',isEqualTo: 'complete').where('timing',isEqualTo: 'before').snapshots(),
                                   builder: (context, snapshot) {
@@ -186,6 +199,13 @@ class _completed_taskState extends State<completed_task> {
 
                             ],),
                           ),
+
+
+
+
+
+
+
                             Container(
                               width:width/2.70,
                               height:height/1.23,
@@ -200,6 +220,17 @@ class _completed_taskState extends State<completed_task> {
                                           fontWeight:FontWeight.bold,color: Colors.white,fontSize:width/100),),
                                     ),
                                   ),
+                                  latecount == 0 ?
+                                  Container(
+                                    height:height/4,
+                                    width:width/8,
+                                    child: Column(
+                                      children: [
+                                        Lottie.asset('assets/nodask.json'),
+                                        Text('Wow You Have No Task'),
+                                      ],
+                                    ),
+                                  ):
                                   StreamBuilder<QuerySnapshot>(
                                     stream: FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('status',isEqualTo: 'complete').where('timing',isEqualTo: 'after').snapshots(),
                                     builder: (context, snapshot) {
@@ -269,10 +300,26 @@ class _completed_taskState extends State<completed_task> {
   String myname="";
   String myid="";
   String catcat="";
+  int latecount=0;
+  int ontimecount=0;
   final FirebaseFirestore _firebase =FirebaseFirestore.instance;
 
   DateTime dt1=DateTime.now();
   DateTime dt2=DateTime.now();
+
+  getlatecount() async {
+    var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('status',isEqualTo: 'complete').where('timing',isEqualTo: 'after').get();
+    setState(() {
+      latecount = document.docs.length.toInt();
+    });
+  }
+  getontimecount() async {
+    var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('status',isEqualTo: 'complete').where('timing',isEqualTo: 'before').get();
+    setState(() {
+      ontimecount = document.docs.length.toInt();
+    });
+  }
+
   gettime() async {
 
   }

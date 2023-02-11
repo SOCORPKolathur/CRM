@@ -28,7 +28,7 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
   getempid() async {
     final docemt = await FirebaseFirestore.instance.collection('User').get();
     for(int i =0;i<=docemt.docs.length;i++){
-      if(docemt.docs[i]['name1']==clientempnamefield.text){
+      if('${docemt.docs[i]['firstname']} ${docemt.docs[i]['middlename']} ${docemt.docs[i]['lastname']}'==clientempnamefield.text){
         setState(() {
           clientempidfield.text=docemt.docs[i]['username'];
         });
@@ -541,7 +541,7 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
                                                     showSelectedItems: true,
                                                     items: snapshot.data!.docs.map((DocumentSnapshot document) {
                                                       Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-                                                      return data["name1"].toString();
+                                                      return '${data["firstname"]} ${data["middlename"]} ${data["lastname"]}';
                                                     }).toList().cast<String>(),
                                                     onChanged: (value){
                                                       getempid();
@@ -612,12 +612,12 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
     );
   }
 
-
+  NumberFormat F=new NumberFormat('000');
   final FirebaseFirestore _firebase =FirebaseFirestore.instance;
   Future addnewclient() async{
     await _firebase.collection('client').doc().set({
       'name':clientnamefield.text,
-      'id':clientid.toString(),
+      'id':"${'EMP'} ${F.format(clientid.toString())}",
       'mobile':clientmobilefield.text,
       'email':clientemailfield.text,
       'location':clientlocationfield.text,
@@ -628,8 +628,29 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
       'cempid':clientempidfield.text,
       'projectstatus':'-',
       'startdate':"${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day} ",
-      'action':'waiting'
+      'action':'waiting',
+      'clock':DateTime.now().millisecondsSinceEpoch
     });
+
+  }
+  Future addnewproject() async{
+    await _firebase.collection('project').doc().set({
+      'name':clientnamefield.text,
+      'id':"${'EMP'} ${F.format(clientid.toString())}",
+      'mobile':clientmobilefield.text,
+      'email':clientemailfield.text,
+      'location':clientlocationfield.text,
+      'projecttittle':projecttittlefield.text,
+      'projecttype':projecttypefield.text,
+      'projecttimeperiode':timeperiodefield.text,
+      'cempname':clientempnamefield.text,
+      'cempid':clientempidfield.text,
+      'projectstatus':'-',
+      'startdate':"${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day} ",
+      'action':'waiting',
+      'clock':DateTime.now().millisecondsSinceEpoch
+    });
+
   }
 
   clearall(){
@@ -646,7 +667,7 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
   getclientcount() async {
     var  document = await FirebaseFirestore.instance.collection('client').get();
     setState(() {
-      clientid = document.docs.length.toInt() + 001;
+      clientid = document.docs.length;
     });
   }
   Future<void> _showMyDialog() async {
@@ -662,14 +683,13 @@ class _add_client_formState extends State<add_client_form> with TickerProviderSt
       'Employee Add Sucessfully',
       btnOkOnPress: () {
         addnewclient();
+        addnewproject();
         leadschange(widget.id);
         clearall();
+        Navigator.pop(context);
       },
       btnOkIcon: Icons.check_circle,
       onDismissCallback: (type) {
-        addnewclient();
-        leadschange(widget.id);
-        clearall();
       },
     ).show();
   }

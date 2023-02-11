@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -32,8 +33,33 @@ class _leads2_pageState extends State<leads2_page> {
               children: [
                 SizedBox(height: height/52.15,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Padding(
+                      padding:EdgeInsets.only(left:width/37.32),
+                      child: Material(
+                        elevation:10,
+                        borderRadius: BorderRadius.circular(20),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
+                          child: Container(decoration: BoxDecoration( borderRadius: BorderRadius.circular(20),color: Color(0xff5F67EC),),
+                              width:width/20,
+                              height: height/30,
+                              child:Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.arrow_back,color: Colors.white,),
+                                    Text('Back',style:GoogleFonts.montserrat(fontSize:width/124.4,color: Colors.white)),
+                                  ],
+                                ),
+                              )
+                          ),
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding:EdgeInsets.only(left:width/37.32),
                       child:
@@ -64,6 +90,7 @@ class _leads2_pageState extends State<leads2_page> {
                         ),
                       ),
                     ),
+
 
 
                   ],
@@ -238,7 +265,7 @@ class _leads2_pageState extends State<leads2_page> {
                                       SizedBox(width: width/60,),
                                       GestureDetector(
                                         onTap: (){
-                                          leadschange(snapshot.data!.docs[index].id);
+                                          changeshow(snapshot.data!.docs[index].id);
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -272,6 +299,26 @@ class _leads2_pageState extends State<leads2_page> {
       );
   }
   final FirebaseFirestore _firebase =FirebaseFirestore.instance;
+
+  changeshow(String id){
+    return
+      AwesomeDialog(
+        context: context,
+        width: 500,
+        dialogType: DialogType.info,
+        headerAnimationLoop: false,
+        animType: AnimType.bottomSlide,
+        title: 'Sure',
+        desc: 'To You Change the Lead Status',
+        buttonsTextStyle:  GoogleFonts.montserrat(fontWeight: FontWeight.w700,fontSize: 13,color: Colors.white),
+        showCloseIcon: true,
+        btnCancelOnPress: () {},
+        btnOkOnPress: () {
+          leadschange(id);
+        },
+      ).show();
+  }
+
   leadschange(thisdocid) async {
     await _firebase.collection('leads').doc(thisdocid).update({
       "status":'assigned'

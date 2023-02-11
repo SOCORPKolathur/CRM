@@ -17,7 +17,6 @@ import 'package:show_up_animation/show_up_animation.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 import 'package:random_string/random_string.dart';
 
-
 class dashboard_page extends StatefulWidget {
   String? id;
   dashboard_page(this.id);
@@ -38,26 +37,30 @@ TextEditingController empidfield=TextEditingController();
 TextEditingController projectnamefield=TextEditingController();
 bool k=false;
 bool c=false;
+int totalcount=0;
+var total="given";
+int aftercount=0;
+int beforecount=0;
+int ontimecount=0;
+int completecount =0;
+int takencount =0;
+int givencount =0;
+double gtcount =100;
 
 double percentagecount=80;
-
-
-
 class _dashboard_pageState extends State<dashboard_page> {
   TimeOfDay selectedTime = TimeOfDay.now();
   getempid() async {
     final docemt = await FirebaseFirestore.instance.collection('User').get();
-    for(int i =0;i<=docemt.docs.length;i++){
-      if(docemt.docs[i]['name1']==empnamefield.text){
+    for(int i =0;i<docemt.docs.length;i++){
+      if('${docemt.docs[i]['firstname']} ${docemt.docs[i]['middlename']} ${docemt.docs[i]['lastname']}'==empnamefield.text){
         setState(() {
-          empidfield.text=docemt.docs[i]['username'];
+          empidfield.text=docemt.docs[i]['empid'];
         });
       }
 
     }
   }
-
-
   String importnotice="";
   String impdate="";
   importantnotice()async{
@@ -73,8 +76,11 @@ class _dashboard_pageState extends State<dashboard_page> {
   }
   @override
   void initState() {
+    checkholiday();
+    getproject();
     getcat();
     get12();
+    taskbeforefn();
     gettaskcount();
     getempcount();
     importantnotice();
@@ -101,14 +107,7 @@ class _dashboard_pageState extends State<dashboard_page> {
   late  Timer timer;
   final _streamDuration = List<StreamDuration>.generate(10, (n) => StreamDuration( Duration(days: 5),));
 
-  updateTime(Timer timer,index) {
-    if (watch[index].isRunning) {
-      setState(() {
-        print("startstop Inside=$startStop");
-        elapsedTime[index] = transformMilliSeconds(watch[index].elapsedMilliseconds);
-      });
-    }
-  }
+
   bool notice = false;
   bool task = false;
   @override
@@ -210,7 +209,8 @@ class _dashboard_pageState extends State<dashboard_page> {
                                          if (!snapshot.hasData) {
                                            return  CupertinoActivityIndicator();
                                          }
-                                         return  DropdownSearch<String>(
+                                         return
+                                           DropdownSearch<String>(
                                            dialogMaxWidth:100,
                                            maxHeight: 500,
                                            isFilteredOnline: true,
@@ -220,23 +220,23 @@ class _dashboard_pageState extends State<dashboard_page> {
                                                border: InputBorder.none,
                                                helperStyle: GoogleFonts.montserrat(
                                                  color: Colors.black,
-                                                 fontSize: width/10,
+                                                 fontSize: width/194,
                                                  fontWeight: FontWeight.w500,),
                                                hintStyle:  GoogleFonts.montserrat(
                                                  color: Colors.black,
-                                                 fontSize: width/10,
+                                                 fontSize: width/194,
                                                  fontWeight: FontWeight.w500,),
                                                labelStyle:  GoogleFonts.montserrat(
                                                  color: Colors.black,
-                                                 fontSize: width/10,
+                                                 fontSize: width/194,
                                                  fontWeight: FontWeight.w500,),
                                                counterStyle:  GoogleFonts.montserrat(
                                                  color: Colors.black,
-                                                 fontSize: width/10,
+                                                 fontSize: width/94,
                                                  fontWeight: FontWeight.w500,),
                                                floatingLabelStyle:  GoogleFonts.montserrat(
                                                  color: Colors.black,
-                                                 fontSize: width/10,
+                                                 fontSize: width/193.333,
                                                  fontWeight: FontWeight.w500,),
                                                fillColor: Colors.white
                                            ),
@@ -246,7 +246,7 @@ class _dashboard_pageState extends State<dashboard_page> {
                                            showSelectedItems: true,
                                            items: snapshot.data!.docs.map((DocumentSnapshot document) {
                                              Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-                                             return data["name1"].toString();
+                                             return '${data["firstname"].toString()} ${data["middlename"].toString()} ${data["lastname"].toString()}';
                                            }).toList().cast<String>(),
                                            onChanged: (value){
                                              getempid();
@@ -332,12 +332,10 @@ class _dashboard_pageState extends State<dashboard_page> {
                                              border: InputBorder.none,
                                              isCollapsed: true,
                                              contentPadding: EdgeInsets.only(top:height/60,left: width/186.6)
-
                                          ),
                                          readOnly: true,  // when true user cannot edit text
                                          onTap: () async {
                                            DateTime? pickedDate = await showDatePicker(
-
                                                context: context,
                                                initialDate: DateTime.now(), //get today's date
                                                firstDate:DateTime.now(), //DateTime.now() - not to allow to choose before today.
@@ -606,101 +604,13 @@ class _dashboard_pageState extends State<dashboard_page> {
      );
 
    }
-   Allnoticeshow(){
-     AlertDialog alert=AlertDialog(
-         content:
-         Padding(
-           padding: EdgeInsets.only(left: 10,bottom: 100),
-           child: Container(
-             decoration: BoxDecoration(
-                 borderRadius: BorderRadius.circular(10),
-             ),
-             width:800,
-             height:500,
-             child:Column(
-               children: [
-                 Container(
-                   width:800,
-                   height:50,
-                   decoration: BoxDecoration(
-                   borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10),),
-                     color: Color(0xff5F67EC),
-                   ),
-                   child: Center(child: Text('All Circulars',style: GoogleFonts.montserrat(color: Colors.white,fontWeight: FontWeight.bold,fontSize: width/93.3,))),
-                 ),
-                 SizedBox(height:10),
-                 Container(
-                   width:800,
-                   height:440,
-                   child:
-                   StreamBuilder<QuerySnapshot>(
-                     stream: FirebaseFirestore.instance.collection('allnotice').snapshots(),
-                     builder: (context, snapshot) {
-                       if (!snapshot.hasData) {
-                         return Center(child:Lottie.asset("assets/loading.json"),);
-                       }
-                       return ListView.builder(
-                           itemCount: snapshot.data!.docs.length,
-                           itemBuilder: (context, index) {
-                             return
-                               Padding(
-                                 padding:EdgeInsets.only(top:8.0),
-                                 child: Material(
-                                   elevation: 15,
-                                   borderRadius: BorderRadius.circular(15),
-                                   child:
-                                   Container(
-                                     decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(8),
-
-                                     ),
-                                     width:800,
-                                     height: 40,
-                                     child:
-                                     Row(
-                                       children: [
-                                         SizedBox(width:width/186.6),
-                                         Column(
-                                           crossAxisAlignment: CrossAxisAlignment.start,
-                                           children: [
-                                             SizedBox(height:height/173.83),
-                                             Text(snapshot.data!.docs[index]['message'],overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
-                                                 color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/124.4
-                                             ),),
-                                             SizedBox(height:height/347.66),
-
-
-
-                                           ],),
-
-                                       ],),
-                                   ),
-                                 ),
-                               );
-                           });
-                     },),
-                 ),
-
-               ],),
-
-           ),
-         )
-     );
-     showDialog(
-         context: context,
-         builder:(BuildContext context){
-           return alert;
-         }
-     );
-
-   }
-   var circletexts = 70;
-    var val1=0.80;
 
     final ShakeAnimationController _shakeAnimationController =
     ShakeAnimationController();
     return Scaffold(
-      body: SingleChildScrollView(
+      body:
+      visibility =='workingday'?
+      SingleChildScrollView(
         child: ShowUpAnimation(
         curve: Curves.fastOutSlowIn,
         direction: Direction.horizontal,
@@ -712,156 +622,172 @@ class _dashboard_pageState extends State<dashboard_page> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
             ),
-            height:height/1.14,
+            height:height/1.050,
             width:width/1.24,
             child: Stack(
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                            children:[
-
-                              SizedBox(width:width/90),
-                              Material(
-                                elevation:15,
-                                borderRadius: BorderRadius.circular(20),
-                                child: Container(
+                    Container(
+                      decoration: BoxDecoration(
+                        color:Color(0xffededed),
+                        borderRadius:BorderRadius.circular(15),border: Border.all(color:Colors.black38)
+                      ),
+                      width: 1400,
+                      child: Row(
+                              children:[
+                                SizedBox(width:width/90),
+                                Container(
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color:Color(0xffededed),
                                       borderRadius: BorderRadius.circular(20)
                                   ),
                                   width: width/8,
                                   height: height/6.95,
                                   child:Center(
                                     child: RoundedCircularPercentify(
-                                      percentagecount, // the value of progress
-                                      backgroundColor: Colors.black,
-                                      valueColor:Color(0xff5F67EC),
-                                      strokeWidth: 10,
-                                      valueStrokeWidth: 10,
+                                      gtcount, // the value of progress
+                                      backgroundColor: Colors.grey,
+                                      valueColor:
+                                      gtcount<= 10 && gtcount>0 ?
+                                      Color(0xffad0303):
+                                      gtcount<= 20 && gtcount>10 ?
+                                      Color(0xffff6200):
+                                      gtcount<= 30 && gtcount>20 ?
+                                      Color(0xffffa600):
+                                      gtcount<= 40 && gtcount>30 ?
+                                      Color(0xffffd000):
+                                      gtcount<= 50 && gtcount>40 ?
+                                      Color(0xfff7ec11):
+                                      gtcount<= 60 && gtcount>50 ?
+                                      Color(0xffeeff00):
+                                      gtcount<= 70 && gtcount>60 ?
+                                      Color(0xffd3ff21):
+                                      gtcount<= 80 && gtcount>70 ?
+                                      Color(0xffc2ed00):
+                                      gtcount<= 90 && gtcount>80 ?
+                                      Color(0xff8aff05):
+                                      gtcount<= 100 && gtcount>90 ?
+                                      Color(0xff1d6e02):
+                                      Color(0xff5F67EC),
+                                      strokeWidth:width/186.666,
+                                      valueStrokeWidth:width/186.666,
                                       child:  SizedBox(
                                         width:width/9.333,
                                         height:height/5.216,
                                         child: Center(
                                             child: Text(
-                                              "${percentagecount.toString()}%",
-                                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                                              "${gtcount.toString()}%",
+                                              style: TextStyle(fontSize:width/93.333, fontWeight: FontWeight.bold),
                                             )),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
 
-                              SizedBox(width:width/12.5),
-                              Padding(
-                                padding:EdgeInsets.only(top:height/104.333),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height:height/200),
-                                    Text('Important Notice',style: GoogleFonts.montserrat(
-                                        fontWeight:FontWeight.bold,color: Colors.black,fontSize:width/81.13),),
-                                    SizedBox(height:height/104.3),
-                                    Container(
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      width:width/3,
-                                      height:height/20,
-                                      child:
-                                      Row(
-                                        children: [
-                                          Container(
-                                            width:width/3.5,
-                                            height:height/20,
-                                            child: Material(
-                                                  elevation: 15,
-                                                  borderRadius: BorderRadius.circular(15),
-                                                  child:
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(15),
-                                                      color:Colors.white,
-                                                    ),
-                                                    width:width/3.5,
-                                                    height:height/19,
+                                SizedBox(width:width/20),
+                                Padding(
+                                  padding:EdgeInsets.only(top:height/104.333),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height:height/200),
+                                      Text('Important Notice',style: GoogleFonts.montserrat(
+                                          fontWeight:FontWeight.bold,color: Colors.black,fontSize:width/81.13),),
+                                      SizedBox(height:height/104.3),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                        width:width/2.8,
+                                        height:height/15,
+                                        child:
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width:width/3.2,
+                                              height:height/17,
+                                              child: Material(
+                                                    elevation: 15,
+                                                    borderRadius: BorderRadius.circular(15),
                                                     child:
-                                                    Column(
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            SizedBox(width:width/100),
-                                                            Container(
-                                                              decoration: BoxDecoration(
-                                                                color:Colors.white,
-                                                                borderRadius: BorderRadius.circular(15),
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        color:Colors.white,
+                                                      ),
+                                                      width:width/3.5,
+                                                      height:height/18,
+                                                      child:
+                                                      Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(width:width/100),
+                                                              Container(
+                                                                decoration: BoxDecoration(
+                                                                  color:Colors.white,
+                                                                  borderRadius: BorderRadius.circular(15),
+                                                                ),
+                                                                width:width/3.7,
+                                                                child: Padding(
+                                                                  padding:EdgeInsets.only(top:height/100),
+                                                                  child: Text(importnotice,overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/100
+                                                                  ),),
+                                                                ),
                                                               ),
-                                                              width:width/3.7,
-                                                              child: Padding(
-                                                                padding:EdgeInsets.only(top:height/100),
-                                                                child: Text(importnotice,overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
-                                                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/100
-                                                                ),),
-                                                              ),
-                                                            ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(width:width/100),
+                                                              Text(impdate,style: GoogleFonts.montserrat(fontWeight:FontWeight.w700,fontSize:width/155.555,color:Colors.red)),
+                                                            ],
+                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                          ),
+                                                          SizedBox(height: height/300,)
+                                                        ],),
+                                                    ),
+                                                  )
 
-
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SizedBox(width:width/100),
-                                                            Text(impdate,style: GoogleFonts.montserrat(fontWeight:FontWeight.w700,fontSize:width/155.555,color:Colors.red)),
-                                                          ],
-                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                        ),
-                                                      ],),
-                                                  ),
-                                                )
-
-                                          ),
-
-                                          GestureDetector(
-                                            onTap: (){
-                                              if(notice==false)
-                                              {
-                                                setState(() {
-                                                  notice = true;
+                                            ),
+                                            GestureDetector(
+                                              onTap: (){
+                                                if(notice==false)
+                                                {
+                                                  setState(() {
+                                                    notice = true;
+                                                  }
+                                                  );
                                                 }
-                                                );
-                                              }
-                                              else
-                                              {
-                                                setState(() {
-                                                  notice = false;
+                                                else
+                                                {
+                                                  setState(() {
+                                                    notice = false;
+                                                  }
+                                                  );
                                                 }
-                                                );
-                                              }
 
-                                            },
-                                            child:
-                                            notice == false?
-                                            Icon(Icons.arrow_circle_down,size:width/46.65):
-                                            Icon(Icons.arrow_circle_up,size:width/46.65),
-                                          ),
-                                        ],
+                                              },
+                                              child:
+                                              notice == false?
+                                              Icon(Icons.arrow_circle_down,size:width/46.65):
+                                              Icon(Icons.arrow_circle_up,size:width/46.65),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
 
 
-                                  ],),
-                              ),
+                                    ],),
+                                ),
 
-                              SizedBox(width:width/12.5),
-                              Material(
-                                elevation:15,
-                                borderRadius: BorderRadius.circular(20),
-                                child: Container(
+                                SizedBox(width:width/20),
+                                Container(
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color:Color(0xffededed),
                                       borderRadius: BorderRadius.circular(20)
                                   ),
                                   width: width/8,
@@ -874,7 +800,7 @@ class _dashboard_pageState extends State<dashboard_page> {
                                     Text('On Going Projects',style: GoogleFonts.montserrat(
                                       fontSize:width/109.803,fontWeight: FontWeight.w500,color:Colors.black
                                     ),),
-                                    Text('10',style: GoogleFonts.montserrat(
+                                    Text(projectcount.toString(),style: GoogleFonts.montserrat(
                                         fontSize: width/93.333,fontWeight: FontWeight.bold,color:Colors.black
                                     ),),
                                     SizedBox(height:height/104.333),
@@ -895,14 +821,11 @@ class _dashboard_pageState extends State<dashboard_page> {
                                     Text(pendingtask.toString(),style: GoogleFonts.montserrat(
                                         fontSize: width/93.333,fontWeight: FontWeight.bold,color:Colors.black
                                     ),),
-
-
                                   ],)
-                            ),
-                          ),
-                        ]
+                              ),
+                          ]
+                      ),
                     ),
-
 
 
                     Padding(
@@ -911,10 +834,9 @@ class _dashboard_pageState extends State<dashboard_page> {
                         elevation: 15,
                           borderRadius: BorderRadius.circular(15),
                         child: Container(decoration: BoxDecoration(
-                            color: Colors.white,
                             borderRadius: BorderRadius.circular(15)
                         ),
-                          height: height/1.41,
+                          height: height/1.28,
                           width: width/1.33,
                           child: Row(
                             children: [
@@ -1054,6 +976,7 @@ class _dashboard_pageState extends State<dashboard_page> {
                                                                           task=false;
                                                                         });
                                                                       }
+                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Task Taken ')));
                                                                       mytasktaken(snapshot.data!.docs[index].id);
                                                                       mytasktaken2(snapshot.data!.docs[index].id);
                                                                     },
@@ -1071,6 +994,7 @@ class _dashboard_pageState extends State<dashboard_page> {
                                                                   snapshot.data!.docs[index]["status"]!="complete"?
                                                                   GestureDetector(
                                                                     onTap: (){
+                                                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Task Completed')));
                                                                       Completetaskshow(snapshot.data!.docs[index].id);
                                                                     },
                                                                     child: Icon(
@@ -1487,7 +1411,7 @@ class _dashboard_pageState extends State<dashboard_page> {
                                                                 SizedBox(width:width/124.444,),
                                                                 Icon(Icons.warning_amber,size:width/124.444,color: Colors.red,),
                                                                 SizedBox(width:width/124.444,),
-                                                                Text('Task Was Deleted by ${snapshot.data!.docs[index]['taskfromname']}',style: GoogleFonts.montserrat(
+                                                                Text('Task Was Deleted by EMPID:${snapshot.data!.docs[index]['taskfromid']}',style: GoogleFonts.montserrat(
                                                                 fontWeight: FontWeight.w700,fontSize: 15,color:Color(0xff5c5454)
                                                                 ),)
                                                               ],),
@@ -1504,7 +1428,7 @@ class _dashboard_pageState extends State<dashboard_page> {
                                   ],
                                   ),
                                   Padding(
-                                    padding:EdgeInsets.only(left:width/62.2,top:height/1.52),
+                                    padding:EdgeInsets.only(left:width/62.2,top:height/1.38),
                                     child: Row(
                                       children: [
                                         SizedBox(width: width/11.66,),
@@ -1671,7 +1595,7 @@ class _dashboard_pageState extends State<dashboard_page> {
                                                               ),
                                                               child: Center(child: Text('Task Completed',style:
                                                                  GoogleFonts.montserrat(
-                                                                    color: Colors.white,fontWeight: FontWeight.w700,fontSize:width/130
+                                                                    color: Colors.white,fontWeight: FontWeight.w700,fontSize:width/150
                                                                 ),)),
                                                               ),
                                                                 ):
@@ -1713,7 +1637,8 @@ class _dashboard_pageState extends State<dashboard_page> {
                                                                 {
                                                                   deletedaskshow(snapshot.data!.docs[index].id,
                                                                       snapshot.data!.docs[index]["tasktodocid"],
-                                                                      snapshot.data!.docs[index]["taskid"]);
+                                                                      snapshot.data!.docs[index]["taskid"],
+                                                                      snapshot.data!.docs[index]["taskname"]);
                                                                 },
                                                                   child: Icon( Icons.delete_forever,
                                                                     color: Colors.red,size:width/ 46.65,
@@ -1863,7 +1788,7 @@ class _dashboard_pageState extends State<dashboard_page> {
                                                                   ),
                                                                 ),
                                                                 SizedBox(width:10),
-                                                                Icon(Icons.circle_sharp,color: Colors.green,size:15),
+                                                                Icon(Icons.circle_sharp,color: Colors.grey,size:15),
                                                                 SizedBox(width:5),
                                                                 Text('Complete',style: GoogleFonts.montserrat(
                                                                     fontWeight: FontWeight.w500,
@@ -1957,7 +1882,6 @@ class _dashboard_pageState extends State<dashboard_page> {
                                                   ),
                                                 ),
                                                 );
-
                                             });
                                       },)
 
@@ -1968,7 +1892,6 @@ class _dashboard_pageState extends State<dashboard_page> {
                         ),
                       ),
                     )
-
                   ],
                 ),
                 notice == true?
@@ -2012,48 +1935,51 @@ class _dashboard_pageState extends State<dashboard_page> {
                                             itemCount: snapshot.data!.docs.length,
                                             itemBuilder: (context, index) {
                                               return
-                                                Material(
-                                                  elevation: 15,
-                                                  borderRadius: BorderRadius.circular(15),
-                                                  child:
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(15),
-                                                      color:Colors.white,
-                                                    ),
-                                                    width:width/3.5,
-                                                    height:height/19,
+                                                Padding(
+                                                  padding:EdgeInsets.only(bottom: 8),
+                                                  child: Material(
+                                                    elevation: 15,
+                                                    borderRadius: BorderRadius.circular(15),
                                                     child:
-                                                    Column(
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            SizedBox(width:width/100),
-                                                            Container(
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(15),
-                                                                color:Colors.white,
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        color:Colors.white,
+                                                      ),
+                                                      width:width/3.5,
+                                                      height:height/19,
+                                                      child:
+                                                      Column(
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(width:width/100),
+                                                              Container(
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(15),
+                                                                  color:Colors.white,
+                                                                ),
+                                                                width:width/3.7,
+                                                                child: Padding(
+                                                                  padding:EdgeInsets.only(top:height/100),
+                                                                  child: Text(snapshot.data!.docs[index]['message'],overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
+                                                                      color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/100
+                                                                  ),),
+                                                                ),
                                                               ),
-                                                              width:width/3.7,
-                                                              child: Padding(
-                                                                padding:EdgeInsets.only(top:height/100),
-                                                                child: Text(snapshot.data!.docs[index]['message'],overflow: TextOverflow.ellipsis,style: GoogleFonts.inter(
-                                                                    color:Colors.black,fontWeight:FontWeight.w500,fontSize:width/100
-                                                                ),),
-                                                              ),
-                                                            ),
 
 
-                                                          ],
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            SizedBox(width:width/100),
-                                                            Text(snapshot.data!.docs[index]['submitdate'],style: GoogleFonts.montserrat(fontWeight:FontWeight.w700,fontSize:width/155.555,color:Colors.red)),
-                                                          ],
-                                                          mainAxisAlignment: MainAxisAlignment.start,
-                                                        ),
-                                                      ],),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(width:width/100),
+                                                              Text(snapshot.data!.docs[index]['submitdate'],style: GoogleFonts.montserrat(fontWeight:FontWeight.w700,fontSize:width/155.555,color:Colors.red)),
+                                                            ],
+                                                            mainAxisAlignment: MainAxisAlignment.start,
+                                                          ),
+                                                        ],),
+                                                    ),
                                                   ),
                                                 );
                                             });
@@ -2074,8 +2000,30 @@ class _dashboard_pageState extends State<dashboard_page> {
           ),
         ),
       ),
-      )
+      ):
+          Center(child: Text('today leave'))
     );
+  }
+  String _formatDateTime1(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
+  String visibility='';
+  checkholiday() async {
+    final docemt = await FirebaseFirestore.instance.collection('Holidays').get();
+    for(int i =0;i<=docemt.docs.length;i++){
+      if(docemt.docs[i]['date']==_formatDateTime1){
+        print(_formatDateTime1);
+        setState(() {
+          visibility = 'holiday';
+        });
+      }
+      else
+      {
+        setState(() {
+          visibility = 'workingday';
+        });
+      }
+    }
   }
 
   String myname="";
@@ -2093,19 +2041,12 @@ class _dashboard_pageState extends State<dashboard_page> {
       catcat=val!["category"];
     });
   }
-
   gettaskcount() async {
     var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('status',isNotEqualTo: 'complete' ).get();
     setState(() {
       pendingtask = document.docs.length.toInt();
     });
   }
-
-
-
-
-
-
   Future deletetask(String docid)  async {
     await _firebase
         .collection('User')
@@ -2132,8 +2073,7 @@ class _dashboard_pageState extends State<dashboard_page> {
     var doumet= await FirebaseFirestore.instance.collection("User").doc(widget.id).get();
     Map<String,dynamic>? val =doumet.data();
     setState(() {
-      myname=val!["name1"];
-      myid=val["username"];
+      myid=val!["empid"];
     });
   }
   getid() async {
@@ -2149,10 +2089,9 @@ class _dashboard_pageState extends State<dashboard_page> {
   String userid="";
   String taskid='';
   int totemp=0;
+  int projectcount=0;
 
-
-
-  deletedaskshow(String docid,touserid,docuid){
+  deletedaskshow(String docid,touserid,docuid,name){
     return
       AwesomeDialog(
         context: context,
@@ -2161,8 +2100,8 @@ class _dashboard_pageState extends State<dashboard_page> {
         headerAnimationLoop: false,
         animType: AnimType.bottomSlide,
         title: 'Warning',
-        desc: 'Are You Sure Delete The ${['taskname']} Task',
-        buttonsTextStyle:  TextStyle(color: Colors.black),
+        desc: 'Are You Sure Delete The ${name} Task',
+        buttonsTextStyle:  GoogleFonts.montserrat(fontWeight: FontWeight.w700,fontSize: 13,color: Colors.white),
         showCloseIcon: true,
         btnCancelOnPress: () {},
         btnOkOnPress: () {
@@ -2216,8 +2155,6 @@ class _dashboard_pageState extends State<dashboard_page> {
       btnOkOnPress: () {},
     ).show();
   }
-
-
   Future<void> Completetaskshow(id) async {
     return
       AwesomeDialog(
@@ -2243,7 +2180,6 @@ class _dashboard_pageState extends State<dashboard_page> {
         },
       ).show();
   }
-
   mytaskcomplete(thisdocid) async {
     await _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update({
       "status":"complete"
@@ -2254,7 +2190,6 @@ class _dashboard_pageState extends State<dashboard_page> {
       "status":"complete"
     });
   }
-
   timeupdate(thisdocid) async {
     await _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update({
       "submittime":
@@ -2311,7 +2246,6 @@ class _dashboard_pageState extends State<dashboard_page> {
     });
 
   }
-
   mytasktaken(thisdocid) async {
     await _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update({
       "status":"taken"
@@ -2322,11 +2256,6 @@ class _dashboard_pageState extends State<dashboard_page> {
       "status":"taken"
     });
   }
-
-
-
-
-
   shake(userid,thisdocid) async {
     await _firebase.collection('User').doc(userid).collection("MyTasks").doc(thisdocid).update({
       "query": 'shake'
@@ -2338,7 +2267,6 @@ class _dashboard_pageState extends State<dashboard_page> {
 
     });
   }
-
   see(thisdocid) async {
     await _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update({
       "query": 'see'
@@ -2350,8 +2278,6 @@ class _dashboard_pageState extends State<dashboard_page> {
 
     });
   }
-
-
   Future alltasks() async{
     await _firebase.collection('All').doc().set({
       'taskname':tasknamefield.text,
@@ -2369,15 +2295,15 @@ class _dashboard_pageState extends State<dashboard_page> {
       'project name':projectnamefield.text,
       'timing':'',
       'query':'normal',
-      'visibility':'show'
+      'visibility':'show',
+      'clock':DateTime.now().millisecondsSinceEpoch
     });
   }
   Future Uploadtaskfromid() async{
     String taskid = randomAlphaNumeric(16);
     String userid="";
     final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
-        .where('name1', isEqualTo:  empnamefield.text)
-        .where('username', isEqualTo: empidfield.text )
+        .where('empid', isEqualTo: empidfield.text )
         .get();
     final List <DocumentSnapshot> documents = result.docs;
 
@@ -2404,7 +2330,8 @@ class _dashboard_pageState extends State<dashboard_page> {
       'query':'normal',
       "taskid":taskid,
       "tasktodocid":userid,
-      'visibility':'show'
+      'visibility':'show',
+      'clock':DateTime.now().millisecondsSinceEpoch
 
     });
 
@@ -2426,15 +2353,14 @@ class _dashboard_pageState extends State<dashboard_page> {
       'timing':'',
       'query':'normal',
       "taskid":taskid,
-      'visibility':'show'
+      'visibility':'show',
+      'clock':DateTime.now().millisecondsSinceEpoch
 
     });
     clearall();
     Navigator.pop(context);
   }
-
   Future DeleteTask(String docid,touserid,docuid) async{
-
     await _firebase.collection('User').doc(widget.id).collection("AssignedTasks").doc(docid.toString()).update({
       'visibility':'hide'
     });
@@ -2443,11 +2369,6 @@ class _dashboard_pageState extends State<dashboard_page> {
       'visibility':'hide'
     });
   }
-
-
-
-
-
   mytaskget(thisdocid) async {
     await _firebase.collection('User').doc(widget.id).collection("MyTasks").doc(thisdocid).update({
       "view":true
@@ -2463,7 +2384,6 @@ class _dashboard_pageState extends State<dashboard_page> {
   assignedtaskget(thisdocid) async {
     await _firebase.collection('User').doc(widget.id).collection("AssignedTasks").doc(thisdocid).update({
       "view":true
-
     });
   }
   assignedtaskget2(thisdocid) async {
@@ -2472,45 +2392,7 @@ class _dashboard_pageState extends State<dashboard_page> {
 
     });
   }
-  startOrStop(index) {
-    if(startStop[index]==true) {
-      startWatch(index);
-    } else {
-      stopWatch(index);
-    }
-  }
-  startWatch(index) {
-    setState(() {
-      startStop[index] = false;
-      watch[index].start();
-      timer = Timer.periodic(Duration(milliseconds: 100), updateTime(timer,index));
-    });
-  }
-  stopWatch(index) {
-    setState(() {
-      startStop[index] = true;
-      watch[index].stop();
-      setTime(index);
-    });
-  }
-  setTime(index) {
-    var timeSoFar = watch[index].elapsedMilliseconds;
-    setState(() {
-      elapsedTime[index] = transformMilliSeconds(timeSoFar);
-    });
-  }
-  transformMilliSeconds(int milliseconds) {
-    int hundreds = (milliseconds / 10).truncate();
-    int seconds = (hundreds / 100).truncate();
-    int minutes = (seconds / 60).truncate();
-    int hours = (minutes / 60).truncate();
 
-    String hoursStr = (hours % 60).toString().padLeft(2, '0');
-    String minutesStr = (minutes % 60).toString().padLeft(2, '0');
-    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
-
-    return "$hoursStr:$minutesStr:$secondsStr";
-  }
   clearall(){
     tasknamefield.clear();
     empnamefield.clear();
@@ -2525,8 +2407,35 @@ class _dashboard_pageState extends State<dashboard_page> {
       totemp = document.docs.length.toInt();
     });
   }
+  getproject() async {
+    var  document = await FirebaseFirestore.instance.collection('project').get();
+    setState(() {
+      projectcount = document.docs.length;
+    });
+  }
+NumberFormat F=new NumberFormat('0000');
+  taskbeforefn() async {
+    print(" i was called");
+    var  document3 = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('timing',isEqualTo: 'after').get();
+    setState(() {
+      aftercount= document3.docs.length;
 
+    });
+    var  document = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where('timing',isEqualTo: 'before').get();
+    setState(() {
+      beforecount= document.docs.length;
 
+    });
+    var  document2 = await FirebaseFirestore.instance.collection('User').doc(widget.id).collection('MyTasks').where("status",isEqualTo: "complete").get();
+    setState(() {
+      completecount= document2.docs.length;
+    });
+    print(beforecount);
+    print(completecount);
+    setState(() {
+      gtcount = (beforecount / completecount) * 100;
+    });
+  }
 
 
 
