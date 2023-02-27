@@ -609,7 +609,6 @@ class _dashboard_pageState extends State<dashboard_page> {
     ShakeAnimationController();
     return Scaffold(
       body:
-      visibility =='workingday'?
       SingleChildScrollView(
         child: ShowUpAnimation(
         curve: Curves.fastOutSlowIn,
@@ -2000,8 +1999,7 @@ class _dashboard_pageState extends State<dashboard_page> {
           ),
         ),
       ),
-      ):
-          Center(child: Text('today leave'))
+      )
     );
   }
   String _formatDateTime1(DateTime dateTime) {

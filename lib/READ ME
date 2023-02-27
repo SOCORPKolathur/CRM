@@ -1,0 +1,46 @@
+CRM
+
+// Firebase Database Creation
+1.create a new firebase account with new email id
+2.sync with this project
+3.change json file on main.dart ,only copy and paste to alter your json ,like the code bellow
+
+       Future<void> main() async {
+         WidgetsFlutterBinding.ensureInitialized();
+         await Firebase.initializeApp(
+           options:FirebaseOptions(
+               apiKey: "AIzaSyCtYQ4GPAlKARRReabwnLcvBw4664eYOGk",//
+               authDomain: "crmrankraze-f7c0b.firebaseapp.com",
+               projectId: "crmrankraze-f7c0b",
+               storageBucket: "crmrankraze-f7c0b.appspot.com",
+               messagingSenderId: "656600659780",
+               appId: "1:656600659780:web:5854effe1b70311e80c911",
+               measurementId: "G-0XYGBD844F"
+           )
+         );
+
+4.go to console on firebase
+5.run the bellow comments in your flurtter terminal (one by one order)
+  1.flutter clean
+  2.flutter pub get
+  3.flutter init
+  4.firebase logout
+  5.firebase login (login with email allow )
+
+//CRM Changes
+1.go to constant.dart file in lib, change the details for your Company like logo
+2.open login.dart in lib and goto the Welcome() function and check a 3rd function to add or rmove a holidays in this list
+3.run the Welcome() function in login page (Welcome function is add your login details and update Crm start dater and holidays (only sunday is pre defined)
+4.if you run a welcome function once then remove the function
+5.login with bellow username and password
+ username:Admin
+ password:Admin@123
+
+6.go to employee page and add employees
+7.only HR and Admin have permission to add employee
+
+ if any queris contact:
+    socorp development team
+    contact@socorp.info
+
+

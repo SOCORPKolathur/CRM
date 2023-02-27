@@ -8,6 +8,7 @@ import 'package:webpage/calender.dart';
 import 'package:webpage/team_chat.dart';
 import 'package:intl/intl.dart';
 
+import '../constant.dart';
 import '../group_chat.dart';
 
 class profile_page extends StatefulWidget {
@@ -34,10 +35,7 @@ class _profile_pageState extends State<profile_page> {
  int takencount =0;
  int givencount =0;
  double gtcount =0;
- String date1='';
 
- DateTime dt1=DateTime.now();
- DateTime dt2=DateTime.now();
 
  TextEditingController usernamefield = TextEditingController();
  TextEditingController passfield = TextEditingController();
@@ -364,7 +362,7 @@ class _profile_pageState extends State<profile_page> {
                                     Icon(Icons.email_outlined,),
                                     SizedBox(width:width/373.2),
                                     GestureDetector(onTap: (){
-                                      launch("mailto:srinipandiyan17300@gmail.com");
+                                      launch(hr_email);
                                     },
                                       child: Text('Email to HR',style: GoogleFonts.montserrat(
                                           fontWeight:FontWeight.bold,color: Colors.black,fontSize:width/124.4
@@ -402,7 +400,7 @@ class _profile_pageState extends State<profile_page> {
                                     ),
                                   ],),
                                   SizedBox(height:height/14,),
-                                  Text('www.rankraze.com',style: GoogleFonts.montserrat(fontSize:width/143.53,fontWeight: FontWeight.w500,
+                                  Text(profile_page_name,style: GoogleFonts.montserrat(fontSize:width/143.53,fontWeight: FontWeight.w500,
                                   ),),
                                 ],
                               ),
@@ -905,9 +903,15 @@ class _profile_pageState extends State<profile_page> {
    });
    password_update_done_show();
  }
+
  String _formatDateTime(DateTime dateTime) {
    return DateFormat('yyyy-MM-dd hh:mm:ss').format(dateTime);
  }
+
+  String date1='';
+
+  DateTime dt1=DateTime.now();
+  DateTime dt2=DateTime.now();
  check() async {
    var doumet= await FirebaseFirestore.instance.collection('date').doc('3ba8Iq61VLtTX1eDLo7M').get();
    Map<String,dynamic>? val =doumet.data();
@@ -927,7 +931,7 @@ class _profile_pageState extends State<profile_page> {
   }
   String visibility='';
   checkholiday() async {
-    final docemt = await FirebaseFirestore.instance.collection('Date').get();
+    final docemt = await FirebaseFirestore.instance.collection('Holidays').get();
     for(int i =0;i<=docemt.docs.length;i++){
       if(docemt.docs[i]['date']==_formatDateTime1){
         setState(() {
@@ -953,9 +957,10 @@ class _profile_pageState extends State<profile_page> {
 
   getDaysInBetween() {
     final int difference = endDate.difference(startDate).inDays;
-    print(difference);
     return difference;
   }
+
+
   int year =0;
   int day= 0;
   int month=0;
@@ -964,29 +969,18 @@ class _profile_pageState extends State<profile_page> {
     Map<String,dynamic>? val =document1.data();
     setState(() {
       startDate = DateFormat('dd/MM/yyyy').parse(val!['date']);
-      print('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
-      print(startDate);
       year= startDate.year;
       month= startDate.month;
       day= startDate.day;
       startDate2= DateTime.utc(year,month,day);
-    });
-    endDate =DateFormat('dd/MM/yyyy').parse("${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}");
-    print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
-    print(endDate);
+    });    endDate =DateFormat('dd/MM/yyyy').parse("${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}");
 
     final items = List<DateTime>.generate(getDaysInBetween(), (i) {
       DateTime date = startDate2;
       return date.add(Duration(days: i));
     });
-    var document =await  FirebaseFirestore.instance.collection('Holidays').get();
-    print(items);
-    for(int i=0;i<document.docs.length;i++){
-      holidays.add(document.docs[i]['date']);
-      setState(() {
-        holidays.add(document.docs[i]['date']);
-      });
-    }
+
+
     for(int i =0;i<items.length;i++) {
       print(formatter.format(items[i]).toString());
       for(int z=0;z<holidays.length;z++) {
@@ -998,8 +992,6 @@ class _profile_pageState extends State<profile_page> {
         }
       }
     }
-    print(mydate.length);
-    print(mydate);
     setState(() {
       totaldays=items.length-mydate.length;
     });

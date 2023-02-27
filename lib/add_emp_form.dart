@@ -1,23 +1,17 @@
 import 'dart:html';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io' as io;
-
-import 'package:lottie/lottie.dart';
 import 'package:uuid/uuid.dart';
 
-const List<String> list = <String>[ '-Select-','Not to Say','Male', 'Female',];
-const List<String> list1 = <String>['Employee', 'HR', 'Sales'];
-const List<String> list2 = <String>['-Select-','Full Time', 'Part Time',];
-const List<String> list3 = <String>['-Select-','Anna Nagar', 'Kolathur', 'Avadi', 'Paadi'];
+import 'constant.dart';
+
+
 
 class add_emp_form extends StatefulWidget {
 
@@ -28,10 +22,10 @@ class add_emp_form extends StatefulWidget {
 }
 
 class _add_emp_formState extends State<add_emp_form> with TickerProviderStateMixin{
-  String dropdownValue = list.first;
-  String dropdownValue1 = list1.first;
-  String dropdownValue2 = list2.first;
-  String dropdownValue3 = list3.first;
+  String dropdownValue = Gender.first;
+  String dropdownValue1 = Employee_catogery.first;
+  String dropdownValue2 = Shifts.first;
+  String dropdownValue3 = branches.first;
   String passworddate='';
   @override
   void initState() {
@@ -359,7 +353,7 @@ String cato='';
                                                           dropdownValue = value!;
                                                         });
                                                       },
-                                                      items: list.map<DropdownMenuItem<String>>((String value) {
+                                                      items: Gender.map<DropdownMenuItem<String>>((String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
                                                           child: Text(value, style: GoogleFonts.montserrat(
@@ -474,7 +468,7 @@ String cato='';
                                                           dropdownValue2 = value!;
                                                         });
                                                       },
-                                                      items: list2.map<DropdownMenuItem<String>>((String value) {
+                                                      items: Shifts.map<DropdownMenuItem<String>>((String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
                                                           child: Text(value, style: GoogleFonts.montserrat(
@@ -602,7 +596,7 @@ String cato='';
                                                           dropdownValue3 = value!;
                                                         });
                                                       },
-                                                      items: list3.map<DropdownMenuItem<String>>((String value) {
+                                                      items: branches.map<DropdownMenuItem<String>>((String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
                                                           child: Text(value, style: GoogleFonts.montserrat(
@@ -686,7 +680,7 @@ String cato='';
                                                             dropdownValue1 = value!;
                                                           });
                                                         },
-                                                        items: list1.map<DropdownMenuItem<String>>((String value) {
+                                                        items: Employee_catogery.map<DropdownMenuItem<String>>((String value) {
                                                           return DropdownMenuItem<String>(
                                                             value: value,
                                                             child: Text(value, style: GoogleFonts.montserrat(
@@ -853,7 +847,6 @@ String cato='';
   NumberFormat F=new NumberFormat('000');
   final FirebaseFirestore _firebase =FirebaseFirestore.instance;
   addnewemp() async{
-    print('addemp fun varuthu');
     await _firebase.collection('User').doc().set({
       'firstname':firstnamefield.text,
       'middlename':middlenamefield.text,

@@ -7,6 +7,8 @@ import 'package:webpage/Landing_Page/Admin_landingpage.dart';
 import 'package:webpage/Landing_Page/employee_landingpage.dart';
 import 'package:webpage/Landing_Page/hr_landingpage.dart';
 
+import '../constant.dart';
+
 class login_page extends StatefulWidget {
 
   const login_page( {Key? key}) : super(key: key);
@@ -234,7 +236,7 @@ class _login_pageState extends State<login_page> {
                       SizedBox(height: height/150,),
                       Row(
                       children: [
-                        Text('See Your Growth get Consulting Support  ',style:GoogleFonts.montserrat(
+                        Text(login_page_quote,style:GoogleFonts.montserrat(
                             fontWeight: FontWeight.w500,
                             fontSize:width/120
                         ),),
@@ -352,7 +354,7 @@ class _login_pageState extends State<login_page> {
                           Container(
                               width:width/26.666,
                               height:height/14.904,
-                              child: Image.asset('assets/rankrazelogo.png')
+                              child: Image.asset(login_page_logo)
                           ),
                           SizedBox(width: width/10,)
                         ],
@@ -360,7 +362,7 @@ class _login_pageState extends State<login_page> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('www.RankRaze.com',style:GoogleFonts.montserrat(
+                          Text(login_page_name,style:GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize:width/155.5
                           ),),
@@ -390,8 +392,8 @@ class _login_pageState extends State<login_page> {
                           children: [
                           Text('Welcome Back !',style: GoogleFonts.montserrat(fontWeight:FontWeight.bold,fontSize: width/42,color: Colors.black),),
                           SizedBox(height: 2,),
-                          Text('Plesure in the JOB',style: GoogleFonts.montserrat(fontWeight:FontWeight.w500,fontSize:width/120,color: Colors.black),),
-                          Text('Puts Perfection in the WORK....!',style: GoogleFonts.montserrat(fontWeight:FontWeight.w500,fontSize:width/120,color: Colors.black),),
+                          Text(login_page_quote1,style: GoogleFonts.montserrat(fontWeight:FontWeight.w500,fontSize:width/120,color: Colors.black),),
+                          Text(login_page_quote2,style: GoogleFonts.montserrat(fontWeight:FontWeight.w500,fontSize:width/120,color: Colors.black),),
                         ],),
                       ),
 
@@ -412,9 +414,6 @@ class _login_pageState extends State<login_page> {
 
 
   final FirebaseFirestore _firebase =FirebaseFirestore.instance;
-
-
-
   user_authentication() async {
     final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
         .where('username', isEqualTo: usernamefield.text )
@@ -433,7 +432,6 @@ class _login_pageState extends State<login_page> {
       error_show();
     }
     }
-
     navigation1() async {
       final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
           .where('username', isEqualTo: usernamefield.text )
@@ -478,20 +476,6 @@ class _login_pageState extends State<login_page> {
     }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     navigation3() async {
     final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
         .where('category', isEqualTo: 'HR' )
@@ -511,7 +495,6 @@ class _login_pageState extends State<login_page> {
       navigation2();
     }
     }
-
     navigation2() async {
     final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
         .where('category', isEqualTo: 'Employee' )
@@ -531,11 +514,6 @@ class _login_pageState extends State<login_page> {
       error_show();
     }
     }
-
-
-
-
-
     String id="";
   getid() async {
     final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
@@ -557,7 +535,6 @@ class _login_pageState extends State<login_page> {
       error_show();
     }
     }
-
   forgotpassword() async {
     final QuerySnapshot result = await FirebaseFirestore.instance.collection('User')
         .where('password', isEqualTo: oldpassfield.text )
@@ -578,8 +555,6 @@ class _login_pageState extends State<login_page> {
 
 
     }
-
-
   Future<void> error_show() async {
     return showDialog<void>(
       context: context,
@@ -606,9 +581,6 @@ class _login_pageState extends State<login_page> {
       },
     );
   }
-
-
-
   Future<void> password_update_fail_show() async {
     return showDialog<void>(
       context: context,
@@ -670,17 +642,102 @@ class _login_pageState extends State<login_page> {
     password_update_done_show();
     clearallforgetpassword();
   }
-
   clearalllogin(){
     usernamefield.clear();
     passfield.clear();
 
   }
-
   clearallforgetpassword(){
     oldpassfield.clear();
     newpassfield.clear();
 
+  }
+
+  Welcome() async{
+    //Admin Login Details
+    await _firebase.collection('User').doc().set({
+      'firstname':'Admin',
+      'middlename':'',
+      'lastname':'',
+      'dob':'',
+      'branch':'',
+      'shift':'',
+      'sex':'',
+      'category':'',
+      'position':'',
+      'email':'',
+      'phone':'',
+      'empid':'',
+      'username':"Admin",
+      'password':"Admin@123",
+      'userimage':'',
+      'resume':'',
+      'clock':DateTime.now().millisecondsSinceEpoch
+    });
+
+    //Starting Date Of CRM
+    await _firebase.collection('date').doc('3ba8Iq61VLtTX1eDlo7M').set({
+      'date':'1/1/2023',
+    });
+
+    //Adding Holidays
+    await _firebase.collection('Holidays').doc().set({
+      'date':'1/1/2023',
+      'date':'8/1/2023',
+      'date':'15/1/2023',
+      'date':'22/1/2023',
+      'date':'26/1/2023',
+      'date':'29/1/2023',
+      'date':'5/2/2023',
+      'date':'12/2/2023',
+      'date':'19/2/2023',
+      'date':'26/2/2023',
+      'date':'5/3/2023',
+      'date':'12/3/2023',
+      'date':'19/3/2023',
+      'date':'26/3/2023',
+      'date':'2/4/2023',
+      'date':'9/4/2023',
+      'date':'16/4/2023',
+      'date':'23/4/2023',
+      'date':'30/4/2023',
+      'date':'7/5/2023',
+      'date':'14/5/2023',
+      'date':'21/5/2023',
+      'date':'28/5/2023',
+      'date':'4/6/2023',
+      'date':'11/6/2023',
+      'date':'18/6/2023',
+      'date':'25/6/2023',
+      'date':'2/7/2023',
+      'date':'9/7/2023',
+      'date':'16/7/2023',
+      'date':'23/7/2023',
+      'date':'30/7/2023',
+      'date':'6/8/2023',
+      'date':'13/8/2023',
+      'date':'20/8/2023',
+      'date':'27/8/2023',
+      'date':'3/9/2023',
+      'date':'10/9/2023',
+      'date':'17/9/2023',
+      'date':'24/9/2023',
+      'date':'1/10/2023',
+      'date':'8/10/2023',
+      'date':'15/10/2023',
+      'date':'22/10/2023',
+      'date':'29/10/2023',
+      'date':'5/11/2023',
+      'date':'12/11/2023',
+      'date':'19/11/2023',
+      'date':'26/11/2023',
+      'date':'3/12/2023',
+      'date':'10/12/2023',
+      'date':'17/12/2023',
+      'date':'24/12/2023',
+      'date':'31/12/2023',
+
+    });
   }
 
 
